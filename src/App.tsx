@@ -16,8 +16,8 @@ function App() {
         <Route path="/perfil" element={<Profile />} />
         <Route path="/buscar-terraza" element={<FilterPage />} />
         <Route path="/reservar" element={<BookingPage />} />
-        <Route path="*" element={<h1>404 - Not Found</h1>} />
-        
+        <Route path="*" element={<h1 className="text-siya-red">404 - Not Found</h1>} />
+
       </Routes>
     </Layout>
   )

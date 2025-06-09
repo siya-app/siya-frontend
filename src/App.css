@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --siya-red: #FF1818;
-  --siya-baby-blue: #DDFCFF;
-  --siya-green-green: #79918E;
-  --siya-light-grey: #E1E1E1;
-  --siya-lemon-cream: #FFFFF1;
-  --siya-dark-green: #385852;
+  --color-siya-red: #FF1818;
+  --color-siya-baby-blue: #DDFCFF;
+  --color-siya-green-green: #79918E;
+  --color-siya-light-grey: #E1E1E1;
+  --color-siya-lemon-cream: #FFFFF1;
+  --color-siya-dark-green: #385852;
 }
