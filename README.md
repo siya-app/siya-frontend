@@ -1,13 +1,32 @@
-# React + TypeScript + Vite
+# Siya App front end Reference Guide.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Figma wireframe: [https://www.figma.com/design/G304yiAIEXMgrx4mtccl7c/SiyaAppWireframe?node-id=0-1&amp;p=f&amp;t=HWQxk9M4dLf9xMRc-0](https://www.figma.com/design/G304yiAIEXMgrx4mtccl7c/SiyaAppWireframe?node-id=0-1&p=f&t=HWQxk9M4dLf9xMRc-0)
 
-Currently, two official plugins are available:
+I’ve created a simple folder structure, feel free to change it and reorganize.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+I have copied some code snippets from other projects, and didn’t style anything yet. So go ahead. Everyone alright with inline styling with tailwind, or your prefer separate css files?
 
-## Expanding the ESLint configuration
+We can use this names as css classes now (siya colors)
+
+@theme {
+
+  --siya-red:#FF1818;
+
+  --siya-baby-blue:#DDFCFF;
+
+  --siya-green-green:#79918E;
+
+  --siya-light-grey:#E1E1E1;
+
+  --siya-lemon-cream:#FFFFF1;
+
+  --siya-dark-green:#385852;
+
+}
+
+**
+
+## pendiente: Expanding the ESLint configuration
 
 If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
