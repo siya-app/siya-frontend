@@ -6,7 +6,7 @@ I’ve created a simple folder structure, feel free to change it and reorganize.
 
 I have copied some code snippets from other projects, and didn’t style anything yet. So go ahead. Everyone alright with inline styling with tailwind, or your prefer separate css files?
 
-We can use this names as css classes now (siya colors)
+We can use this names as css classes now (siya colors) 
 
 @theme {
 
@@ -23,6 +23,8 @@ We can use this names as css classes now (siya colors)
   --siya-dark-green:#385852;
 
 }
+
+He instalado lucide-react para los iconos del weather
 
 **
 
