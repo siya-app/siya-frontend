@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-siya-red: #FF1818;
-  --color-siya-baby-blue: #DDFCFF;
-  --color-siya-green-green: #79918E;
+  --color-siya-principal: #FF1818;
+  --color-siya-secundario: #DDFCFF;
+  --color-siya-terciario: #79918E;
   --color-siya-light-grey: #E1E1E1;
   --color-siya-lemon-cream: #FFFFF1;
   --color-siya-dark-green: #385852;
