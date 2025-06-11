@@ -1,10 +1,11 @@
 import Hero from "../layout/Hero";
+import Map from "../layout/Map";
 
 const Home = () => {
   return (
     <div >
       <Hero />
-      <h1>Pàgina Principal</h1>
+      <Map />
     </div>
   );
 };

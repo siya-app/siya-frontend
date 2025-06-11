@@ -7,7 +7,7 @@ type WeatherData = {
   hourly: { temperature_2m: number[]; time: string[] };
 };
 
-const FetchWeather = () => {
+const WeatherFeature = () => {
   const [weather, setWeather] = useState<null | WeatherData>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -65,4 +65,4 @@ const FetchWeather = () => {
   );
 };
 
-export default FetchWeather;
+export default WeatherFeature;
