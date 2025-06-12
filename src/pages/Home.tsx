@@ -1,5 +1,5 @@
 import Hero from "../layout/Hero";
-import Map from "../layout/Map";
+import Map from "../features/map/MapFeature";
 
 const Home = () => {
   return (
