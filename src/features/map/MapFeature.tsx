@@ -29,7 +29,12 @@ const Map = () => {
   if (loading) return <p>Carregant mapa…</p>;
   if (error) return <p>Error: {error}</p>;
 
-  return <div ref={mapContainerRef} className="h-80 bg-gray-300" />;
+  return (
+    <>
+      <div className="bg-[rgba(47,68,90,0.34)] text-white px-2 relative top-0 left-0 m-3 rounded">un div dins el map(hauria de ser transparent no lo consigo)</div>
+      <div ref={mapContainerRef} className="h-80" />
+    </>
+  );
 };
 
 export default Map;
