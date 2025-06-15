@@ -5,6 +5,7 @@ import BlobCard from '../components/slider/BlobCard'
 import redBlob from '../assets/blobs/red-blob.png'
 import SearchBar from "../components/SearchBar";
 import { useState } from "react";
+// import { BlobList } from "../components/BlobList";
 
 const FilterPage = () => {
   const { terraceList } = useTerraceList();
@@ -29,9 +30,6 @@ const FilterPage = () => {
         onQueryChange={setSearchQuery}
         onSearch={handleSearch}
       />
-      <ScrollSnap>
-        
-      </ScrollSnap>
       <ScrollSnap>
         {terraceList.map((terrace: CustomTerraceType) => (
           <BlobCard

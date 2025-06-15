@@ -23,3 +23,8 @@ export type SearchBarProps = {
     onSearch: (query: string) => void;
     onQueryChange: (query: string) => void;
 };
+
+export type BlobListProps = {
+    category: 'cover' | 'dietary' | 'emotional' | 'food' | 'placement';
+    className?: string;
+};

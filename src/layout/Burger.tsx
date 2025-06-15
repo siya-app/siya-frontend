@@ -65,7 +65,7 @@ const BurgerMenu = () => {
                     <a
                         key={link.name}
                         href={link.path}
-                        className="block py-2 hover:bg-gray-100 hover:bg-opacity-20 transition-colors duration-200"
+                        className="block py-2 text-white hover:bg-gray-100 hover:bg-opacity-20 transition-colors duration-200"
                         onClick={() => setIsOpen(false)}
                     >
                         {link.name}
