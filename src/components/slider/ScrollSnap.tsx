@@ -1,54 +1,58 @@
 import { useTerraceList } from "../../hooks/useTerraceList";
 import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
 import BlobCard from "./BlobCard";
-
-// function ScrollSnap() {
-
-//     const { terraceList, setTerraceList} = TerraceListHook();
-
-//     return (
-//         <div>
-//             <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory flex gap-4 px-4">
-//                 <div className="snap-start shrink-0 w-[60%] sm:w-[35%] bg-yellow-300 h-40 rounded-xl">Item 1</div>
-//                 <div className="snap-start shrink-0 w-[60%] sm:w-[35%] bg-red-300 h-40 rounded-xl">Item 2</div>
-//                 <div className="snap-start shrink-0 w-[60%] sm:w-[35%] bg-blue-300 h-40 rounded-xl">Item 3</div>
-//                 <div className="snap-start shrink-0 w-[60%] sm:w-[35%] bg-green-300 h-40 rounded-xl">Item 4</div>
-//             </div>
-//         </div>
-//     )
-// }
-
-// export default ScrollSnap
-
-// async function ScrollSnap() {
-//     const { terraceList, setTerraceList } = await TerraceListHook();
-
-//     return (
-//         <div>
-//             <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory flex gap-4 px-4">
-//                 {terraceList.map((terrace: CustomTerraceType) => (
-//                     <BlobCard 
-//                         key={terrace.cadastro_ref} // Make sure to include a unique key
-//                         className="snap-start shrink-0 w-[60%] sm:w-[35%]"
-//                         picture={terrace.profile_pic} // assuming these are the props your BlobCard accepts
-//                         businessName={terrace.business_name}
-//                         rating={terrace.average_rating}
-//                     />
-//                 ))}
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default ScrollSnap;
-
+import redBlob from '../../assets/blobs/red-blob.png';
+import { useRef } from "react";
 
 function ScrollSnap() {
     const { terraceList } = useTerraceList();
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    const scroll = (direction: "left" | "right") => {
+        console.log("scroll", direction);
+        const container = containerRef.current;
+        if (container) {
+            const scrollAmount = container.clientWidth * 0.7; // scroll 70% of the view
+            container.scrollBy({ 
+                left: direction === "left" ? -scrollAmount : scrollAmount, 
+                behavior: "smooth" 
+            });
+        }
+    };
 
     return (
-        <div>
-            <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory flex gap-4 px-4">
+        <div className="relative bg-transparent">
+            {/* Arrows only on desktop (hidden on mobile/tablet) */}
+            <button
+                onClick={() => scroll("left")}
+                className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2
+                bg-white/10 backdrop-blur-sm p-2
+                rounded-full z-50 ms-3"
+                aria-label="Scroll Left"
+            >   
+                ◀
+            </button>
+
+            <button
+                onClick={() => scroll("right")}
+                className="hidden md:flex absolute right-0 top-1/2
+                -translate-y-1/2 bg-white/10 backdrop-blur-sm
+                p-2 rounded-full z-50 me-3"
+                aria-label="Scroll Right"
+            >
+                ▶
+            </button>
+
+            <div
+                ref={containerRef}
+                className="overflow-x-auto
+                scrollbar-hide
+                snap-x snap-mandatory
+                flex
+                px-15
+                md:px-20
+                lg:px-60"
+            >
                 {terraceList.map((terrace: CustomTerraceType) => (
                     <BlobCard
                         key={terrace.cadastro_ref}
@@ -56,6 +60,7 @@ function ScrollSnap() {
                         picture={terrace.profile_pic ?? ""}
                         businessName={terrace.business_name}
                         rating={terrace.average_rating ?? 0}
+                        blob={redBlob}
                     />
                 ))}
             </div>

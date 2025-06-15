@@ -11,4 +11,9 @@ export type BlobCardProps = {
     picture: string;
     businessName: string;
     rating: number;
+    blob: string;
+};
+
+export type ScrollSnapProps = {
+    children: React.ReactNode;
 };
