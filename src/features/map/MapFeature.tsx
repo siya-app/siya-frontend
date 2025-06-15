@@ -13,7 +13,6 @@ const Map = () => {
   const { location, loading, error } = useUserLocation();
   const [terraces, setTerraces] = useState<Terrace[]>([]);
 
-
   useEffect(() => {
     if (!mapContainerRef.current || loading || !location) return;
 

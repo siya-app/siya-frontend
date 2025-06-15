@@ -37,6 +37,7 @@ const TerraceMarker = ({ terrace, map, isFavorite = false }: Props) => {
       new mapboxgl.Popup().setHTML(`
         <strong>${terrace.business_name}</strong>
         <p>${terrace.address}</p>
+        <button class="text-sm text-gray-500">Veure detalls terrassa</button> Aqui!
       `)
     )
     .addTo(map);
