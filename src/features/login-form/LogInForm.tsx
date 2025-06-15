@@ -16,7 +16,7 @@ function LogInForm() {
         try {
             const res = await API.post('/auth/login', { email, password_hash });
             localStorage.setItem('token', res.data.token);
-            navigate('/profile');
+            navigate('/perfil');
         } catch (err: unknown) {
             setError(err.response?.data?.error || "Error a l'iniciar sessió");
         }
