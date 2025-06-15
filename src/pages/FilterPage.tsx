@@ -17,7 +17,12 @@ const FilterPage = () => {
 
   return (
     <div>
-      <h1 className="montserrat-siya">Busca la teva terrassa ideal</h1>
+      <h1 className="siyaRed-text
+      system-condensed
+      text-4xl
+      m-2
+      font-extrabold text-center">
+        Ganes de terraceo? ;)</h1>
       <SearchBar
         query={searchQuery}
         onQueryChange={setSearchQuery}
