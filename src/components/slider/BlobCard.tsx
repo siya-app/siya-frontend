@@ -35,6 +35,7 @@ const BlobCard = ({ className = "", picture, businessName, rating, blob }: BlobC
             <div className="relative m-1 w-40 h-35 mx-auto">
                 {/* Blob passed as prop */}
                 <img
+                loading="lazy"
                     src={blob}
                     alt="Blob background"
                     className="absolute bottom-2 right-2 w-full h-full z-0"
@@ -42,6 +43,7 @@ const BlobCard = ({ className = "", picture, businessName, rating, blob }: BlobC
 
                 {/* Inner picture */}
                 <img
+                    loading="lazy"
                     src={picture}
                     alt={businessName}
                     className="absolute top-[18%] left-[18%] w-[64%] h-[64%] object-cover rounded-full z-10"

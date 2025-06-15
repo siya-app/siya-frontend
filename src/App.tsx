@@ -15,7 +15,7 @@ function App() {
 
         <Route path="/" element={<Home />} />
         <Route path="/perfil" element={<Profile />} />
-        <Route path="/buscar-terraza" element={<FilterPage />} />
+        <Route path="/buscador-terrasses" element={<FilterPage />} />
         <Route path="/reservar" element={<BookingPage />} />
         <Route path="*" element={<h1>404 - Not Found</h1>} />
         

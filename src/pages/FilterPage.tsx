@@ -21,6 +21,7 @@ const FilterPage = () => {
       system-condensed
       text-4xl
       m-2
+      mt-5
       font-extrabold text-center">
         Ganes de terraceo? ;)</h1>
       <SearchBar
@@ -28,6 +29,9 @@ const FilterPage = () => {
         onQueryChange={setSearchQuery}
         onSearch={handleSearch}
       />
+      <ScrollSnap>
+        
+      </ScrollSnap>
       <ScrollSnap>
         {terraceList.map((terrace: CustomTerraceType) => (
           <BlobCard

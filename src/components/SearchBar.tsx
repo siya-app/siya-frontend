@@ -16,10 +16,9 @@ export default function SearchBar({ query, onSearch, onQueryChange }: SearchBarP
                     value={query}
                     onChange={(e) => onQueryChange(e.target.value)}
                     className="
-                    justify-center
                     w-1/2
                     md:w-full
-                    p-3 pl-10 pr-4
+                    p-1 ps-2 pr-4
                     rounded-lg border
                     border-gray-300
                     focus:outline-none
