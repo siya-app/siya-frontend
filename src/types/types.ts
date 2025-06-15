@@ -17,3 +17,9 @@ export type BlobCardProps = {
 export type ScrollSnapProps = {
     children: React.ReactNode;
 };
+
+export type SearchBarProps = {
+    query: string;
+    onSearch: (query: string) => void;
+    onQueryChange: (query: string) => void;
+};

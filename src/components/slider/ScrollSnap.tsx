@@ -1,11 +1,7 @@
-import { useTerraceList } from "../../hooks/useTerraceList";
-import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
-import BlobCard from "./BlobCard";
-import redBlob from '../../assets/blobs/red-blob.png';
 import { useRef } from "react";
+import type { ScrollSnapProps } from "../../types/types";
 
-function ScrollSnap() {
-    const { terraceList } = useTerraceList();
+function ScrollSnap({ children }: ScrollSnapProps) {
     const containerRef = useRef<HTMLDivElement>(null);
 
     const scroll = (direction: "left" | "right") => {
@@ -53,16 +49,7 @@ function ScrollSnap() {
                 md:px-20
                 lg:px-60"
             >
-                {terraceList.map((terrace: CustomTerraceType) => (
-                    <BlobCard
-                        key={terrace.cadastro_ref}
-                        className="snap-start shrink-0 w-[60%] sm:w-[35%]"
-                        picture={terrace.profile_pic ?? ""}
-                        businessName={terrace.business_name}
-                        rating={terrace.average_rating ?? 0}
-                        blob={redBlob}
-                    />
-                ))}
+                {children}
             </div>
         </div>
     );
