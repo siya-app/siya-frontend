@@ -1,7 +1,11 @@
+import ScrollSnap from "./slider/ScrollSnap";
+
 const FilterPage = () => {
   return (
     <div>
-      <h1>Pàgina de Filtre</h1>
+      <h1>Pàgina de Filtre
+        <ScrollSnap/>
+      </h1>
     </div>
   );
 };
