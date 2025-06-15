@@ -1,13 +1,16 @@
 import Hero from "../layout/Hero";
 import Map from "../features/map/MapFeature";
-import TerraceList from "../features/terraces/TerracesList";
+//import TerraceList from "../features/terraces/TerracesList";
+import LogInForm from "../features/login-form/LogInForm";
+
 
 const Home = () => {
   return (
     <div >
       <Hero />
       <Map />
-      <TerraceList />
+      {/* <TerraceList /> */}
+      <LogInForm></LogInForm>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "tailwindcss"; 
 
 @theme {
   --color-siya-principal: #FF1818;
@@ -7,4 +7,5 @@
   --color-siya-light-grey: #E1E1E1;
   --color-siya-lemon-cream: #FFFFF1;
   --color-siya-dark-green: #385852;
+  --color-siya-border-grey: #D9D9D9
 }
