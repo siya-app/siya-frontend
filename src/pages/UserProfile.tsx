@@ -30,7 +30,7 @@ export default function Profile() {
 
   return (
     <>
-      return (
+      
     <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
       <h2 className="text-3xl font-bold text-center mb-6 text-siya-dark-green">
         Hola, {user.name}!
@@ -41,7 +41,7 @@ export default function Profile() {
         </p>
       </div>
     </div>
-  );
+  
     </>
   )
 }
