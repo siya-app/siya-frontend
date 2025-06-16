@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import API from "../../services/apiUser";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
+import TermsModal from "../../components/TermsModal";
 
 function SignUpForm() {
   const [name, setName] = useState("");
@@ -12,6 +13,7 @@ function SignUpForm() {
   const [termsError, setTermsError] = useState('');
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleTermsChange = (event) => {
@@ -36,6 +38,8 @@ function SignUpForm() {
       setTermsError("Has d'acceptar els termes i condicions per a registrar-te.");
       return; 
     }
+
+
 
     try {
       
@@ -66,6 +70,14 @@ function SignUpForm() {
         setError(err.response?.data?.error || "Error al registrar usuari");
       }
     }
+  };
+      const openModal = (e) => {
+    e.preventDefault(); 
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -131,7 +143,9 @@ function SignUpForm() {
           </label>
         </div>
           <label className=" text-sm ml-6 mt-1 underline"
-          >Llegir-ne més</label>
+          ><a href="#"
+              onClick={openModal}>Llegir-ne més</a></label>
+
         {error && <p className="text-siya-principal">{error}</p>}
         {termsError && (
           <p className="text-siya-principal">{termsError}</p>
@@ -147,6 +161,11 @@ function SignUpForm() {
         <p className="mt-4"><a href="/" className="text-siya-dark-green underline ">
         Ja tens un compte? </a></p>
     </form>
+    <TermsModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      ></TermsModal>
+    
     </>
   )
 }
