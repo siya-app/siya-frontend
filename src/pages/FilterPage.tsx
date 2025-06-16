@@ -1,18 +1,11 @@
-import ScrollSnap from "../components/slider/ScrollSnap";
-import { useTerraceList } from "../hooks/useTerraceList";
-import type { CustomTerraceType } from "../types/zod/customTerrace-schema";
-import BlobCard from '../components/slider/BlobCard'
-import redBlob from '../assets/blobs/red-blob.png'
+
 import SearchBar from "../components/SearchBar";
-import { useState, useMemo } from "react";
-import { getBlobs } from "../services/blobList.service";
+import { useState } from "react";
 import { Map } from "lucide-react";
 import { BlobCarousel } from "../components/BlobList";
-// import { BlobList } from "../components/BlobList";
 import TerraceSlider from "../components/slider/TerraceSlider";
 
 const FilterPage = () => {
-  // const { terraceList } = useTerraceList();
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (query: string) => {
@@ -48,15 +41,14 @@ const FilterPage = () => {
         onQueryChange={setSearchQuery}
         onSearch={handleSearch}
       />
-      <Map></Map>
-
-      {(['food', 'emotional', 'dietary', 'cover', 'placement'] as const).map(type => (
-          <BlobCarousel 
-            key={type}
-            type={type}
-          />
-        ))}
-      <TerraceSlider/>
+      <Map />
+      {(['food', 'emotional', 'placement', 'cover', 'dietary'] as const).map(type => (
+        <BlobCarousel
+          key={type}
+          type={type}
+        />
+      ))}
+      <TerraceSlider />
     </div>
   );
 };
