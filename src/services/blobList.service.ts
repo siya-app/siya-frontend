@@ -181,4 +181,64 @@ export const getBlobs = () => ({
 });
 
 
+// src/utils/blobTranslations.ts
+export const BLOB_TRANSLATIONS = {
+    cover: {
+        ceiling: "Terrassa coberta",
+        full: "Terrassa completament coberta",
+        none: "Terrassa descoberta",
+        umbrella: "Terrassa amb para-sols"
+    },
+    dietary: {
+        glutenFree: "Sense gluten",
+        vegan: "Vegà",
+        veggie: "Vegetarià"
+    },
+    emotional: {
+        cozy: "Acollidor",
+        elegant: "Elegant",
+        family: "Familiar",
+        friends: "Amb amics",
+        groups: "Per a grups",
+        lgtbi: "LGTBI+ friendly",
+        lively: "Té marxa",
+        petLovers: "Pet-lover",
+        relaxed: "Relax",
+        romantic: "Romàntic",
+        silent: "Silenciós",
+        trendy: "En tendència"
+    },
+    food: {
+        american: "Americà",
+        asian: "Asiàtic",
+        breakfast: "Esmorzar",
+        brunch: "Brunch",
+        burger: "Hamburguesa",
+        chicken: "Pollastre",
+        chinese: "Xinès",
+        dailyMenu: "Menú del dia",
+        indian: "Indi",
+        italian: "Italià",
+        kebab: "Kebab",
+        latin: "Llatí",
+        mex: "Mexicà",
+        middleEast: "Orient Mitjà",
+        peruvian: "Peruà",
+        pizza: "Pizza",
+        spanish: "Espanyol",
+        tapas: "Tapas",
+        thai: "Tailandès",
+        viet: "Vietnamita"
+    },
+    placement: {
+        nature: "Natura",
+        park: "Parc",
+        rooftop: "Rooftop",
+        seaside: "Marítim",
+        square: "Plaça",
+        street: "Carrer"
+    }
+} as const;
+
+
 export type BlobCollection = ReturnType<typeof getBlobs>;
