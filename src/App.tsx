@@ -1,4 +1,5 @@
-import './App.css'
+import './App.css';
+import './index.css';
 import Layout from './layout/Layout'
 import { UserLocationProvider } from './context/UserLocationProvider'
 import AppRoutes from './routes/AppRoutes'
