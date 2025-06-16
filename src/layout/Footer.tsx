@@ -2,7 +2,6 @@ import { Link} from 'react-router-dom';
 export default function Footer() {
     return (
         <footer className="siya2-bg text-white p-4 flex justify-between items-center">
-        <footer className="siya2-bg text-white p-4 flex justify-between items-center">
             <nav className="flex flex-wrap justify-center sm:justify-start gap-4 text-sm sm:text-base">
                 <ul className="flex space-x-4">
                     <li><Link to="/" className="hover:underline">A prop teu</Link></li>
