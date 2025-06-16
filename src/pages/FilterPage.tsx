@@ -34,6 +34,12 @@ const FilterPage = () => {
       />
       <BlobCarousel
       type="emotional"/>
+      <BlobCarousel
+      type="food"/>
+      <BlobCarousel
+      type="placement"/>
+      <BlobCarousel
+      type="cover"/>
       <ScrollSnap>
         {terraceList.map((terrace: CustomTerraceType) => (
           <BlobCard

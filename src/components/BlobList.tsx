@@ -10,8 +10,8 @@ export function BlobCarousel({ type }: { type: BlobType }) {
     return (
         <ScrollSnap>
             {Object.entries(blobs[type]).map(([name, src]) => (
-                <div key={name} className="snap-start shrink-0 w-[150px]">
-                    <img src={src} alt={name} className="w-full" />
+                <div key={name} className="snap-start shrink-0 w-[150px] mt-5 mb-5">
+                    <img src={src} alt={name} className="w-3/4" />
                 </div>
             ))}
         </ScrollSnap>
