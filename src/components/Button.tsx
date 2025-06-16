@@ -8,6 +8,7 @@ export default function Button({ onClick, children, type="button" }:
         <button
         type={type}
         onClick={onClick}
+        className={className}
         >
         {children}
         </button>
