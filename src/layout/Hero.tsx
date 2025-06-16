@@ -3,7 +3,7 @@ import WeatherFeature from "../features/weather/WeatherFeature";
 const Hero = () => {
     return (
         <div className="flex bg-gray-100">
-            <div className="">
+            <div className=" ms-3">
                 <img src="src/assets/siya-title-bg-transp.svg"
                 className="
                 w-25
@@ -11,6 +11,7 @@ const Hero = () => {
                 <p className="
                 text-xl
                 text-siya-principal
+                montserrat-siya
                 ">La teva nova app de terraceo.</p>
             </div>
             <div className="mx-auto">

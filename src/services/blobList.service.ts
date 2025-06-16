@@ -183,11 +183,18 @@ export const getBlobs = () => ({
 
 // src/utils/blobTranslations.ts
 export const BLOB_TRANSLATIONS = {
+    categories: {
+        cover: "Tipus de coberta",
+        dietary: "Restriccions alimentàries",
+        emotional: "Ambient",
+        food: "Tipus de menjar",
+        placement: "Ubicació"
+    },
     cover: {
-        ceiling: "Terrassa coberta",
-        full: "Terrassa completament coberta",
-        none: "Terrassa descoberta",
-        umbrella: "Terrassa amb para-sols"
+        ceiling: "Sostre",
+        full: "Coberta",
+        none: "Descoberta",
+        umbrella: "Para-sol"
     },
     dietary: {
         glutenFree: "Sense gluten",

@@ -28,3 +28,9 @@ export type BlobListProps = {
     category: 'cover' | 'dietary' | 'emotional' | 'food' | 'placement';
     className?: string;
 };
+
+export type OrderByOption =
+    | 'rating'
+    | 'is_claimed'
+    | 'near_you'
+    | 'default';

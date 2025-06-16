@@ -3,19 +3,39 @@ import { useTerraceList } from "../../hooks/useTerraceList";
 import ScrollSnap from "../../components/slider/ScrollSnap";
 import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
 import BlobCard from "./BlobCard";
-import redBlob from '../../assets/blobs/red-blob.png'
-
-const { terraceList } = useTerraceList();
-
-const sortedTerraces = useMemo(() => {
-    return [...terraceList].sort((a, b) => (b.average_rating ?? 0) - (a.average_rating ?? 0));
-}, [terraceList]);
+import redBlob from '../../assets/blobs/red-blob.png';
+import type { OrderByOption } from "../../types/types";
+interface TerraceSliderProps {
+    orderBy?: OrderByOption;
+}
 
 
+function TerraceSlider({ orderBy = 'default' }: TerraceSliderProps) {
 
-function TerraceSlider() {
+    const { terraceList } = useTerraceList();
+
+    const sortedTerraces = useMemo(() => {
+        const terraces = [...terraceList];
+    
+        switch (orderBy) {
+            case 'rating':
+                return terraces.sort((a, b) => (b.average_rating ?? 0) - (a.average_rating ?? 0));
+    
+            case 'is_claimed':
+                return terraces.sort((a, b) => (a.average_rating ?? 0) - (b.average_rating ?? 0));
+    
+            case 'near_you':
+                return terraces.sort((a, b) => a.business_name.localeCompare(b.business_name));
+    
+            case 'default':
+            default:
+                return terraces;
+        }
+    }, [terraceList, orderBy]);
+
+
     return (
-        <div>
+        <div className="mt-5 mb-5">
             <ScrollSnap>
                 {sortedTerraces.map((terrace: CustomTerraceType) => (
                     <BlobCard
