@@ -8,8 +8,11 @@ export function BlobCarousel({ type }: { type: BlobType }) {
 
     const blobs: Record<BlobType, Record<string, string>> = getBlobs(); // Explicitly type blobs
     const translations = BLOB_TRANSLATIONS[type];
+    const categoryTitle = BLOB_TRANSLATIONS.categories[type];
 
     return (
+        <div className="shadow-lg shadow-siya-terciario mb-5 pb-2">
+            <h2 className="text-lg text-siya-dark-green font-semibold ms-3 mb-3 system-sans">{categoryTitle}</h2>
         <ScrollSnap>
             {Object.entries(blobs[type]).map(([id, src]) => (
                 <div key={id} className="snap-start shrink-0 w-[5em] mx-1"> {/* Reduced width and margin */}
@@ -29,5 +32,7 @@ export function BlobCarousel({ type }: { type: BlobType }) {
                 </div>
             ))}
         </ScrollSnap>
+
+        </div>
     );
 }
