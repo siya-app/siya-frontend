@@ -5,7 +5,7 @@ import BlobCard from '../components/slider/BlobCard'
 import redBlob from '../assets/blobs/red-blob.png'
 import SearchBar from "../components/SearchBar";
 import { useState } from "react";
-import { getBlobs } from "../services/blobList.service";
+import { Map } from "lucide-react";
 import { BlobCarousel } from "../components/BlobList";
 // import { BlobList } from "../components/BlobList";
 
@@ -16,6 +16,20 @@ const FilterPage = () => {
   const handleSearch = (query: string) => {
     console.log("Searching for:", query);
     // API call or filtering logics in here
+
+    // const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+    // const [terraces, setTerraces] = useState<Terrace[]>([]); // From API or context
+
+    // // Filter terraces based on selected filters
+    // const filteredTerraces = filterTerraces(terraces, selectedFilters);
+
+    // const handleFilterToggle = (filter: string) => {
+    //   setSelectedFilters(prev =>
+    //     prev.includes(filter)
+    //       ? prev.filter(f => f !== filter)
+    //       : [...prev, filter]
+    //   );
+    // };
   };
 
   return (
@@ -32,14 +46,14 @@ const FilterPage = () => {
         onQueryChange={setSearchQuery}
         onSearch={handleSearch}
       />
-      <BlobCarousel
-      type="emotional"/>
-      <BlobCarousel
-      type="food"/>
-      <BlobCarousel
-      type="placement"/>
-      <BlobCarousel
-      type="cover"/>
+      <Map></Map>
+
+      {(['food', 'emotional', 'dietary', 'cover', 'placement'] as const).map(type => (
+          <BlobCarousel 
+            key={type}
+            type={type}
+          />
+        ))}
       <ScrollSnap>
         {terraceList.map((terrace: CustomTerraceType) => (
           <BlobCard
