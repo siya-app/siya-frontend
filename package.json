@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.8",
+    "@tailwindcss/vite": "^4.1.10",
     "axios": "^1.9.0",
     "lucide-react": "^0.513.0",
     "mapbox-gl": "^3.12.0",

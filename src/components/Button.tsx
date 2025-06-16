@@ -2,14 +2,15 @@ import React from "react";
 // import type { GenericButtonProps } from "../types/types";
 import type { ButtonType } from "../types/types";
 
-export default function Button({ onClick, children, type="button" }:
-    { onClick?: () => void; children: React.ReactNode; type?: ButtonType; }) {
+export default function Button({ onClick, children, type = "button", className }:
+    { onClick?: () => void; children: React.ReactNode; type?: ButtonType; className?: string; }) {
     return (
         <button
-        type={type}
-        onClick={onClick}
+            type={type}
+            onClick={onClick}
+            className={className}
         >
-        {children}
+            {children}
         </button>
     );
-    }
+}
