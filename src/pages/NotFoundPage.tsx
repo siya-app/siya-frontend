@@ -3,7 +3,7 @@ import notFoundImg from '../assets/notFound.svg'
 function NotFoundPage() {
     return (
         <div>
-            <h2>Ups! Ens hem perdut.</h2>
+            <h1 className='text-7xl m-6'>Ups! Ens hem perdut.</h1>
             <img src={notFoundImg}/>
         </div>
     )
