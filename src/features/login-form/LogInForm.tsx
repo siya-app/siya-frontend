@@ -1,26 +1,28 @@
-import React from 'react'
-import Button from '../../components/Button'
-import { useState} from 'react'
-import { useNavigate } from 'react-router-dom'
-import API from '../../services/apiUser'
+import { useState } from 'react';
+import API from '../../services/apiUser';
+import Button from '../../components/Button';
+import { useNavigate } from 'react-router-dom';
+import React from 'react'; 
 
-function LogInForm() {
+export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password_hash, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-    const [email, setEmail] = useState('');
-    const [password_hash, setPassword] = useState(''); // Nota: Este es el nombre en el backend
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
-
-    const login = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await API.post('/auth/login', { email, password_hash });
-            localStorage.setItem('token', res.data.token);
-            navigate('/perfil');
-        } catch (err: unknown) {
-            setError(err.response?.data?.error || "Error a l'iniciar sessió");
-        }
-    };
+  const login = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await API.post('/auth/login', { email, password_hash });
+      
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data.user));
+      console.log(123,  res.data.user)
+      navigate('/perfil');
+    } catch (err) {
+      setError(err.response?.data?.error || "No s'ha pogut iniciar sessió");
+    }
+  };
 
   return (
     <>
@@ -73,5 +75,3 @@ function LogInForm() {
     </>
   )
 }
-
-export default LogInForm

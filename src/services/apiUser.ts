@@ -28,7 +28,10 @@ API.interceptors.request.use(
     if (token) {
    
       config.headers.Authorization = `Bearer ${token}`;
-    }
+      console.log('Frontend: Token enviado en la cabecera Authorization.')
+    }else {
+            console.log('Frontend: No se encontró authToken en localStorage.'); 
+        }
     return config;
   },
   (error) => {
