@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import API from "../../services/apiUser";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
 
 function SignUpForm() {
   const [name, setName] = useState("");
@@ -109,13 +110,14 @@ function SignUpForm() {
         <input 
           type="date"
           name="bdate"
+          max="2013-12-31"
           placeholder="YYYY-MM-DD" 
           value={birthDate} 
           onChange={e => setBirthDate(e.target.value)} 
           required 
           className='w-1/2 mt-2'
         />
-        <div className="flex items-center">
+        <div className="flex items-center mt-4">
           <input
             type="checkbox"
             id="terms"
@@ -127,22 +129,22 @@ function SignUpForm() {
           <label htmlFor="terms" className="ml-2 text-sm">
             Termes i condicions
           </label>
-          <span className="text--siya-secundario"
-          >Llegir-ne més</span>
         </div>
+          <label className=" text-sm ml-6 mt-1 underline"
+          >Llegir-ne més</label>
         {error && <p className="text-siya-principal">{error}</p>}
         {termsError && (
           <p className="text-siya-principal">{termsError}</p>
         )}
-        <button
+        <Button
           type="submit"
-          className="w-full bg-siya-dark-green text-siya-lemon-cream font-bold py-2 px-4 rounded"
+          className="w-fit bg-siya-dark-green text-siya-lemon-cream font-bold py-2 px-4 mt-4 rounded"
           disabled={!agreedToTerms}
         >
           Registra't
-        </button>
+        </Button>
         {successMessage && <p className="text-green-700 mt-4 text-center">{successMessage}</p>}
-        <p><a href="/" className="text-siya-secundario">
+        <p className="mt-4"><a href="/" className="text-siya-dark-green underline ">
         Ja tens un compte? </a></p>
     </form>
     </>
