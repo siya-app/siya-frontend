@@ -5,12 +5,14 @@ import LogInForm from "../features/login-form/LogInForm";
 import SignUpForm from "../features/signup-form/SignUpForm";
 
 
+
 const Home = () => {
+
   return (
     <div >
       <Hero />
-      <Map />
-      {/* <TerraceList /> */}
+      {/* <Map /> */}
+      
       <LogInForm></LogInForm>
       <SignUpForm></SignUpForm>
     </div>

@@ -4,7 +4,7 @@ import type { CustomTerraceType } from "../types/zod/customTerrace-schema";
 import BlobCard from '../components/slider/BlobCard'
 import redBlob from '../assets/blobs/red-blob.png'
 import SearchBar from "../components/SearchBar";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { getBlobs } from "../services/blobList.service";
 import { BlobCarousel } from "../components/BlobList";
 // import { BlobList } from "../components/BlobList";
@@ -18,6 +18,10 @@ const FilterPage = () => {
     // API call or filtering logics in here
   };
 
+  const sortedTerraces = useMemo(() => {
+    return [...terraceList].sort((a, b) => (b.average_rating ?? 0) - (a.average_rating ?? 0));
+  }, [terraceList]);
+  
   return (
     <div>
       <h1 className="siyaRed-text
@@ -40,8 +44,9 @@ const FilterPage = () => {
       type="placement"/>
       <BlobCarousel
       type="cover"/>
+      {/* Les mes hot */}
       <ScrollSnap>
-        {terraceList.map((terrace: CustomTerraceType) => (
+        {sortedTerraces.map((terrace: CustomTerraceType) => (
           <BlobCard
             key={terrace.cadastro_ref}
             className="snap-start shrink-0 w-[60%] sm:w-[35%]"
