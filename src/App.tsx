@@ -1,26 +1,17 @@
 import './App.css';
 import './index.css';
 import Layout from './layout/Layout'
-import {Routes, Route} from 'react-router-dom'
-import Home from './pages/Home'
-import Profile from './pages/UserProfile'
-import FilterPage from './pages/FilterPage'
-import BookingPage from './pages/BookingPage'
+import { UserLocationProvider } from './context/UserLocationProvider'
+import AppRoutes from './routes/AppRoutes'
 
 function App() {
 
   return (
-    <Layout>
-      <Routes>
-
-        <Route path="/" element={<Home />} />
-        <Route path="/perfil" element={<Profile />} />
-        <Route path="/buscador-terrasses" element={<FilterPage />} />
-        <Route path="/reservar" element={<BookingPage />} />
-        <Route path="*" element={<h1>404 - Not Found</h1>} />
-        
-      </Routes>
-    </Layout>
+    <UserLocationProvider>
+      <Layout>
+          <AppRoutes />
+      </Layout>
+    </UserLocationProvider>
   )
 }
 

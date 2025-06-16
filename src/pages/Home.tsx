@@ -1,8 +1,13 @@
+import Hero from "../layout/Hero";
+import Map from "../features/map/MapFeature";
+import TerraceList from "../features/terraces/TerracesList";
 
 const Home = () => {
   return (
     <div >
-      <h1>Pàgina Principal</h1>
+      <Hero />
+      <Map />
+      <TerraceList />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import Home from "../pages/Home";
 import BookingPage from "../pages/BookingPage";
 import FilterPage from "../pages/FilterPage";
 import UserProfile from "../pages/UserProfile";
+import NotFoundPage from "../pages/NotFoundPage";
 
 export const AppRoutes = () => {
     return (
@@ -11,7 +12,7 @@ export const AppRoutes = () => {
             <Route path='/terrace-finder' element={<FilterPage />} />
             <Route path='/booking' element={<BookingPage />} />
             <Route path='/my-siya' element={<UserProfile />} />
-            <Route path="*" element={<NotFound />} />  {/* Catch-all 404 route */}
+            <Route path="*" element={<NotFoundPage />} />  {/* Catch-all 404 route */}
         </Routes>
     );
 };
