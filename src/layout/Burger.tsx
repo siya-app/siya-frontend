@@ -23,7 +23,7 @@ const BurgerMenu = () => {
         { name: 'Qui som', path: '/nosaltres' },
         { name: 'Contacte', path: '/contacte' },
         { name: 'Reservar', path: '/buscar-terrassa' },
-        { name: 'Perfil', path: '/perfil/:id' },
+        { name: 'Perfil', path: '/perfil' },
         { name: 'Log In', path: '/nose' },
         { name: 'Log Out', path: '/nose' },
 

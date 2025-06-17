@@ -12,12 +12,13 @@ export default function Login() {
 
   const login = async (e) => {
     e.preventDefault();
+    setError('');
     try {
       const res = await API.post('/auth/login', { email, password_hash });
       
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));
-      console.log(123,  res.data.user)
+      console.log("Login amb èxit",  res.data.user)
       navigate('/perfil');
     } catch (err) {
       setError(err.response?.data?.error || "No s'ha pogut iniciar sessió");
