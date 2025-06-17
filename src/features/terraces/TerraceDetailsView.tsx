@@ -5,12 +5,16 @@ import type { Terrace } from "../../types/TerraceType";
 import { fetchTerraceById } from "../../services/fetchTerraceById";
 import { ReviewForm } from "../reviews/ReviewForm";
 // import CategoryBlobs from "../components/CategoryBlobs"; // si existeix
-import { queryClient } from "../../services/queryClient"; // Adjust the path as needed
+import { useQueryClient } from '@tanstack/react-query';
+import { useAuth } from "../../context/AuthContext";
 
 const TerraceDetailsView = () => {
   const { id } = useParams(); // id de la URL
   const [terrace, setTerrace] = useState<Terrace | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const queryClient = useQueryClient();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (!id) return;
@@ -65,14 +69,14 @@ const TerraceDetailsView = () => {
           <span className="text-xl">➡️</span>
         </div>
       </div>
-      <ReviewForm
+{/*       <ReviewForm
         userId={currentUser.id}
         terraceId={terrace.id}
         onSuccess={() => {
           // p. ex. tornar a carregar reviews
           queryClient.invalidateQueries(['reviews', terrace.id]);
         }}
-      />
+      /> */}
       <div className="flex justify-end pr-3 pt-4">
         <button className="text-sm text-gray-500">➕ Afegir Ressenya</button>
       </div>
