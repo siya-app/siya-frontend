@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import API from '../services/apiUser';
 import { useNavigate } from 'react-router-dom';
+import TerraceClaim from '../features/terrace-claim/TerraceClaim';
 
 export default function Profile() {
   const [user, setUser] = useState<any>(null);
@@ -41,6 +42,7 @@ export default function Profile() {
         </p>
       </div>
     </div>
+    <TerraceClaim></TerraceClaim>
   
     </>
   )
