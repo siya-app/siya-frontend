@@ -2,8 +2,10 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Heart, Share2 } from "lucide-react";
 import type { Terrace } from "../../types/TerraceType";
-import {fetchTerraceById} from "../../services/fetchTerraceById";
+import { fetchTerraceById } from "../../services/fetchTerraceById";
+import { ReviewForm } from "../reviews/ReviewForm";
 // import CategoryBlobs from "../components/CategoryBlobs"; // si existeix
+import { queryClient } from "../../services/queryClient"; // Adjust the path as needed
 
 const TerraceDetailsView = () => {
   const { id } = useParams(); // id de la URL
@@ -63,7 +65,14 @@ const TerraceDetailsView = () => {
           <span className="text-xl">➡️</span>
         </div>
       </div>
-
+      <ReviewForm
+        userId={currentUser.id}
+        terraceId={terrace.id}
+        onSuccess={() => {
+          // p. ex. tornar a carregar reviews
+          queryClient.invalidateQueries(['reviews', terrace.id]);
+        }}
+      />
       <div className="flex justify-end pr-3 pt-4">
         <button className="text-sm text-gray-500">➕ Afegir Ressenya</button>
       </div>
