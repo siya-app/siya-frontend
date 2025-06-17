@@ -9,7 +9,7 @@ function TerraceClaim() {
   const [foundTerrace, setFoundTerrace] = useState(null);
   const [loading, setLoading] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState("");
-  const [currentUserId, setCurrentUserId] = useState<string | null>(null)(null);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
   const getUserIdFromLocalStorage = (): string | null => {
     try {
@@ -148,7 +148,8 @@ function TerraceClaim() {
         />
         <Button
           type="submit"
-          className="bg-siya-dark-green
+          className="w-fit
+          bg-siya-dark-green
                 text-siya-lemon-cream
                 font-bold
                 py-2
@@ -164,7 +165,7 @@ function TerraceClaim() {
         {error && (
           <>
             <p className="text-siya-principal mt-4">{error}</p>
-            {error.includes("No se encontró ninguna terraza") && (
+            {error && (
                 <p className="text-siya-secundario">Si no trobes la teva terrassa, contacta'ns perquè la registrem a la nostra base de dades</p>
             )}
           </>
@@ -180,14 +181,16 @@ function TerraceClaim() {
             <Button
               type="button"
               onClick={confirmTerraceOwnership}
-              className="bg-green-500
-                text-white
+              className="w-fit 
+                bg-siya-dark-green
+                text-siya-lemon-cream
                 font-bold
                 py-2
                 px-4
                 rounded
                 cursor-pointer
-                mt-2"
+                mt-2
+                "
               disabled={loading}
             >
               {loading ? 'Confirmant...' : 'Aquesta mateixa :)'}

@@ -4,6 +4,7 @@ import Map from "../features/map/MapFeature";
 import LogInForm from "../features/login-form/LogInForm";
 import SignUpForm from "../features/signup-form/SignUpForm";
 import TerraceSlider from "../components/slider/TerraceSlider";
+import TerraceClaim from "../features/terrace-claim/TerraceClaim";
 
 
 
@@ -17,6 +18,7 @@ const Home = () => {
       orderBy="rating"/>
       <LogInForm></LogInForm>
       <SignUpForm></SignUpForm>
+      <TerraceClaim></TerraceClaim>
     </div>
   );
 };
