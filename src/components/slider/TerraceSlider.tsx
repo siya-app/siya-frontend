@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useTerraceList } from "../../hooks/useTerraceList";
 import ScrollSnap from "../../components/slider/ScrollSnap";
 import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
@@ -13,6 +13,7 @@ interface TerraceSliderProps {
 function TerraceSlider({ orderBy = 'default' }: TerraceSliderProps) {
 
     const { terraceList } = useTerraceList();
+    const [ search, setSearch ] = useState('');
 
     const sortedTerraces = useMemo(() => {
         const terraces = [...terraceList];

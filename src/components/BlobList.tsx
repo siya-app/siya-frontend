@@ -2,8 +2,9 @@ import ScrollSnap from "./slider/ScrollSnap";
 import { getBlobs } from "../services/blobList.service";
 import { BLOB_TRANSLATIONS } from "../services/blobList.service";
 import type { CustomTerraceType } from "../types/zod/customTerrace-schema";
+import { useState } from "react";
 
-type BlobType = 'cover' | 'dietary' | 'emotional' | 'food' | 'placement'; // Add valid keys for blobs
+type BlobType = 'cover' | 'dietary' | 'emotional' | 'food' | 'placement';
 
 interface BlobCarouselProps {
     type: BlobType;
@@ -19,7 +20,13 @@ export function BlobCarousel({
     // filteredTerraces
 }: BlobCarouselProps) {
 
-    const blobs: Record<BlobType, Record<string, string>> = getBlobs(); // Explicitly type blobs
+    const [isSelected, setIsSelected] = useState(false);
+
+    const toggleSelection = () => {
+        
+    }
+
+    const blobs: Record<BlobType, Record<string, string>> = getBlobs();
     const translations = BLOB_TRANSLATIONS[type];
     const categoryTitle = BLOB_TRANSLATIONS.categories[type];
 
@@ -33,14 +40,14 @@ export function BlobCarousel({
                             <img
                                 src={src}
                                 alt={translations[id as keyof typeof translations]}
-                                className="w-20 h-20 object-contain" // Fixed size and contain
+                                className="w-20 h-20 object-contain"
                             />
-                            <p className="text-xs text-center
+                            <button className="text-xs text-center
                         capitalize siya2-bg rounded-xl siya3-text
                         p-1.5 shadow-md shadow-gray-600
                         "> {/* Added label */}
                                 {translations[id as keyof typeof translations]}
-                            </p>
+                            </button>
                         </div>
                     </div>
                 ))}

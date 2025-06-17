@@ -233,7 +233,7 @@ export const BLOB_TRANSLATIONS = {
         peruvian: "Peruà",
         pizza: "Pizza",
         spanish: "Espanyol",
-        tapas: "Tapas",
+        tapas: "Tapes",
         thai: "Tailandès",
         viet: "Vietnamita"
     },

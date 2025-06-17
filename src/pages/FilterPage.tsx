@@ -1,7 +1,7 @@
 
 import SearchBar from "../components/SearchBar";
 import { useState } from "react";
-import { Map } from "lucide-react";
+import Map from "../features/map/MapFeature";
 import { BlobCarousel } from "../components/BlobList";
 import TerraceSlider from "../components/slider/TerraceSlider";
 
