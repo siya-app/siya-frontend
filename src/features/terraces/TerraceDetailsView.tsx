@@ -6,7 +6,7 @@ import { fetchTerraceById } from "../../services/fetchTerraceById";
 import { ReviewForm } from "../reviews/ReviewForm";
 // import CategoryBlobs from "../components/CategoryBlobs"; // si existeix
 import { useQueryClient } from '@tanstack/react-query';
-import { useAuth } from "../../context/AuthContext";
+import {useAuth} from "../../context/useAuth"; // hook per obtenir l'usuari autenticat
 
 const TerraceDetailsView = () => {
   const { id } = useParams(); // id de la URL
@@ -14,7 +14,7 @@ const TerraceDetailsView = () => {
   const [loading, setLoading] = useState(true);
 
   const queryClient = useQueryClient();
-  const { user } = useAuth();
+  const user = useAuth();
 
   useEffect(() => {
     if (!id) return;
@@ -69,14 +69,14 @@ const TerraceDetailsView = () => {
           <span className="text-xl">➡️</span>
         </div>
       </div>
-{/*       <ReviewForm
-        userId={currentUser.id}
+      <ReviewForm
+        userId={user.user?.id || ''}
         terraceId={terrace.id}
         onSuccess={() => {
           // p. ex. tornar a carregar reviews
-          queryClient.invalidateQueries(['reviews', terrace.id]);
+          queryClient.invalidateQueries({ queryKey: ['reviews', terrace.id] });
         }}
-      /> */}
+      />
       <div className="flex justify-end pr-3 pt-4">
         <button className="text-sm text-gray-500">➕ Afegir Ressenya</button>
       </div>

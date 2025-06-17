@@ -22,10 +22,5 @@ function App() {
     </UserLocationProvider>
   )
 }
-        </Layout>
-      </QueryClientProvider>
-    </UserLocationProvider>
-  )
-}
 
 export default App

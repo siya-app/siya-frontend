@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, type ReactNode, useEffect } from 'react';
+import { createContext, useState, type ReactNode, useEffect } from 'react';
+import API from '../services/apiUser';
 
 interface User {
   id: string;
@@ -26,37 +27,42 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setLoading(true);
     setError(null);
     try {
-      // Aquí trucaràs a la teva API per fer login i obtenir usuari/token
-      // Exemple fictici:
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      if (!response.ok) throw new Error('Login failed');
-
-      const data = await response.json();
-      // Suposem que data.user és l'usuari retornat
-      setUser(data.user);
-      // Opcional: guarda el token al localStorage o cookie
-    } catch (err: any) {
-      setError(err.message || 'Error en fer login');
+       const res = await API.post('/auth/login', { email, password_hash: password });
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data.user));
+      setUser(res.data.user);
+    } catch (err: unknown) {
+      interface APIError {
+        response?: {
+          data?: {
+            error?: string;
+          };
+        };
+      }
+      if (typeof err === 'object' && err !== null && 'response' in err && typeof (err as APIError).response === 'object') {
+        setError((err as APIError).response?.data?.error || 'No s\'ha pogut iniciar sessió');
+      } else {
+        setError('No s\'ha pogut iniciar sessió');
+      }
     } finally {
       setLoading(false);
     }
   };
-
-  // Exemple de logout
+ // Logout neteja usuari i token
   const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setUser(null);
-    // També esborra token si el tens guardat
   };
 
-  // Exemple: carregar usuari de sessió guardada quan carrega l'app
+  // Quan carrega l'app, intentar recuperar usuari guardat
   useEffect(() => {
-    // Per exemple, recuperar usuari/token de localStorage
     const storedUser = localStorage.getItem('user');
-    if (storedUser) setUser(JSON.parse(storedUser));
+    const storedToken = localStorage.getItem('token');
+    if (storedUser && storedToken) {
+      setUser(JSON.parse(storedUser));
+      // Opcional: podries validar token o fer refresh aquí si vols
+    }
   }, []);
 
   return (
