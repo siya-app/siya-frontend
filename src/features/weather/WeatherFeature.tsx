@@ -59,10 +59,13 @@ const WeatherFeature = () => {
   }
 
   return (
-    <div>
+    <div className="shadow shadow-gray-200 bg-gray-50 flex flex-col
+    justify-center items-center m-4 rounded-xl
+    ps-2 pe-2
+    ">
       <div className="flex items-center">{icon}</div>
-      <span>{description}</span>
-      <p className="text-sm">🌡️ {temperature}°C</p>
+      <span className="text-sm">{description}</span>
+      <p className="text-sm">{temperature}°C</p>
     </div>
   );
 };

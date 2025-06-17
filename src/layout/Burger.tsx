@@ -20,9 +20,9 @@ const BurgerMenu = () => {
 
     const links = [
         { name: 'Inici', path: '/' },
-        { name: 'Qui som', path: '/qui-som' },
+        { name: 'Qui som', path: '/nosaltres' },
         { name: 'Contacte', path: '/contacte' },
-        { name: 'Reservar', path: '/buscador-terrasses' },
+        { name: 'Reservar', path: '/buscar-terrassa' },
         { name: 'Perfil', path: '/perfil/:id' },
         { name: 'Log In', path: '/nose' },
         { name: 'Log Out', path: '/nose' },
@@ -30,7 +30,7 @@ const BurgerMenu = () => {
     ];
 
     return (
-        <nav className="bg-transparent p-3 rounded-full">
+        <nav className="bg-transparent p-3 montserrat-siya">
             {/* Desktop/Tablet Links */}
             <div className="hidden md:flex space-x-6">
                 {links.map((link) => (
@@ -56,6 +56,7 @@ const BurgerMenu = () => {
             md:hidden absolute left-0 right-0 bg-red-500 shadow-lg
             py-1 px-3 mt-4 z-50 rounded-lg
             origin-top
+            rounded-bl-xl rounded-br-full
             transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]
             ${isOpen ?
                     'opacity-100 scale-y-100' :
