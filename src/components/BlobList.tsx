@@ -9,6 +9,8 @@ type BlobType = 'cover' | 'dietary' | 'emotional' | 'food' | 'placement';
 
 interface BlobCarouselProps {
     type: BlobType;
+    selectedTags: string[],
+    onToggleTag: (id: string) => void,
     // selectedFilters: string[];
     // onFilterToggle: (filter: string) => void;
     // filteredTerraces: CustomTerraceType[];
@@ -16,25 +18,15 @@ interface BlobCarouselProps {
 
 export function BlobCarousel({
     type,
-    // selectedFilters,
-    // onFilterToggle,
-    // filteredTerraces
+    selectedTags,
+    onToggleTag
 }: BlobCarouselProps) {
 
-    const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    // const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
 
     const toggleSelection = (id: string) => {
-
-        setSelectedTags((prev) => {
-            const updated = prev.includes(id)
-                ? prev.filter(tag => tag !== id)
-                : [...prev, id];
-    
-            console.log("updated selectedTags:", updated);
-            return updated;
-        });
-
+        onToggleTag(id);
     };
 
 

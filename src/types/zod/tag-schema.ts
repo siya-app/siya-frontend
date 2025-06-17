@@ -7,3 +7,5 @@ export const TagsSchema = z.object({
     food: z.array(z.string()).optional(),
     placement: z.array(z.string()).optional()
 });
+
+export type TagsType = z.infer<typeof TagsSchema>;
