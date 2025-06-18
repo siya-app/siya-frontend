@@ -33,9 +33,7 @@ const FilterPage = () => {
 
   const categoryTitle = (type: keyof typeof BLOB_TRANSLATIONS.categories) => BLOB_TRANSLATIONS.categories[type];
 
-
   const toggleSelection = (id: string) => {
-
     setSelectedTags((prev) => {
       const updated = prev.includes(id)
         ? prev.filter(tag => tag !== id)
@@ -47,26 +45,59 @@ const FilterPage = () => {
 
   };
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   setFilteredTerraces(() => {
+  //     const filteredTerraces = terraceList.filter((terrace) => {
+  //       if (!terrace.tags) return false;
+  //       const tagGroups = Object.values(terrace.tags);
+  //       const allTags = tagGroups.flat();
 
-    setFilteredTerraces(() => {
-      const filteredTerraces = terraceList.filter((terrace) => {
-        if (!terrace.tags) return false;
-        const tagGroups = Object.values(terrace.tags);
-        const allTags = tagGroups.flat();
-      
-        return selectedTags.every(tag => allTags.includes(tag));
-      });
-  
-      return filteredTerraces;
-    });
-  
-  }, [selectedTags])
+  //       return selectedTags.every(tag => allTags.includes(tag));
+  //     });
+  //     return filteredTerraces;
+  //   });
+  // }, [selectedTags, terraceList]);
+
+  // useEffect(() => {
+  //   if (searchQuery === '') {
+  //     setFilteredTerraces(terraceList);
+  //     return;
+  //   }
+
+  //   const searchedTerraces = terraceList.filter((terrace) =>
+  //     terrace.business_name?.toLowerCase().includes(searchQuery.toLowerCase())
+  //   );
+
+  //   setFilteredTerraces(searchedTerraces);
+  // }, [searchQuery, terraceList]);
 
   const resetFilters = (list: string[]) => {
     setSelectedTags((prev) => prev = []);
   }
 
+  const filterBySearch = (terraces: CustomTerraceType[], query: string) => {
+    if (!query || query === '') return terraces;
+
+    return terraces.filter((terrace) =>
+      terrace.business_name?.toLowerCase().includes(query.toLowerCase())
+    );
+  }
+
+  useEffect(() => {
+    const filtered = terraceList.filter((terrace) => {
+      // Tag filtering
+      const tagGroups = Object.values(terrace.tags || {});
+      const allTags = tagGroups.flat();
+      const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => allTags.includes(tag));
+
+      // Search filtering
+      const matchesSearch = searchQuery === '' || terrace.business_name?.toLowerCase().includes(searchQuery.toLowerCase());
+
+      return matchesTags && matchesSearch;
+    });
+
+    setFilteredTerraces(filtered);
+  }, [selectedTags, searchQuery, terraceList]);
 
 
   return (
@@ -81,7 +112,7 @@ const FilterPage = () => {
       <SearchBar
         query={searchQuery}
         onQueryChange={setSearchQuery}
-        onSearch={() => {}}
+
       />
 
       {(['food', 'emotional', 'placement', 'cover', 'dietary'] as const).map((type: keyof typeof BLOB_TRANSLATIONS.categories) => (
@@ -112,22 +143,24 @@ const FilterPage = () => {
           )}
         </div>
       ))}
-      {selectedTags.length === 0 ? (
-        <TerraceSlider list={terraceList} />
-      ) : filteredTerraces.length > 0 ? (
-        <TerraceSlider list={filteredTerraces} />
+      {(selectedTags.length > 0 || searchQuery !== '') ? (
+        filteredTerraces.length > 0 ? (
+          <TerraceSlider list={filteredTerraces} />
+        ) : (
+          <p className="text-center text-lg text-gray-500 mt-4">No hem trobat terrasses</p>
+        )
       ) : (
-        <p className="text-center text-lg text-gray-500 mt-4">No hem trobat terrasses</p>
+        <TerraceSlider list={terraceList} />
       )}
       <div className="flex justify-center">
-    <SliderButton
-    onClick={() => resetFilters([])}
-    selectedTags={selectedTags}
-    tagName="Reset"
-    />
+        <SliderButton
+          onClick={() => resetFilters([])}
+          selectedTags={selectedTags}
+          tagName="Reset"
+        />
       </div>
       <div className="m-8">
-      <Map />
+        <Map />
       </div>
     </div>
   );

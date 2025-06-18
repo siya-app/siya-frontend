@@ -21,8 +21,8 @@ export type ScrollSnapProps = {
 
 export type SearchBarProps = {
     query: string;
-    onSearch: (query: string) => void;
-    onQueryChange: (query: string) => void;
+    onSearch?: (query: string) => void;
+    onQueryChange?: (query: string) => void;
 };
 
 export type BlobListProps = {
