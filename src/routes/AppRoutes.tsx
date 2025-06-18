@@ -8,6 +8,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 /* import TerraceDetailsView from "../features/terraces/TerraceDetailsView";*/
 import TerraceDetailsView from "../features/terraces/TerraceDetailsView";
 import AboutUs from "../pages/AboutUs";
+import LogIn from '../pages/LogIn'
 
 const AppRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const AppRoutes = () => {
       <Route path="/buscar-terrassa" element={<FilterPage />} />
       <Route path="/reservar" element={<BookingPage />} />
       <Route path="/nosaltres" element={<AboutUs />} />
+      <Route path="/login" element={<LogIn/>}/>
       <Route
         path="/terrassa/:id"
         element={<TerraceDetailsView />}
