@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import API from '../../services/apiUser';
 import Button from '../../components/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import React from 'react'; 
 
 export default function Login() {
@@ -68,7 +68,7 @@ export default function Login() {
         
         <Button 
         className= "text-siya-dark-green underline py-2 px-4 bg-white cursor-pointer"
-        >Registra't</Button>
+        ><Link to='/signup' >Registra't</Link></Button>
         </div>
         {error && <p className="text-siya-principal">{error}</p>}
 

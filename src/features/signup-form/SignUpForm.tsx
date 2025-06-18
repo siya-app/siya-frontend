@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import API from "../../services/apiUser";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Button from "../../components/Button";
 import TermsModal from "../../components/TermsModal";
 
@@ -53,7 +53,7 @@ function SignUpForm() {
       setSuccessMessage("T'has registrat correctament! Ara pots iniciar sessió.");
      
       setTimeout(() => {
-        navigate("/"); 
+        navigate("/login"); 
       }, 2000);
     } catch (err) {
       console.error("Error de registre:", err.response?.data || err);
@@ -158,8 +158,7 @@ function SignUpForm() {
           Registra't
         </Button>
         {successMessage && <p className="text-green-700 mt-4 text-center">{successMessage}</p>}
-        <p className="mt-4"><a href="/" className="text-siya-dark-green underline ">
-        Ja tens un compte? </a></p>
+        <p className="mt-4"><Link to='/login' className="text-siya-dark-green underline cursor-pointer">Ja tens un compte?</Link></p>
     </form>
     <TermsModal
         isOpen={isModalOpen}

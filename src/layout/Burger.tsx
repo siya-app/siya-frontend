@@ -144,7 +144,7 @@ const BurgerMenu = () => {
             </button>
         ) : (
             <Link
-                to="/"
+                to="/login"
                 className="hover:text-white  hover:bg-red-500 rounded-md"
             >
                 Log In
