@@ -20,7 +20,7 @@ export default function Profile() {
       
     } else {
      
-      navigate('/');
+      navigate('/login');
     }
   }, []);
 
