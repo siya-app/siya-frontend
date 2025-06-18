@@ -39,7 +39,7 @@ export default function Login() {
           value={email} 
           onChange={e => setEmail(e.target.value)} 
           required 
-          className='w-1/2 mt-2'
+          className='w-full md:w-1/2 mt-2'
         />
         <label htmlFor="contrasenya"
         className='mt-4'>Contrasenya</label>
@@ -50,9 +50,9 @@ export default function Login() {
           value={password_hash} 
           onChange={e => setPassword(e.target.value)} 
           required 
-          className='w-1/2 mt-2'
+          className='w-full md:w-1/2 mt-2'
         />
-        <div className='mt-4 flex justify-between w-1/2'>
+        <div className='mt-4 w-full md:w-1/2 flex flex-col md:flex-row md:justify-between gap-2'>
         <Button
         type="submit"
         className="bg-siya-dark-green
@@ -68,7 +68,7 @@ export default function Login() {
         
         <Button 
         className= "text-siya-dark-green underline py-2 px-4 bg-white cursor-pointer"
-        ><Link to='/signup' >Registra't</Link></Button>
+        ><Link to='/sign-up' >Registra't</Link></Button>
         </div>
         {error && <p className="text-siya-principal">{error}</p>}
 

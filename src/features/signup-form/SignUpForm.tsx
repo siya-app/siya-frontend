@@ -93,7 +93,7 @@ function SignUpForm() {
           value={name} 
           onChange={e => setName(e.target.value)} 
           required 
-          className='w-1/2 mt-2'
+          className='w-full md:w-1/2 mt-2'
         />
         <label htmlFor="email"
         className='mt-4'>Correu electrònic</label>
@@ -104,7 +104,7 @@ function SignUpForm() {
           value={email} 
           onChange={e => setEmail(e.target.value)} 
           required 
-          className='w-1/2 mt-2'
+          className='w-full md:w-1/2 mt-2'
         />
         <label htmlFor="password"
         className='mt-4'>Contrasenya</label>
@@ -115,7 +115,7 @@ function SignUpForm() {
           value={password} 
           onChange={e => setPassword(e.target.value)} 
           required 
-          className='w-1/2 mt-2'
+          className='w-full md:w-1/2 mt-2'
         />
         <label htmlFor="bdate"
         className='mt-4'>Data de naixement</label>
@@ -127,7 +127,7 @@ function SignUpForm() {
           value={birthDate} 
           onChange={e => setBirthDate(e.target.value)} 
           required 
-          className='w-1/2 mt-2'
+          className='w-full md:w-1/2 mt-2'
         />
         <div className="flex items-center mt-4">
           <input
@@ -152,13 +152,13 @@ function SignUpForm() {
         )}
         <Button
           type="submit"
-          className="w-fit bg-siya-dark-green text-siya-lemon-cream font-bold py-2 px-4 mt-4 rounded"
+          className="w-full md:w-fit bg-siya-dark-green text-siya-lemon-cream font-bold py-2 px-4 mt-4 rounded"
           disabled={!agreedToTerms}
         >
           Registra't
         </Button>
         {successMessage && <p className="text-green-700 mt-4 text-center">{successMessage}</p>}
-        <p className="mt-4"><Link to='/login' className="text-siya-dark-green underline cursor-pointer">Ja tens un compte?</Link></p>
+        <p className="mt-4 text-center md:text-left"><Link to='/login' className="text-siya-dark-green underline cursor-pointer">Ja tens un compte?</Link></p>
     </form>
     <TermsModal
         isOpen={isModalOpen}

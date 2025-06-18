@@ -20,7 +20,7 @@ const AppRoutes = () => {
       <Route path="/reservar" element={<BookingPage />} />
       <Route path="/nosaltres" element={<AboutUs />} />
       <Route path="/login" element={<LogIn/>}/>
-      <Route path="/signup" element={<SignUp/>}/>
+      <Route path="/sign-up" element={<SignUp/>}/>
       <Route
         path="/terrassa/:id"
         element={<TerraceDetailsView />}
