@@ -1,20 +1,20 @@
 export async function createReview({
   rating,
   comment,
-  id_user,
-  id_terrace,
+  userId,
+  terraceId,
 }: {
   rating: number;
   comment: string;
-  id_user: string;
-  id_terrace: string;
+  userId: string;
+  terraceId: string;
 }) {
-  const response = await fetch('http://localhost:8000/reviews', {
+  const response = await fetch('http://localhost:8080/reviews', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ rating, comment, id_user, id_terrace }),
+    body: JSON.stringify({ rating, comment, userId, terraceId }), // ✅ noms corregits
   });
 
   if (!response.ok) {

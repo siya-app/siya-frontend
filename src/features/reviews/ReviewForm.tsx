@@ -18,7 +18,7 @@ export function ReviewForm({ userId, terraceId, onSuccess }: {
     setError('');
 
     try {
-      await createReview({ rating, comment, id_user: userId, id_terrace: terraceId });
+      await createReview({ rating, comment, userId: userId, terraceId: terraceId });
       onSuccess?.(); // p. ex. refrescar el slider
       setComment('');
       setRating(5);

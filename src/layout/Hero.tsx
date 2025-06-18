@@ -1,6 +1,8 @@
 import WeatherFeature from "../features/weather/WeatherFeature";
+import { useAuth } from "../context/useAuth";
 
 const Hero = () => {
+    const user = useAuth();
     return (
         <div className="flex bg-gray-100">
             <div className=" ms-3">
@@ -12,7 +14,7 @@ const Hero = () => {
                 text-xl
                 text-siya-principal
                 montserrat-siya
-                ">La teva nova app de terraceo.</p>
+                "> {user && user.user ? `Hola ${user.user.name}!` : "La teva nova app de terraceo."}</p>
             </div>
             <div className="mx-auto">
                 <WeatherFeature />
