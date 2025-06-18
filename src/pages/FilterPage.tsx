@@ -6,6 +6,10 @@ import { BlobCarousel } from "../components/BlobList";
 import TerraceSlider from "../components/slider/TerraceSlider";
 import { useTerraceList } from "../hooks/useTerraceList";
 import type { CustomTerraceType } from "../types/zod/customTerrace-schema";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { BLOB_TRANSLATIONS } from "../services/blobList.service";
+import SliderButton from "../components/slider/SliderButton";
+
 
 //restaurants with inserted tags:
 // china garden - url: 0032e31f-f65f-459d-bfad-ab5b38fd3164/tags
@@ -24,35 +28,41 @@ const FilterPage = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const { terraceList } = useTerraceList();
   const [filteredTerraces, setFilteredTerraces] = useState<CustomTerraceType[]>([]);
+  const [openSection, setOpenSection] = useState<string | null>(null);
+  const categoryTitle = (type: keyof typeof BLOB_TRANSLATIONS.categories) => BLOB_TRANSLATIONS.categories[type];
 
 
   const toggleSelection = (id: string) => {
 
     setSelectedTags((prev) => {
-        const updated = prev.includes(id)
-            ? prev.filter(tag => tag !== id)
-            : [...prev, id];
+      const updated = prev.includes(id)
+        ? prev.filter(tag => tag !== id)
+        : [...prev, id];
 
-        console.log("updated selectedTags:", updated);
-        return updated;
+      console.log("updated selectedTags:", updated);
+      return updated;
     });
 
-};
+  };
 
-useEffect(() => {
+  useEffect(() => {
 
-  setFilteredTerraces(() => {
-    const filteredTerraces = terraceList.filter((terrace) => {
-      const tagGroups = Object.values(terrace.tags);
-      const allTags = tagGroups.flat();
-    
-      return selectedTags.every(tag => allTags.includes(tag));
+    setFilteredTerraces(() => {
+      const filteredTerraces = terraceList.filter((terrace) => {
+        const tagGroups = Object.values(terrace.tags);
+        const allTags = tagGroups.flat();
+
+        return selectedTags.every(tag => allTags.includes(tag));
+      });
+
+      return filteredTerraces;
     });
 
-    return filteredTerraces;
-  });
+  }, [selectedTags])
 
-}, [selectedTags])
+  const resetFilters = (list: string[]) => {
+    setSelectedTags((prev) => prev = []);
+  }
 
 
 
@@ -61,7 +71,7 @@ useEffect(() => {
       <h1 className="siyaRed-text
       system-condensed
       text-4xl
-      m-2
+
       mt-5
       font-extrabold text-center">
         Ganes de terraceo? ;)</h1>
@@ -71,21 +81,49 @@ useEffect(() => {
         onSearch={handleSearch}
       /> */}
       <Map />
-      {(['food', 'emotional', 'placement', 'cover', 'dietary'] as const).map(type => (
-        <BlobCarousel
-          key={type}
-          type={type}
-          selectedTags={selectedTags}
-          onToggleTag={toggleSelection}
-        />
+
+      {(['food', 'emotional', 'placement', 'cover', 'dietary'] as const).map((type: keyof typeof BLOB_TRANSLATIONS.categories) => (
+        <div key={type} className="shadow-md
+  border-l- border-r-4 border-t- border-b-4 border-siya-dark-green
+  siyaDark-text m-2 mt-3 bg-gray-50
+  shadow-neutral-300 my-2 rounded-2xl overflow-hidden">
+          <div
+            onClick={() => setOpenSection(prev => prev === type ? null : type)}
+            className="cursor-pointer collapse-title bg-primary
+      text-primary-content px-4 py-2 capitalize flex justify-between items-center"
+          >
+            {categoryTitle(type)}
+            {openSection === type
+              ? <FaChevronUp className="siyaDark-text" />
+              : <FaChevronDown className="siyaDark-text" />
+            }
+          </div>
+
+          {openSection === type && (
+            <div className="collapse-content siya3-text px-4 py-2 ">
+              <BlobCarousel
+                type={type}
+                selectedTags={selectedTags}
+                onToggleTag={toggleSelection}
+              />
+            </div>
+          )}
+        </div>
       ))}
-  {selectedTags.length === 0 ? (
-  <TerraceSlider list={terraceList} />
-) : filteredTerraces.length > 0 ? (
-  <TerraceSlider list={filteredTerraces} />
-) : (
-  <p className="text-center text-lg text-gray-500 mt-4">No hem trobat terrasses</p>
-)}
+      {selectedTags.length === 0 ? (
+        <TerraceSlider list={terraceList} />
+      ) : filteredTerraces.length > 0 ? (
+        <TerraceSlider list={filteredTerraces} />
+      ) : (
+        <p className="text-center text-lg text-gray-500 mt-4">No hem trobat terrasses</p>
+      )}
+      <div className="flex justify-center">
+    <SliderButton
+    onClick={() => resetFilters([])}
+    selectedTags={selectedTags}
+    tagName="Reset"
+    />
+      </div>
     </div>
   );
 };
