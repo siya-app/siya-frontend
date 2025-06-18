@@ -138,7 +138,7 @@ const BurgerMenu = () => {
                 {isLoggedIn ? (
             <button
                 onClick={handleLogout}
-                className="hover:text-white p-1 hover:bg-red-500 rounded-md"
+                className="hover:text-white hover:bg-red-500 rounded-md"
             >
                 Log Out
             </button>

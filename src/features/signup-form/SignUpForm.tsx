@@ -3,11 +3,12 @@ import API from "../../services/apiUser";
 import { useNavigate, Link } from "react-router-dom";
 import Button from "../../components/Button";
 import TermsModal from "../../components/TermsModal";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 function SignUpForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); // Usamos 'password' para el input del frontend
+  const [password, setPassword] = useState(""); 
   const [birthDate, setBirthDate] = useState("");
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [termsError, setTermsError] = useState('');
@@ -15,6 +16,7 @@ function SignUpForm() {
   const [successMessage, setSuccessMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleTermsChange = (event) => {
     setAgreedToTerms(event.target.checked);
@@ -93,7 +95,7 @@ function SignUpForm() {
           value={name} 
           onChange={e => setName(e.target.value)} 
           required 
-          className='w-full md:w-1/2 mt-2'
+          className='w-full md:w-1/2 mt-2 border rounded p-1'
         />
         <label htmlFor="email"
         className='mt-4'>Correu electrònic</label>
@@ -104,19 +106,31 @@ function SignUpForm() {
           value={email} 
           onChange={e => setEmail(e.target.value)} 
           required 
-          className='w-full md:w-1/2 mt-2'
+          className='w-full md:w-1/2 mt-2 border rounded p-1'
         />
         <label htmlFor="password"
         className='mt-4'>Contrasenya</label>
-        <input 
-          type="password" 
-          name="password"
-          placeholder="Contrasenya (mín. 8 caracteres)"
-          value={password} 
-          onChange={e => setPassword(e.target.value)} 
-          required 
-          className='w-full md:w-1/2 mt-2'
-        />
+        <div className="relative w-full md:w-1/2 mt-4">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="contrasenya"
+                placeholder="Contrasenya (mín. 8 caràcters)"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full pr-10 px-4 py-2 border rounded"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-600 hover:text-gray-800"
+                aria-label={
+                  showPassword ? "Amaga la contrasenya" : "Mostra la contrasenya"
+                }
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </button>
+            </div>
         <label htmlFor="bdate"
         className='mt-4'>Data de naixement</label>
         <input 
@@ -127,7 +141,7 @@ function SignUpForm() {
           value={birthDate} 
           onChange={e => setBirthDate(e.target.value)} 
           required 
-          className='w-full md:w-1/2 mt-2'
+          className='w-full md:w-1/2 mt-2 border rounded p-1'
         />
         <div className="flex items-center mt-4">
           <input
