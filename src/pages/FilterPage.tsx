@@ -50,25 +50,18 @@ const FilterPage = () => {
   useEffect(() => {
 
     setFilteredTerraces(() => {
-
       const filteredTerraces = terraceList.filter((terrace) => {
-
-        const matchByName = terrace.business_name
-        .toLowerCase()
-        .includes(searchQuery
-          .toLowerCase());
-
+        if (!terrace.tags) return false;
         const tagGroups = Object.values(terrace.tags);
         const allTags = tagGroups.flat();
-
-        const matchByTags = selectedTags.every(tag => allTags.includes(tag));
-        return matchByName || matchByTags;
+      
+        return selectedTags.every(tag => allTags.includes(tag));
       });
-
+  
       return filteredTerraces;
     });
-
-  }, [selectedTags, searchQuery, terraceList]);
+  
+  }, [selectedTags])
 
   const resetFilters = (list: string[]) => {
     setSelectedTags((prev) => prev = []);
