@@ -32,20 +32,20 @@ export function BlobCarousel({
 
     const blobs: Record<BlobType, Record<string, string>> = getBlobs();
     const translations = BLOB_TRANSLATIONS[type];
-    const categoryTitle = BLOB_TRANSLATIONS.categories[type];
+    // const categoryTitle = BLOB_TRANSLATIONS.categories[type];
 
     return (
-        <div className="shadow-lg shadow-siya-terciario mb-5 pb-2 mt-3 flex flex-col justify-start">
-            <h2 className="text-lg text-siya-dark-green font-semibold ms-3 mb-2 mt-2 system-sans">{categoryTitle}</h2>
+        <div className="shadow-siya-terciario flex flex-col justify-start">
+            {/* <h2 className="text-lg text-siya-dark-green font-semibold ms-3 mb-2 mt-2 system-sans">{categoryTitle}</h2> */}
             <ScrollSnap>
                 {Object.entries(blobs[type]).map(([id, src]) => (
 
                     <div key={id} className="snap-start shrink-0 w-[5em] mx-1">
-                        <div className={"flex flex-col justify-start items-center p-2"}>
+                        <div className={"flex flex-col justify-start items-center pb-2"}>
                             <img
                                 src={src}
                                 alt={translations[id as keyof typeof translations]}
-                                className="w-20 h-20 object-contain"
+                                className="w-20 h-15 object-contain"
                             />
                             <SliderButton
                                 key={`button-${id}`}

@@ -1,7 +1,7 @@
 type SliderButtonProps = {
     onClick?: () => void,
-    tagName: string,
-    id: string,
+    tagName?: string,
+    id?: string,
     selectedTags: string[]
 }
 

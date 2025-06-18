@@ -125,7 +125,7 @@ const BurgerMenu = () => {
             {/* Desktop */}
             <ul className="hidden md:flex space-x-6">
                 {links.map(link => (
-                    <li key={link.name}>
+                    <li className='w-fit' key={link.name}>
                         <Link
                             to={link.path}
                             className="hover:text-white p-1 hover:bg-red-500 rounded-md"
@@ -137,14 +137,14 @@ const BurgerMenu = () => {
                 {isLoggedIn ? (
             <button
                 onClick={handleLogout}
-                className="hover:text-white hover:bg-red-500 rounded-md"
+                className="hover:text-white w-fit hover:bg-red-500 rounded-md"
             >
                 Log Out
             </button>
         ) : (
             <Link
                 to="/login"
-                className="hover:text-white  hover:bg-red-500 rounded-md"
+                className="hover:text-white w-fit  hover:bg-red-500 rounded-md"
             >
                 Log In
             </Link>
@@ -155,7 +155,7 @@ const BurgerMenu = () => {
             {isMobile && (
                 <button
                     onClick={toggleMenu}
-                    className="md:hidden text-3xl focus:outline-none siyaRed-text transition-transform duration-300 hover:scale-110"
+                    className="md:hidden w-fit text-3xl focus:outline-none siyaRed-text transition-transform duration-300 hover:scale-110"
                     aria-label="Toggle menu"
                 >
                     {isOpen ? <FiX /> : <FiMenu />}
@@ -171,7 +171,7 @@ const BurgerMenu = () => {
                 ${isOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'}
             `}>
                 {links.map(link => (
-                    <li key={link.name}>
+                    <li className='w-fit' key={link.name}>
                         <Link
                             to={link.path}
                             className="block py-2 text-white hover:bg-gray-100 hover:bg-opacity-20 transition-colors duration-200"
@@ -185,14 +185,14 @@ const BurgerMenu = () => {
         {isLoggedIn ? (
             <button
                 onClick={handleLogout}
-                className="block w-full text-left py-2 text-white hover:bg-gray-100 hover:bg-opacity-20 transition-colors duration-200"
+                className="w-fit block text-left py-2 text-white hover:bg-gray-100 hover:bg-opacity-20 transition-colors duration-200"
             >
                 Log Out
             </button>
         ) : (
             <Link
                 to="/"
-                className="block py-2 text-white hover:bg-gray-100 hover:bg-opacity-20 transition-colors duration-200"
+                className="block w-fit py-2 text-white hover:bg-gray-100 hover:bg-opacity-20 transition-colors duration-200"
                 onClick={() => setIsOpen(false)}
             >
                 Log In

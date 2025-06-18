@@ -12,6 +12,7 @@ export type BlobCardProps = {
     businessName: string;
     rating: number;
     blob: string;
+    id: string;
 };
 
 export type ScrollSnapProps = {

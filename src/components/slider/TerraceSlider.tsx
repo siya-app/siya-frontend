@@ -37,7 +37,7 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
 
 
     return (
-        <div className="mt-5 mb-5">
+        <div className="mt-5">
             <ScrollSnap>
                 {sortedTerraces.map((terrace: CustomTerraceType) => (
                     <BlobCard
@@ -47,10 +47,13 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
                         businessName={terrace.business_name}
                         rating={terrace.average_rating ?? 0}
                         blob={redBlob}
+                        id={terrace.id}
                     />
                 ))}
             </ScrollSnap>
         </div>
+        //carleeees aquiiii l'id ❤️✨
+
     )
 }
 
