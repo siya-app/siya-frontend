@@ -51,10 +51,10 @@ const BlobCard = ({ className = "", picture, businessName, rating, blob }: BlobC
             </div>
 
             {/* Business name */}
-            <h3 className="text-sm w-auto font-semibold mt-1 break-words truncate text-balance">{businessName}</h3>
+            <h3 className="text-sm w-auto mt-1 break-words truncate text-balance montserrat-siya siyaDark-text">{businessName}</h3>
 
             {/* Star rating */}
-            <div className="flex justify-center mt-1 gap-0.5 text-xs">
+            <div className="flex justify-center mt-1 gap-0.5 text-xs siyaDark-text">
                 {stars}
             </div>
         </div>

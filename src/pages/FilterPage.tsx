@@ -16,6 +16,7 @@ import type { CustomTerraceType } from "../types/zod/customTerrace-schema";
 // xix kebab - url: 8f87f1e9-85fc-4b85-b408-25dbbe92aac2/tags
 // la terraza miro - url: a93749f0-7efe-4266-ab43-9e80234cb701/tags
 // nori sushi&cocktails - url: abc19588-83cd-4053-8d13-5f75de5e54f3/tags
+//
 
 
 const FilterPage = () => {
@@ -78,9 +79,13 @@ useEffect(() => {
           onToggleTag={toggleSelection}
         />
       ))}
-      <TerraceSlider
-      list={terraceList}
-      />
+  {selectedTags.length === 0 ? (
+  <TerraceSlider list={terraceList} />
+) : filteredTerraces.length > 0 ? (
+  <TerraceSlider list={filteredTerraces} />
+) : (
+  <p className="text-center text-lg text-gray-500 mt-4">No hem trobat terrasses</p>
+)}
     </div>
   );
 };
