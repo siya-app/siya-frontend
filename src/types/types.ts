@@ -34,3 +34,23 @@ export type OrderByOption =
     | 'is_claimed'
     | 'near_you'
     | 'default';
+
+    export type Review = {
+  id: string;
+  terrace_id: string;
+  user_id: string;
+  rating: number;
+  comment: string;
+  created_at: string;
+  user?: {
+    id: string;
+    name: string;
+    // afegeix més si tens més camps de l’usuari que et venen del join
+  };
+};
+
+export type ReviewCardProps = {
+  rating: number;
+  comment: string;
+  userName: string; // suposem que ve de Supabase amb join o inclòs al JSON
+};

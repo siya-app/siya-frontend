@@ -1,10 +1,5 @@
 import { Star } from "lucide-react";
-
-type ReviewCardProps = {
-  rating: number;
-  comment: string;
-  userName: string; // suposem que ve de Supabase amb join o inclòs al JSON
-};
+import type { ReviewCardProps } from "../../types/types";
 
 export default function ReviewCard({ rating, comment, userName }: ReviewCardProps) {
   return (

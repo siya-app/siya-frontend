@@ -1,9 +1,14 @@
-export async function fetchReviewsByTerraceId(terraceId: string) {
-  const res = await fetch(`http://localhost:8080/reviews/terrace/${terraceId}`);
+import type { Review } from "../../types/types";
+
+export async function fetchReviewsByTerraceId(terraceId: string): Promise<Review[]> {
+  const res = await fetch("http://localhost:8080/reviews");
 
   if (!res.ok) {
-    throw new Error('No s’han pogut carregar les reviews');
+    throw new Error("No s’han pogut carregar les reviews");
   }
 
-  return await res.json(); // suposadament retorna un array de reviews
+  const allReviews: Review[] = await res.json();
+
+  // Filtrar només les de la terrassa concreta
+  return allReviews.filter((review) => review.terrace_id === terraceId);
 }

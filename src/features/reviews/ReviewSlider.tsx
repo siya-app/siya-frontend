@@ -3,6 +3,7 @@ import ScrollSnap from "../../components/slider/ScrollSnap";
 import ReviewCard from "./ReviewCard";
 import { useQuery } from "@tanstack/react-query";
 import { fetchReviewsByTerraceId } from "../../features/reviews/fetchReviewsByTerraceId";
+import { type Review } from "../../types/types";
 
 type Props = {
   terraceId: string;
@@ -21,7 +22,7 @@ export function ReviewSlider({ terraceId }: Props) {
 
   return (
     <ScrollSnap>
-      {reviews.map((review: any) => (
+      {reviews.map((review: Review) => (
         <ReviewCard
           key={review.id}
           rating={review.rating}
