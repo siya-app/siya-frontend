@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Heart, Share2 } from "lucide-react";
 import type { Terrace } from "../../types/TerraceType";
 import { fetchTerraceById } from "../../services/fetchTerraceById";
+import {ReviewSlider} from "../reviews/ReviewSlider";
 import { ReviewForm } from "../reviews/ReviewForm";
 // import CategoryBlobs from "../components/CategoryBlobs"; // si existeix
 import { useQueryClient } from '@tanstack/react-query';
@@ -68,7 +69,9 @@ const TerraceDetailsView = () => {
           <h2 className="text-xl font-medium">Ressenyes</h2>
           <span className="text-xl">➡️</span>
         </div>
+        {/* Aquí hauria d'anar el component de ressenyes, el slider */}
       </div>
+      <ReviewSlider terraceId={terrace.id} />
       <ReviewForm
         userId={user.user?.id || ''}
         terraceId={terrace.id}

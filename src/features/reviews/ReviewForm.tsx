@@ -1,4 +1,3 @@
-// components/ReviewForm.tsx
 import { useState } from 'react';
 import { createReview } from './createReview';
 
@@ -11,22 +10,28 @@ export function ReviewForm({ userId, terraceId, onSuccess }: {
   const [comment, setComment] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    setSuccessMessage('');
 
     try {
-      await createReview({ rating, comment, userId: userId, terraceId: terraceId });
+      await createReview({ rating, comment, userId, terraceId });
+      setSuccessMessage('Review publicada amb èxit! ✅');
       onSuccess?.(); // p. ex. refrescar el slider
       setComment('');
       setRating(5);
+
+      // Esborra el missatge d'èxit després de 3 segons
+      setTimeout(() => setSuccessMessage(''), 3000);
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
       } else {
-        setError('An unexpected error occurred.');
+        setError('S\'ha produït un error inesperat.');
       }
     } finally {
       setLoading(false);
@@ -57,8 +62,15 @@ export function ReviewForm({ userId, terraceId, onSuccess }: {
           required
         />
       </label>
-      {error && <p className="text-red-500">{error}</p>}
-      <button type="submit" disabled={loading} className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
+
+      {error && <p className="text-red-500 mt-2">{error}</p>}
+      {successMessage && <p className="text-green-600 mt-2">{successMessage}</p>}
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+      >
         {loading ? 'Enviant...' : 'Enviar Review'}
       </button>
     </form>
