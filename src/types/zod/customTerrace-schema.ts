@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TagsSchema, type TagsType } from "./tag-schema";
 
 export const DietaryRestrictionSchema = z.enum([
     'Vegetarian', 'Vegan', 'NonVegetarian', 'GlutenFree'
@@ -33,7 +34,7 @@ export const FoodCategorySchema = z.union([
     z.null()
 ]);
 
-export const validFoodCategoryTags = typeValidator(FoodCategorySchema);
+// export const validFoodCategoryTags = typeValidator(FoodCategorySchema);
 
 export const PlacementTypeSchema = z.union([
     z.literal('Garden'),
@@ -46,7 +47,7 @@ export const PlacementTypeSchema = z.union([
     z.null()
 ]);
 
-export const validPlacementTypes = typeValidator(PlacementTypeSchema)
+// export const validPlacementTypes = typeValidator(PlacementTypeSchema)
 
 export const EmotionalTagsSchema = z.union([
     z.literal('Relaxed'),
@@ -65,7 +66,7 @@ export const EmotionalTagsSchema = z.union([
     z.null()
 ]);
 
-export const validEmotionalTags = typeValidator(EmotionalTagsSchema);
+// export const validEmotionalTags = typeValidator(EmotionalTagsSchema);
 
 export const CoverTypeSchema = z.union([
     z.literal('None'),
@@ -77,7 +78,7 @@ export const CoverTypeSchema = z.union([
     z.null()
 ]);
 
-export const validCoverTypes = typeValidator(CoverTypeSchema);
+// export const validCoverTypes = typeValidator(CoverTypeSchema);
 
 
 export const UserRatingSchema = z.union([
@@ -135,6 +136,7 @@ export const CustomTerraceSchema = z.object({
     instagram_account: z.string(),
     website: z.string(),
     profile_pic: z.string().optional(),
+    tags: TagsSchema
 });
 
 export type DietaryRestrictionType = z.infer<typeof DietaryRestrictionSchema>;

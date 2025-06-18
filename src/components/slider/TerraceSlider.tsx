@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import { useTerraceList } from "../../hooks/useTerraceList";
+import { useMemo, useState } from "react";
+// import { uselist } from "../../hooks/uselist";
 import ScrollSnap from "../../components/slider/ScrollSnap";
 import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
 import BlobCard from "./BlobCard";
@@ -7,15 +7,17 @@ import redBlob from '../../assets/blobs/red-blob.png';
 import type { OrderByOption } from "../../types/types";
 interface TerraceSliderProps {
     orderBy?: OrderByOption;
+    list: CustomTerraceType[];
 }
 
 
-function TerraceSlider({ orderBy = 'default' }: TerraceSliderProps) {
+function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
 
-    const { terraceList } = useTerraceList();
+    // const { list } = uselist();
+    //TODO: near_you terraces logic
 
     const sortedTerraces = useMemo(() => {
-        const terraces = [...terraceList];
+        const terraces = Array.isArray(list) ? [...list] : [];
     
         switch (orderBy) {
             case 'rating':
@@ -31,7 +33,7 @@ function TerraceSlider({ orderBy = 'default' }: TerraceSliderProps) {
             default:
                 return terraces;
         }
-    }, [terraceList, orderBy]);
+    }, [list, orderBy]);
 
 
     return (
