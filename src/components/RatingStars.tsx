@@ -15,7 +15,7 @@ function RatingStars({ rating }: RatingStarsProps) {
     );
 
     return (
-        <div className="flex justify-center mt-1 gap-0.5 text-xs siyaDark-text">{stars}</div>
+        <div className="flex justify-center gap-0.5 text-sm siyaDark-text">{stars}</div>
     )
 }
 
