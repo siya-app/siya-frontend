@@ -1,28 +1,9 @@
 import type { BlobCardProps } from "../../types/types";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import Button from "../Button";
+import { Link, useNavigate } from "react-router-dom";
 
-// const BlobCard =
-// ({ className = "",
-//     picture,
-//     businessName,
-//     rating } :
-//     BlobCardProps) => {
-//     return (
-//         <div className={`bg-white shadow-lg rounded-lg p-4 ${className}`}>
-//             <img
-//                 src={picture}
-//                 alt={businessName}
-//                 className="w-full h-32 object-cover rounded-md mb-2"
-//             />
-//             <h3 className="text-lg font-semibold">{businessName}</h3>
-//             <p className="text-sm text-gray-500">⭐ {rating.toFixed(1)}</p>
-//         </div>
-//     );
-// };
-
-// export default BlobCard;
-
-const BlobCard = ({ className = "", picture, businessName, rating, blob }: BlobCardProps) => {
+const BlobCard = ({ className = "", picture, businessName, rating, blob, id }: BlobCardProps) => {
     const stars = Array(5)
         .fill(0)
         .map((_, i) =>
@@ -51,7 +32,13 @@ const BlobCard = ({ className = "", picture, businessName, rating, blob }: BlobC
             </div>
 
             {/* Business name */}
-            <h3 className="text-sm w-auto mt-1 break-words truncate text-balance montserrat-siya siyaDark-text">{businessName}</h3>
+            <Link
+            to={`/terrace/${id}`}
+            className={`text-sm w-auto mt-1
+            break-words truncate text-balance
+            montserrat-siya siyaDark-text
+            bg-transparent`}
+            >{businessName}</Link>
 
             {/* Star rating */}
             <div className="flex justify-center mt-1 gap-0.5 text-xs siyaDark-text">

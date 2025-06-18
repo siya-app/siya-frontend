@@ -13,7 +13,9 @@ const Home = () => {
   return (
     <div >
       <Hero />
+      <div className="m-8">
       <Map />
+      </div>
       <TerraceSlider
       orderBy="rating"/>
       <LogInForm></LogInForm>

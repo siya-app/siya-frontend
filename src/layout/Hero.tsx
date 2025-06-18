@@ -2,7 +2,7 @@ import WeatherFeature from "../features/weather/WeatherFeature";
 
 const Hero = () => {
     return (
-        <div className="flex bg-gray-100">
+        <div className="flex">
             <div className=" ms-3">
                 <img src="src/assets/siya-title-bg-transp.svg"
                 className="

@@ -29,6 +29,8 @@ const FilterPage = () => {
   const { terraceList } = useTerraceList();
   const [filteredTerraces, setFilteredTerraces] = useState<CustomTerraceType[]>([]);
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
   const categoryTitle = (type: keyof typeof BLOB_TRANSLATIONS.categories) => BLOB_TRANSLATIONS.categories[type];
 
 
@@ -48,17 +50,25 @@ const FilterPage = () => {
   useEffect(() => {
 
     setFilteredTerraces(() => {
+
       const filteredTerraces = terraceList.filter((terrace) => {
+
+        const matchByName = terrace.business_name
+        .toLowerCase()
+        .includes(searchQuery
+          .toLowerCase());
+
         const tagGroups = Object.values(terrace.tags);
         const allTags = tagGroups.flat();
 
-        return selectedTags.every(tag => allTags.includes(tag));
+        const matchByTags = selectedTags.every(tag => allTags.includes(tag));
+        return matchByName || matchByTags;
       });
 
       return filteredTerraces;
     });
 
-  }, [selectedTags])
+  }, [selectedTags, searchQuery, terraceList]);
 
   const resetFilters = (list: string[]) => {
     setSelectedTags((prev) => prev = []);
@@ -75,12 +85,11 @@ const FilterPage = () => {
       mt-5
       font-extrabold text-center">
         Ganes de terraceo? ;)</h1>
-      {/* <SearchBar
+      <SearchBar
         query={searchQuery}
         onQueryChange={setSearchQuery}
-        onSearch={handleSearch}
-      /> */}
-      <Map />
+        onSearch={() => {}}
+      />
 
       {(['food', 'emotional', 'placement', 'cover', 'dietary'] as const).map((type: keyof typeof BLOB_TRANSLATIONS.categories) => (
         <div key={type} className="shadow-md
@@ -123,6 +132,9 @@ const FilterPage = () => {
     selectedTags={selectedTags}
     tagName="Reset"
     />
+      </div>
+      <div className="m-8">
+      <Map />
       </div>
     </div>
   );
