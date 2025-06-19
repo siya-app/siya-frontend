@@ -40,9 +40,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         };
       }
       if (typeof err === 'object' && err !== null && 'response' in err && typeof (err as APIError).response === 'object') {
-        setError((err as APIError).response?.data?.error || 'No s\'ha pogut iniciar sessió');
+        setError((err as APIError).response?.data?.error || "No s'ha pogut iniciar sessió");
       } else {
-        setError('No s\'ha pogut iniciar sessió');
+        setError("No s'ha pogut iniciar sessió");
       }
     } finally {
       setLoading(false);
