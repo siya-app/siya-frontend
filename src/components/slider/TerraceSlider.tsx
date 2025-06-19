@@ -61,10 +61,23 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
         }
     }, [list, orderBy]);
 
+    const titleByOrder = useMemo(() => {
+        switch (orderBy) {
+            case 'rating':
+                return 'Les més valorades';
+            case 'is_claimed':
+                return 'Et recomanem';
+            case 'nearby':
+                return 'A prop teu';
+            default:
+                return 'Descobrir';
+        }
+    }, [orderBy]);
+
 
     return (
         <div className="mt-5">
-            <h2 className="montserrat-siya text-xl m-2 ms-3 siyaDark-text">A prop teu <span className="inline-icon"><HiArrowSmRight /></span></h2>
+            <h2 className="montserrat-siya text-xl m-2 ms-3 siyaDark-text">{titleByOrder}<span className="inline-icon"><HiArrowSmRight /></span></h2>
             <ScrollSnap>
                 {sortedTerraces.map((terrace: CustomTerraceType) => (
                     <BlobCard

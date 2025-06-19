@@ -4,20 +4,28 @@ import Map from "../features/map/MapFeature";
 import LogInForm from "../features/login-form/LogInForm";
 import TerraceSlider from "../components/slider/TerraceSlider";
 import TerraceClaim from "../features/terrace-claim/TerraceClaim";
+import { useTerraceList } from "../hooks/useTerraceList";
 
 
 
 
 const Home = () => {
+  const { terraceList } = useTerraceList();
 
   return (
     <div >
       <Hero />
       <div className="m-8">
-      <Map />
+        <Map />
       </div>
       <TerraceSlider
-      orderBy="rating"/>
+        orderBy="nearby"
+        list={terraceList}
+      />
+      <TerraceSlider
+        orderBy="is_claimed"
+        list={terraceList}
+      />
       <LogInForm></LogInForm>
     </div>
   );
