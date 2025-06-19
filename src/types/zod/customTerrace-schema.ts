@@ -122,8 +122,8 @@ export const CustomTerraceSchema = z.object({
     zip_code: z.string(),
     tables: z.number(),
     seats: z.number(),
-    latitude: z.string(),
-    longitude: z.string(),
+    latitude: z.number(),
+    longitude: z.number(),
     average_price: z.number().optional(),
     average_rating: z.number().optional(),
     has_wifi: z.boolean().optional(),
@@ -138,6 +138,8 @@ export const CustomTerraceSchema = z.object({
     profile_pic: z.string().optional(),
     tags: TagsSchema
 });
+
+export type TerraceWithDistance = CustomTerraceType & { distance: number };
 
 export type DietaryRestrictionType = z.infer<typeof DietaryRestrictionSchema>;
 export type FoodCategoryType = z.infer<typeof FoodCategorySchema>;

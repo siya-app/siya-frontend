@@ -4,7 +4,14 @@ import Button from "../Button";
 import { Link, useNavigate } from "react-router-dom";
 import RatingStars from "../RatingStars";
 
-const BlobCard = ({ className = "", picture, businessName, rating, blob, id }: BlobCardProps) => {
+const BlobCard = ({ className = "",
+    picture,
+    businessName,
+    rating,
+    blob,
+    id,
+    distance
+}: BlobCardProps) => {
 
     return (
         <div className={`text-center ${className}`}>

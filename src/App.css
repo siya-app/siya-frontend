@@ -190,3 +190,10 @@
   --color-siya-dark-green: #385852;
   --color-siya-border-grey: #D9D9D9
 }
+
+
+/* center an icon in a text line */
+.inline-icon {
+  display:  inline-flex;
+  vertical-align: middle;
+}

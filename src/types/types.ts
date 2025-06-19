@@ -13,6 +13,7 @@ export type BlobCardProps = {
     rating: number;
     blob: string;
     id: string;
+    distance?: number
 };
 
 export type ScrollSnapProps = {
@@ -33,5 +34,5 @@ export type BlobListProps = {
 export type OrderByOption =
     | 'rating'
     | 'is_claimed'
-    | 'near_you'
+    | 'nearby'
     | 'default';

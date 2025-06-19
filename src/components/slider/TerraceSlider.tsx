@@ -1,10 +1,16 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useContext } from "react";
 // import { uselist } from "../../hooks/uselist";
 import ScrollSnap from "../../components/slider/ScrollSnap";
-import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
+import type { CustomTerraceType, TerraceWithDistance } from "../../types/zod/customTerrace-schema";
 import BlobCard from "./BlobCard";
 import redBlob from '../../assets/blobs/red-blob.png';
 import type { OrderByOption } from "../../types/types";
+import { filterByProximity } from "../../utils/filterByProximity";
+// import { UserLocationContext } from "../../context/UserLocationContext";
+import { useUserLocation } from "../../hooks/useUserLocation";
+import { calculateDistance } from "../../utils/calculateDistance";
+import { HiArrowSmRight } from "react-icons/hi";
+
 interface TerraceSliderProps {
     orderBy?: OrderByOption;
     list: CustomTerraceType[];
@@ -13,8 +19,7 @@ interface TerraceSliderProps {
 
 function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
 
-    // const { list } = uselist();
-    //TODO: near_you terraces logic
+    const { location } = useUserLocation();
 
     const shuffleArray = (array: CustomTerraceType[]) => {
         const shuffled = [...array];
@@ -35,8 +40,20 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
             case 'is_claimed':
                 return terraces.sort((a, b) => (a.average_rating ?? 0) - (b.average_rating ?? 0));
 
-            case 'near_you':
-                return terraces.sort((a, b) => a.business_name.localeCompare(b.business_name));
+            case 'nearby':
+                const nearbyTerraces = filterByProximity({
+                    maxDistance: 1, // you can change this to 2 or 3
+                    terraces: terraces,
+                    location: location ?? null,
+                    calculateDistance: calculateDistance
+                }) as TerraceWithDistance[];
+
+                console.log("📍 Nearby terraces within 1km:", nearbyTerraces.map(t => ({
+                    name: t.business_name,
+                    distance: t.distance?.toFixed(2)
+                })));
+
+                return nearbyTerraces;
 
             case 'default':
             default:
@@ -47,6 +64,7 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
 
     return (
         <div className="mt-5">
+            <h2 className="montserrat-siya text-xl m-2 ms-3 siyaDark-text">A prop teu <span className="inline-icon"><HiArrowSmRight /></span></h2>
             <ScrollSnap>
                 {sortedTerraces.map((terrace: CustomTerraceType) => (
                     <BlobCard

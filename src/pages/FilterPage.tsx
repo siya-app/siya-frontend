@@ -146,12 +146,18 @@ const FilterPage = () => {
       ))}
       {(selectedTags.length > 0 || searchQuery !== '') ? (
         filteredTerraces.length > 0 ? (
-          <TerraceSlider list={filteredTerraces} />
+          <TerraceSlider
+          orderBy="nearby"
+          list={filteredTerraces}
+          />
         ) : (
-          <p className="text-center text-lg text-gray-500 mt-4">No hem trobat terrasses</p>
+          <p className="text-center text-lg text-gray-500 mt-4">No s'han trobat terrasses</p>
         )
       ) : (
-        <TerraceSlider list={terraceList} />
+        <TerraceSlider
+        orderBy="nearby"
+        list={terraceList}
+        />
       )}
       <div className="flex justify-center">
         <SliderButton
