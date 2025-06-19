@@ -41,10 +41,16 @@ export const api = {
    */
   updateUserRoleAndTerrace: async (userId, terraceId) => {
     try {
+      const token = localStorage.getItem('token');
       // Endpoint para actualizar el usuario y asignarle la terraza
       // Ajusta 'users/${userId}/claim-terrace' si tu endpoint es diferente
-      const response = await axios.put(`${API_BASE_URL}/users/${userId}/claim-terrace`, { terraceId });
-      return { success: true, message: response.data.message || "¡Felicidades! Ahora eres el propietario de esta terraza." };
+      const response = await axios.put(`${API_BASE_URL}/users/${userId}/claim-terrace`,
+         { terraceId }, {
+          headers: {
+          Authorization: `Bearer ${token}`,
+        },
+         });
+      return { success: true, message: response.data.message || "Enhorabona! Ara ets el propietari d'aquesta terraza!" };
     } catch (error) {
       if (error.response) {
         // El servidor respondió con un estado de error
