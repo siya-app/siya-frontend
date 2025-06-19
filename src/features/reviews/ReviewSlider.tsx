@@ -14,6 +14,7 @@ export function ReviewSlider({ terraceId }: Props) {
     queryKey: ['reviews', terraceId],
     queryFn: () => fetchReviewsByTerraceId(terraceId),
   });
+  console.log(reviews);
 
   if (isLoading) return <p>Carregant reviews...</p>;
   if (error) return <p className="text-red-500">Error carregant les reviews.</p>;

@@ -65,13 +65,12 @@ const TerraceDetailsView = () => {
       </div>
 
       <div className="pt-6">
-        <div className="flex items-center gap-2">
-          <h2 className="text-xl font-medium">Ressenyes</h2>
-          <span className="text-xl">➡️</span>
-        </div>
-        {/* Aquí hauria d'anar el component de ressenyes, el slider */}
+           <h2 className="text-xl font-medium">Ressenyes</h2>
       </div>
       <ReviewSlider terraceId={terrace.id} />
+      <div className="pt-6">
+           <h2 className="text-xl font-medium">Deixa la teva Ressenya</h2>
+      </div>
       <ReviewForm
         userId={user.user?.id || ''}
         terraceId={terrace.id}
@@ -80,9 +79,6 @@ const TerraceDetailsView = () => {
           queryClient.invalidateQueries({ queryKey: ['reviews', terrace.id] });
         }}
       />
-      <div className="flex justify-end pr-3 pt-4">
-        <button className="text-sm text-gray-500">➕ Afegir Ressenya</button>
-      </div>
     </div>
   );
 };

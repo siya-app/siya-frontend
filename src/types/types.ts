@@ -38,11 +38,11 @@ export type OrderByOption =
 
     export type Review = {
   id: string;
-  terrace_id: string;
-  user_id: string;
+  terraceId: string;
+  userId: string;
   rating: number;
   comment: string;
-  created_at: string;
+  createdAt: string;
   user?: {
     id: string;
     name: string;

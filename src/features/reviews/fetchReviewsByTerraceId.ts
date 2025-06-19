@@ -8,7 +8,7 @@ export async function fetchReviewsByTerraceId(terraceId: string): Promise<Review
   }
 
   const allReviews: Review[] = await res.json();
-
+  console.log("Reviews carregades:", allReviews);
   // Filtrar només les de la terrassa concreta
-  return allReviews.filter((review) => review.terrace_id === terraceId);
+  return allReviews.filter((review) => review.terraceId === terraceId);
 }
