@@ -73,15 +73,16 @@ const FilterPage = () => {
 
   const resetFilters = (list: string[]) => {
     setSelectedTags((prev) => prev = []);
+    setSearchQuery('')
   }
 
-  const filterBySearch = (terraces: CustomTerraceType[], query: string) => {
-    if (!query || query === '') return terraces;
+  // const filterBySearch = (terraces: CustomTerraceType[], query: string) => {
+  //   if (!query || query === '') return terraces;
 
-    return terraces.filter((terrace) =>
-      terrace.business_name?.toLowerCase().includes(query.toLowerCase())
-    );
-  }
+  //   return terraces.filter((terrace) =>
+  //     terrace.business_name?.toLowerCase().includes(query.toLowerCase())
+  //   );
+  // }
 
   useEffect(() => {
     const filtered = terraceList.filter((terrace) => {

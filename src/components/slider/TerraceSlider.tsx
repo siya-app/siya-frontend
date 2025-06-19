@@ -16,22 +16,31 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
     // const { list } = uselist();
     //TODO: near_you terraces logic
 
+    const shuffleArray = (array: CustomTerraceType[]) => {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    };
+
     const sortedTerraces = useMemo(() => {
         const terraces = Array.isArray(list) ? [...list] : [];
-    
+
         switch (orderBy) {
             case 'rating':
                 return terraces.sort((a, b) => (b.average_rating ?? 0) - (a.average_rating ?? 0));
-    
+
             case 'is_claimed':
                 return terraces.sort((a, b) => (a.average_rating ?? 0) - (b.average_rating ?? 0));
-    
+
             case 'near_you':
                 return terraces.sort((a, b) => a.business_name.localeCompare(b.business_name));
-    
+
             case 'default':
             default:
-                return terraces;
+                return shuffleArray(terraces);
         }
     }, [list, orderBy]);
 
@@ -52,8 +61,6 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
                 ))}
             </ScrollSnap>
         </div>
-        //carleeees aquiiii l'id ❤️✨
-
     )
 }
 
