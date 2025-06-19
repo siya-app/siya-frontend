@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Heart, Share2 } from "lucide-react";
 import type { Terrace } from "../../types/TerraceType";
 import { fetchTerraceById } from "../../services/fetchTerraceById";
+import {ReviewSlider} from "../reviews/ReviewSlider";
 import { ReviewForm } from "../reviews/ReviewForm";
 // import CategoryBlobs from "../components/CategoryBlobs"; // si existeix
 import { useQueryClient } from '@tanstack/react-query';
@@ -64,10 +65,11 @@ const TerraceDetailsView = () => {
       </div>
 
       <div className="pt-6">
-        <div className="flex items-center gap-2">
-          <h2 className="text-xl font-medium">Ressenyes</h2>
-          <span className="text-xl">➡️</span>
-        </div>
+           <h2 className="text-xl font-medium">Ressenyes</h2>
+      </div>
+      <ReviewSlider terraceId={terrace.id} />
+      <div className="pt-6">
+           <h2 className="text-xl font-medium">Deixa la teva Ressenya</h2>
       </div>
       <ReviewForm
         userId={user.user?.id || ''}
@@ -77,9 +79,6 @@ const TerraceDetailsView = () => {
           queryClient.invalidateQueries({ queryKey: ['reviews', terrace.id] });
         }}
       />
-      <div className="flex justify-end pr-3 pt-4">
-        <button className="text-sm text-gray-500">➕ Afegir Ressenya</button>
-      </div>
     </div>
   );
 };
