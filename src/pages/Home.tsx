@@ -18,25 +18,16 @@ const Home = () => {
 
   const location = useLocation();
 
-
-
-  // return (
-  //   <div>
-  //     <Hero />
-  //     <div className="m-8">
-  //       <Map />
-  //     </div>
-  //     <TerraceSlider
-  //       orderBy="nearby"
-  //       list={terraceList}
-  //     />
-  //     <TerraceSlider
-  //       orderBy="is_claimed"
-  //       list={terraceList}
-  //     />
-  //     <LogInForm></LogInForm>
-  //   </div>
-  // );
+  useEffect(() => {
+    if (location.hash === '#loginForm' && terraceList.length > 0) {
+      setTimeout(() => {
+        const element = document.getElementById('loginForm');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [location, terraceList]);
 
   return (
     <div>
@@ -55,8 +46,10 @@ const Home = () => {
         orderBy="is_claimed"
         list={terraceList}
       />
-      {user?.user && isLoggedIn ?
-        <></> : <LogInForm />}
+      <section id="loginForm">
+        {user?.user && isLoggedIn ?
+          <></> : <LogInForm />}
+      </section>
     </div>
   );
 };
