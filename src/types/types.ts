@@ -43,11 +43,8 @@ export type OrderByOption =
   rating: number;
   comment: string;
   createdAt: string;
-  user?: {
-    id: string;
-    name: string;
-    // afegeix més si tens més camps de l’usuari que et venen del join
-  };
+  userName?: string; // opcional si ve del join o inclòs al JSON
+  
 };
 
 export type ReviewCardProps = {
