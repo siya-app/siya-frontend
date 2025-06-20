@@ -5,7 +5,12 @@ import scrollbarHide from 'tailwind-scrollbar-hide'
 export default {
     content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                montserrat: ['"Montserrat"', 'sans-serif'],
+                major: ['"Major Mono Display"', 'monospace'],
+            }
+        },
     },
     plugins: [scrollbarHide],
 }

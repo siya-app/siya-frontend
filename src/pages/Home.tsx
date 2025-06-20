@@ -5,6 +5,7 @@ import LogInForm from "../features/login-form/LogInForm";
 import TerraceSlider from "../components/slider/TerraceSlider";
 import TerraceClaim from "../features/terrace-claim/TerraceClaim";
 import { useTerraceList } from "../hooks/useTerraceList";
+import '../App.css';
 
 
 
@@ -14,6 +15,7 @@ const Home = () => {
 
   return (
     <div >
+      <h1 className="font-major text-6xl">SIYA</h1>
       <Hero />
       <div className="m-8">
         <Map />
