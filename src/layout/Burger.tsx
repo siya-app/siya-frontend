@@ -110,6 +110,7 @@ const BurgerMenu = () => {
         localStorage.removeItem('user');
         setIsOpen(false);
         navigate('/');
+        // window.location.reload
     };
 
     const links = [
@@ -129,6 +130,7 @@ const BurgerMenu = () => {
                         <Link
                             to={link.path}
                             className="hover:text-white p-1 hover:bg-red-500 rounded-md"
+                            onClick={() => setIsOpen(false)}
                         >
                             {link.name}
                         </Link>
@@ -143,8 +145,9 @@ const BurgerMenu = () => {
             </button>
         ) : (
             <Link
-                to="/login"
+                to="/#loginForm"
                 className="hover:text-white w-fit  hover:bg-red-500 rounded-md"
+                onClick={() => setIsOpen(false)}
             >
                 Log In
             </Link>
@@ -191,7 +194,7 @@ const BurgerMenu = () => {
             </button>
         ) : (
             <Link
-                to="/"
+                to="/#loginForm"
                 className="block w-fit py-2 text-white hover:bg-gray-100 hover:bg-opacity-20 transition-colors duration-200"
                 onClick={() => setIsOpen(false)}
             >

@@ -13,6 +13,7 @@ export type BlobCardProps = {
     rating: number;
     blob: string;
     id: string;
+    distance?: number
 };
 
 export type ScrollSnapProps = {
@@ -21,8 +22,8 @@ export type ScrollSnapProps = {
 
 export type SearchBarProps = {
     query: string;
-    onSearch: (query: string) => void;
-    onQueryChange: (query: string) => void;
+    onSearch?: (query: string) => void;
+    onQueryChange?: (query: string) => void;
 };
 
 export type BlobListProps = {
@@ -33,7 +34,7 @@ export type BlobListProps = {
 export type OrderByOption =
     | 'rating'
     | 'is_claimed'
-    | 'near_you'
+    | 'nearby'
     | 'default';
 
     export type Review = {

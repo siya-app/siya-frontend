@@ -1,5 +1,5 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
 
 /* :root {
   --siya-red: #ff1818;
@@ -65,7 +65,7 @@
 }
 
 .major-mono-display-regular {
-  font-family: "Major Mono Display", monospace;
+  font-family: "Major Mono Display", monospace !important;
   font-weight: 400;
   font-style: normal;
 }
@@ -155,7 +155,7 @@
 }
 
 .major-mono-display-regular {
-  font-family: "Major Mono Display", monospace;
+  font-family: "Major Mono Display" !important;
   font-weight: 400;
   font-style: normal;
 }
@@ -189,4 +189,32 @@
   --color-siya-lemon-cream: #FFFFF1;
   --color-siya-dark-green: #385852;
   --color-siya-border-grey: #D9D9D9
+}
+
+
+/* center an icon in a text line */
+.inline-icon {
+  display:  inline-flex;
+  vertical-align: middle;
+}
+
+/* avoids mapbox logo to be z higher */
+.map-container {
+  padding-bottom: env(safe-area-inset-bottom, 4rem);
+}
+
+.mapboxgl-ctrl-bottom-right,
+.mapboxgl-ctrl-logo {
+  z-index: 0 !important;
+}
+
+.mapboxgl-ctrl-logo {
+  z-index: 0 !important;
+  pointer-events: none !important;
+  opacity: 0.01;
+}
+
+.toggle-height {
+  overflow: hidden;
+  transition: max-height 0.4s ease;
 }
