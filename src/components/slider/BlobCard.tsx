@@ -23,7 +23,7 @@ const BlobCard = ({ className = "",
                         loading="lazy"
                         src={blob}
                         alt="Blob background"
-                        className="absolute bottom-2 right-2 w-full h-full z-0"
+                        className="absolute bottom-2 right-2 w-full h-full"
                     />
                     {/* Inner picture */}
                     <img
@@ -31,7 +31,7 @@ const BlobCard = ({ className = "",
                         src={picture}
                         alt={businessName}
                         className="absolute top-[18%] left-[18%] w-[64%] h-[64%]
-                        object-cover rounded-full z-10"
+                        object-cover rounded-full"
                     />
                 </div>
                 {/* Star rating */}

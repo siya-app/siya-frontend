@@ -48,12 +48,12 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
                     calculateDistance: calculateDistance
                 }) as TerraceWithDistance[];
 
-                console.log("📍 Nearby terraces within 1km:", nearbyTerraces.map(t => ({
+                console.log("📍 Nearby terraces within 2km:", nearbyTerraces.map(t => ({
                     name: t.business_name,
                     distance: t.distance?.toFixed(2)
                 })));
 
-                return nearbyTerraces;
+                return nearbyTerraces ? nearbyTerraces : 'No hem trobat terrasses a prop...';
 
             case 'default':
             default:

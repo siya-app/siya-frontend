@@ -24,7 +24,7 @@ function TerraceClaim() {
     }
     return null;
   };
-  
+
   useEffect(() => {
     const userId = getUserIdFromLocalStorage();
     if (userId) {
@@ -37,9 +37,9 @@ function TerraceClaim() {
 
   const claimTerrace = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(''); 
-    setFoundTerrace(null); 
-    setConfirmationMessage(''); 
+    setError('');
+    setFoundTerrace(null);
+    setConfirmationMessage('');
     setLoading(true);
 
     if (!currentUserId) {
@@ -75,7 +75,7 @@ function TerraceClaim() {
       return;
     }
 
-    if (!foundTerrace) { 
+    if (!foundTerrace) {
       setError("No hi ha cap terrassa seleciionada per confirmar.");
       setLoading(false);
       return;
@@ -86,20 +86,20 @@ function TerraceClaim() {
 
       if (response.success) {
         setConfirmationMessage(response.message);
-        setFoundTerrace(null); 
-        setCatastro(''); 
+        setFoundTerrace(null);
+        setCatastro('');
 
         const userString = localStorage.getItem('user');
-        if (userString) { 
+        if (userString) {
           try {
-           
+
             const currentUserData = JSON.parse(userString);
 
-            
+
             const updatedUserData = {
               ...currentUserData,
               role: 'owner',
-              id_terrace: foundTerrace.id 
+              id_terrace: foundTerrace.id
             };
             localStorage.setItem('user', JSON.stringify(updatedUserData));
 
@@ -111,11 +111,11 @@ function TerraceClaim() {
 
           } catch (e) {
             console.error("Error al actualitzar les dades de l'usuari en localStorage:", e);
-           
+
           }
         } else {
           console.warn("No s'ha trobat l'objecte usuari en localStorage.");
-          
+
         }
 
       } else {
@@ -131,11 +131,11 @@ function TerraceClaim() {
 
   return (
     <>
+
       <form onSubmit={claimTerrace} className="flex flex-col w-4/5 m-auto">
-        <h3>Ets propietari d'una terrassa?</h3>
         <h4>
           Per reclamar-la, introdueix la referència catastral del teu
-          establiment a la casella següent
+          establiment a la casella següent:
         </h4>
         <input
           type="text"
@@ -143,7 +143,7 @@ function TerraceClaim() {
           value={catastro}
           onChange={(e) => setCatastro(e.target.value)}
           required
-          className="w-1/2 mt-2"
+          className="w-1/2 mt-2 border-1 border-siya-dark-green p-2 rounded m-2 ms-0"
           disabled={loading || !currentUserId} // Deshabilitar si carga o no hay usuario
         />
         <Button
@@ -161,21 +161,21 @@ function TerraceClaim() {
           {loading ? 'Cercant...' : 'Cercar terrassa'}
         </Button>
 
-      
+
         {error && (
           <>
             <p className="text-siya-principal mt-4">{error}</p>
             {error && (
-                <p className="text-siya-secundario">Si no trobes la teva terrassa, contacta'ns perquè la registrem a la nostra base de dades</p>
+              <p className="text-siya-secundario">Si no trobes la teva terrassa, contacta'ns perquè la registrem a la nostra base de dades</p>
             )}
           </>
         )}
 
-        
+
         {foundTerrace && (
           <div className="mt-6 p-4 border border-gray-300 rounded">
             <h4 className="font-bold">Terrassa Trobada:</h4>
-            <p><strong>Nom:</strong> {foundTerrace.business_name}</p> 
+            <p><strong>Nom:</strong> {foundTerrace.business_name}</p>
             <p><strong>Adreça:</strong> {foundTerrace.address}</p>
             <p className="mt-2">És aquesta la teva terrassa?</p>
             <Button
@@ -198,9 +198,9 @@ function TerraceClaim() {
           </div>
         )}
 
-        
+
         {confirmationMessage && (
-            <p className="text-green-600 mt-4 font-bold">{confirmationMessage}</p>
+          <p className="text-green-600 mt-4 font-bold">{confirmationMessage}</p>
         )}
       </form>
     </>

@@ -12,7 +12,7 @@ const Hero = () => {
                     <p className="ms-4 text-3xl text-siya-principal
                     montserrat-siya text-left inline-block">
                         {user?.user 
-                            ? `Hola ${user.user.name}!` 
+                            ? `Hola, ${user.user.name}!` 
                             : <>La teva nova app de <i>terraceo</i>.</>
                         }
                     </p>

@@ -7,12 +7,18 @@ import TerraceClaim from "../features/terrace-claim/TerraceClaim";
 import { useTerraceList } from "../hooks/useTerraceList";
 import '../App.css';
 import WeatherFeature from "../features/weather/WeatherFeature";
-
-
-
+import { useAuth } from "../context/useAuth";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const Home = () => {
   const { terraceList } = useTerraceList();
+  const user = useAuth();
+  const isLoggedIn = !!localStorage.getItem('token');
+
+  const location = useLocation();
+
+
 
   // return (
   //   <div>
@@ -35,7 +41,7 @@ const Home = () => {
   return (
     <div>
       <Hero />
-      <div className="m-8 relative">  {/* Added relative positioning */}
+      <div className="m-8 relative map-container">  {/* Added relative positioning */}
         <Map />
         <div className="absolute top-1 right-1 z-1">  {/* Weather floating position */}
           <WeatherFeature />
@@ -49,7 +55,8 @@ const Home = () => {
         orderBy="is_claimed"
         list={terraceList}
       />
-      <LogInForm />
+      {user?.user && isLoggedIn ?
+        <></> : <LogInForm />}
     </div>
   );
 };

@@ -197,3 +197,24 @@
   display:  inline-flex;
   vertical-align: middle;
 }
+
+/* avoids mapbox logo to be z higher */
+.map-container {
+  padding-bottom: env(safe-area-inset-bottom, 4rem);
+}
+
+.mapboxgl-ctrl-bottom-right,
+.mapboxgl-ctrl-logo {
+  z-index: 0 !important;
+}
+
+.mapboxgl-ctrl-logo {
+  z-index: 0 !important;
+  pointer-events: none !important;
+  opacity: 0.01;
+}
+
+.toggle-height {
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
