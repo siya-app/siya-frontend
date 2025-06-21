@@ -18,7 +18,7 @@ function SliderButton({
             onClick={onClick}
             className={`text-xs text-center
             capitalize  rounded-xl
-            p-1.5 shadow-md shadow-gray-600
+            p-1.5 shadow-md shadow-gray-600 m-3
             ${isSelected ? 'siya3-bg text-white' : 'siya2-bg siya3-text'}
             `}>{tagName}</button>
     )

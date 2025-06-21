@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {fetchWeather}  from "../../services/fetchWeather";
+import { fetchWeather } from "../../services/fetchWeather";
 import { Cloud, Sun, CloudSun } from "lucide-react";
 import { useUserLocation } from "../../hooks/useUserLocation";
 
@@ -48,24 +48,45 @@ const WeatherFeature = () => {
   const temperature = weather.hourly.temperature_2m[0];
 
   let icon = <Sun className="w-12 h-12 text-yellow-400" />;
-  let description = "Cel clar";
+  // let description = "Cel clar";
 
   if (cloudCover > 30 && cloudCover <= 70) {
     icon = <CloudSun className="w-12 h-12 text-yellow-300" />;
-    description = "Parcialment ennuvolat";
+    // description = "Parcialment ennuvolat";
   } else if (cloudCover > 70) {
     icon = <Cloud className="w-12 h-12 text-gray-500" />;
-    description = "Molt ennuvolat";
+    // description = "Molt ennuvolat";
   }
 
   return (
-    <div className="shadow shadow-gray-200 bg-gray-50 flex flex-col
-    justify-center items-center m-4 rounded-xl
-    ps-2 pe-2
+    // <div className="shadow-lg shadow-gray-200 bg-transparent flex flex-col
+    // justify-center items-center m-4 rounded-xl
+    // ps-2 pe-2 w-full
+    // ">
+    //   <div className="flex items-center">{icon}</div>
+    //   <span className="text-sm">{description}</span>
+    //   <p className="text-sm">{temperature}°C</p>
+    // </div>
+
+    <div className="
+      bg-gradient-to-br from-white/50 to-neutral-300/30
+      backdrop-blur-xs
+      border border-white/30
+      flex flex-col items-center
+      bg-
+      w-full max-w-xs
+      p-3
+      rounded-full
     ">
-      <div className="flex items-center">{icon}</div>
-      <span className="text-sm">{description}</span>
-      <p className="text-sm">{temperature}°C</p>
+      <div className="flex items-center w-3/4">     {/* Icon container */}
+        {icon}
+      </div>
+      <span className="text-sm text-gray-800 font-medium">  {/* Description */}
+        {/* {description} */}
+      </span>
+      <p className="text-sm font-semibold text-gray-900">        {/* Temperature */}
+        {temperature}°C
+      </p>
     </div>
   );
 };

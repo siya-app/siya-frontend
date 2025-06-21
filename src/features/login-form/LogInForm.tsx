@@ -30,7 +30,7 @@ export default function Login() {
 
   return (
     <>
-      <form onSubmit={login} className="flex flex-col w-4/5 m-auto">
+      <form onSubmit={login} className="flex flex-col w-4/5 m-auto shadow-lg p-4 mb-4">
         <h3>Accedir →</h3>
         <label htmlFor="email" className="mt-4">
           Email

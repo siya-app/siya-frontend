@@ -13,6 +13,7 @@ export type BlobCardProps = {
     rating: number;
     blob: string;
     id: string;
+    distance?: number
 };
 
 export type ScrollSnapProps = {
@@ -21,8 +22,8 @@ export type ScrollSnapProps = {
 
 export type SearchBarProps = {
     query: string;
-    onSearch: (query: string) => void;
-    onQueryChange: (query: string) => void;
+    onSearch?: (query: string) => void;
+    onQueryChange?: (query: string) => void;
 };
 
 export type BlobListProps = {
@@ -33,5 +34,26 @@ export type BlobListProps = {
 export type OrderByOption =
     | 'rating'
     | 'is_claimed'
-    | 'near_you'
+    | 'nearby'
     | 'default';
+
+export type Review = {
+    id: string;
+    terraceId: string;
+    userId: string;
+    rating: number;
+    comment: string;
+    createdAt: string;
+    user?: {
+        id: string;
+        name: string;
+        // afegeix més si tens més camps de l’usuari que et venen del join
+    };
+};
+
+export type ReviewCardProps = {
+    rating: number;
+    comment: string;
+    userName: string; // suposem que ve de Supabase amb join o inclòs al JSON
+};
+
