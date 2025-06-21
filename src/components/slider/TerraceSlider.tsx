@@ -77,19 +77,28 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
 
     return (
         <div className="mt-5">
-            <h2 className="montserrat-siya text-xl m-2 ms-3 siyaDark-text">{titleByOrder}<span className="inline-icon"><HiArrowSmRight /></span></h2>
+            <h2 className="montserrat-siya text-xl
+            m-2 ms-3 siyaDark-text">{titleByOrder}
+                <span className="inline-icon"><HiArrowSmRight /></span>
+                </h2>
             <ScrollSnap>
-                {Array.isArray(sortedTerraces) && sortedTerraces.length > 0 && sortedTerraces.map((terrace: CustomTerraceType) => (
-                    <BlobCard
-                        key={terrace.cadastro_ref}
-                        className="snap-start shrink-0 w-[60%] sm:w-[35%]"
-                        picture={terrace.profile_pic ?? ""}
-                        businessName={terrace.business_name}
-                        rating={terrace.average_rating ?? 0}
-                        blob={redBlob}
-                        id={terrace.id}
-                    />
-                ))}
+                {Array.isArray(sortedTerraces) && sortedTerraces.length > 0 ? (
+                    sortedTerraces.map((terrace: CustomTerraceType) => (
+                        <BlobCard
+                            key={terrace.cadastro_ref}
+                            className="snap-start shrink-0 w-[60%] sm:w-[35%]"
+                            picture={terrace.profile_pic ?? ""}
+                            businessName={terrace.business_name}
+                            rating={terrace.average_rating ?? 0}
+                            blob={redBlob}
+                            id={terrace.id}
+                        />
+                    ))
+                ) : (
+                    <div className="p-4 siyaDark-text text-start border-siya-principal border-r-4 border-b-4 rounded-2xl bg-gray-100 text-balance">
+                        No s'han trobat terrasses sota aquests criteris, siusplau, prova amb altres filtres.
+                    </div>
+                )}
             </ScrollSnap>
         </div>
     )

@@ -173,6 +173,7 @@ const FilterPage = () => {
           onClick={() => resetFilters([])}
           selectedTags={selectedTags}
           tagName="Reset"
+          customClass="ps-4 pe-4 border-2"
         />
       </div>
       <div className="m-8">

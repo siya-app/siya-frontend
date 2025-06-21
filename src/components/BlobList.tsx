@@ -25,9 +25,9 @@ export function BlobCarousel({
     // const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
 
-    const toggleSelection = (id: string) => {
-        onToggleTag(id);
-    };
+    // const toggleSelection = (id: string) => {
+    //     onToggleTag(id);
+    // };
 
 
     const blobs: Record<BlobType, Record<string, string>> = getBlobs();
@@ -39,6 +39,7 @@ export function BlobCarousel({
             {/* <h2 className="text-lg text-siya-dark-green font-semibold ms-3 mb-2 mt-2 system-sans">{categoryTitle}</h2> */}
             <ScrollSnap>
                 {Object.entries(blobs[type]).map(([id, src]) => (
+                    <button onClick={() => onToggleTag(id)}>
                     <div key={id} className="snap-start shrink-0 w-[5em] mx-1">
                         <div className={"flex flex-col justify-start items-center pb-2"}>
                             <img
@@ -48,13 +49,14 @@ export function BlobCarousel({
                             />
                             <SliderButton
                                 key={`button-${id}`}
-                                onClick={() => toggleSelection(id)}
+                                // onClick={() => toggleSelection(id)}
                                 tagName={translations[id as keyof typeof translations]}
                                 id={id}
                                 selectedTags={selectedTags}
                             />
                         </div>
                     </div>
+                    </button>
                 ))}
             </ScrollSnap>
 
