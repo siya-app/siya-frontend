@@ -29,14 +29,16 @@ function AboutUs() {
             <p className='siyaRed-text
                 system-condensed
                 mt-5
+                m-6
                 text-center
                 text-pretty'>Ens hem proposat una idea molt boja. I si en comptes de passar-nos mitja tarda buscant terrassa,
                 la reservem amb antelació?
             </p>
             <h3 className='siyaRed-text
                 system-condensed
-                text-3xl
+                text-4xl
                 m-2
+                ms-4 me-4
                 font-extrabold text-center'>Vosaltres decidiu, nosaltres ho busquem.</h3>
             <Button
                 onClick={() => navigate("/buscar-terrassa")}
@@ -50,7 +52,7 @@ function AboutUs() {
                 Reservar taula
             </Button>
             
-            <img src={siyaTitle} className='w-1/3 mb-5'></img>
+            <img src={siyaTitle} className='w-[80%] mb-5'></img>
             
 
         </div>

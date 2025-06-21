@@ -30,9 +30,9 @@ function contactUsPage() {
             border-siya-principal
             border-r-4 border-b-4
             w-fit p-4">
-                <p>
+                <a href="https://www.instagram.com/siya__app/">
                 <PiInstagramLogoBold className="inline-icon me-2"/>
-                    @siya_bcn</p>
+                    @siya__app</a>
             </div>
             <img className="animate-bounce w-1/2 mt-15" src={agreement}></img>
         </div>
