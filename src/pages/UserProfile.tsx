@@ -62,7 +62,7 @@ export default function Profile() {
 
         mx-auto`}
       >
-        Reservar terrassa
+        Reservar taula
       </Button>
       <TerraceSlider
         list={terraceList}

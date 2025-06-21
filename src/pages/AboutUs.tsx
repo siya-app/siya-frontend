@@ -1,8 +1,19 @@
 import blueSky from '../assets/blue-sky.jpg';
 import siyaLogo from '../../public/bg-transp-logo-siya 1.svg';
 import siyaTitle from '../assets/bg-transparent-title-600x300.png'
+import siyaCircleBlue from '../assets/siya-circle-blue.png';
+import siyaCircleYellow from '../assets/siya-circle-yellow.png';
+import siyaCricleGrey from '../assets/siya-circle-grey.png';
+import siyaPosterBlue from '../assets/bg-blue-siya-poster.png';
+
+import Button from '../components/Button';
+import { useNavigate } from 'react-router-dom';
 
 function AboutUs() {
+
+    const navigate = useNavigate();
+
+
     return (
         <div className='flex flex-col justify-center items-center'>
             <h2 className="siyaRed-text
@@ -17,7 +28,6 @@ function AboutUs() {
             </div>
             <p className='siyaRed-text
                 system-condensed
-                m-2
                 mt-5
                 text-center
                 text-pretty'>Ens hem proposat una idea molt boja. I si en comptes de passar-nos mitja tarda buscant terrassa,
@@ -27,10 +37,21 @@ function AboutUs() {
                 system-condensed
                 text-3xl
                 m-2
-                mb-5
                 font-extrabold text-center'>Vosaltres decidiu, nosaltres ho busquem.</h3>
-                <img src={siyaLogo} className='w-1/2 justify-center'></img>
-            <img src={siyaTitle} className='w-1/3'></img>
+            <Button
+                onClick={() => navigate("/buscar-terrassa")}
+                className={`text-primary-content px-4 py-2 mt-3
+                        m-3 bg-gr bg-siya-principal text-white rounded-full
+                        flex justify-between items-center
+                        toggle-height
+                
+                        mx-auto`}
+            >
+                Reservar taula
+            </Button>
+            
+            <img src={siyaTitle} className='w-1/3 mb-5'></img>
+            
 
         </div>
     )

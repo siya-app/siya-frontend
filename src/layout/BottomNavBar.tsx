@@ -16,6 +16,10 @@
 
 import { Link } from 'react-router-dom';
 import { FaMapMarkerAlt, FaFilter, FaUser } from 'react-icons/fa'; // Importing icons
+import { HiOutlineTicket } from "react-icons/hi";
+import { ImCalendar } from "react-icons/im";
+import { RiCalendarCheckFill } from "react-icons/ri";
+
 
 export default function Footer() {
     return (
@@ -26,15 +30,15 @@ export default function Footer() {
                     className="flex flex-col items-center text-xs hover:text-gray-200 transition-colors"
                 >
                     <FaMapMarkerAlt className="text-lg mb-1" />
-                    <span>Near You</span>
+                    <span>Prop teu</span>
                 </Link>
 
                 <Link
                     to="/buscar-terrassa"
                     className="flex flex-col items-center text-xs hover:text-gray-200 transition-colors"
                 >
-                    <FaFilter className="text-lg mb-1" />
-                    <span>Filters</span>
+                    <RiCalendarCheckFill className="text-lg mb-1" />
+                    <span>Reservar</span>
                 </Link>
 
                 <Link
@@ -42,7 +46,7 @@ export default function Footer() {
                     className="flex flex-col items-center text-xs hover:text-gray-200 transition-colors"
                 >
                     <FaUser className="text-lg mb-1" />
-                    <span>Account</span>
+                    <span>Perfil</span>
                 </Link>
             </nav>
         </footer>

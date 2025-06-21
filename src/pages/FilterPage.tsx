@@ -103,13 +103,13 @@ const FilterPage = () => {
 
   return (
     <div>
-      <h1 className="siyaRed-text
+      <h2 className="siyaRed-text
       system-condensed
       text-4xl
 
       mt-5
       font-extrabold text-center">
-        Ganes de terraceo? ;)</h1>
+        Ganes de terraceo? ;)</h2>
       <SearchBar
         query={searchQuery}
         onQueryChange={setSearchQuery}
@@ -117,14 +117,17 @@ const FilterPage = () => {
       />
 
       {(['food', 'emotional', 'placement', 'cover', 'dietary'] as const).map((type: keyof typeof BLOB_TRANSLATIONS.categories) => (
-        <div key={type} className="shadow-md
-  border-l- border-r-4 border-t- border-b-4 border-siya-dark-green
-  siyaDark-text m-2 mt-3 bg-gray-50
-  shadow-neutral-300 my-2 rounded-2xl overflow-hidden">
+        <div key={type}
+        className="shadow-md
+          border-l- border-r-4 border-t- border-b-4 border-siya-dark-green
+          siyaDark-text m-2 mt-3 bg-gray-50
+          shadow-neutral-300 my-2 rounded-2xl overflow-hidden">
           <div
             onClick={() => setOpenSection(prev => prev === type ? null : type)}
-            className="cursor-pointer collapse-title bg-primary
-      text-primary-content px-4 py-2 capitalize flex justify-between items-center"
+            className="cursor-pointer
+              collapse-title bg-primary
+              text-primary-content px-4 py-2 capitalize
+              flex justify-between items-center"
           >
             {categoryTitle(type)}
             {openSection === type
@@ -146,17 +149,24 @@ const FilterPage = () => {
       ))}
       {(selectedTags.length > 0 || searchQuery !== '') ? (
         filteredTerraces.length > 0 ? (
+          <>
+          <TerraceSlider
+            list={filteredTerraces}
+          />
+
           <TerraceSlider
           orderBy="nearby"
-          list={filteredTerraces}
+            list={filteredTerraces}
           />
+          </>
+          
         ) : (
           <p className="text-center text-lg text-gray-500 mt-4">No s'han trobat terrasses</p>
         )
       ) : (
         <TerraceSlider
-        orderBy="nearby"
-        list={terraceList}
+          orderBy="nearby"
+          list={terraceList}
         />
       )}
       <div className="flex justify-center">

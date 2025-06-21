@@ -8,6 +8,7 @@ import { ReviewForm } from "../reviews/ReviewForm";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../../context/useAuth";
 import { useFavorites } from "../../hooks/useFavorites";
+import { RiHeartsLine, RiHeartsFill } from "react-icons/ri";
 
 
 const TerraceDetailsView = () => {
@@ -22,7 +23,7 @@ const TerraceDetailsView = () => {
   const favorite = isFavorite(id || "");
 
   const toggleFavorite = () => {
-  if (!id || !user?.id) return;
+    if (!id || !user?.id) return;
     if (favorite) {
       removeFavorite(id);
     } else {
@@ -68,27 +69,27 @@ const TerraceDetailsView = () => {
       {/* Accions: Favorit i Compartir */}
       <div className="flex justify-around pt-4">
         {user ? (
-        <button
-          onClick={toggleFavorite}
-          className="flex flex-col items-center disabled:opacity-50"
-          disabled={loading}
-        >
-          <Heart className={`w-6 h-6 transition-all ${favorite ? "fill-red-500 text-red-500" : ""}`} />
-          <span className="text-sm">{favorite ? "Guardat" : "Guardar"}</span>
-        </button>
+          <button
+            onClick={toggleFavorite}
+            className="flex flex-col items-center disabled:opacity-50"
+            disabled={loading}
+          >
+            <Heart className={`w-6 h-6 transition-all ${favorite ? "fill-red-500 text-red-500" : ""}`} />
+            <span className="text-sm">{favorite ? "Guardat" : "Guardar"}</span>
+          </button>
         ) : (
-        <div className="flex flex-col items-center text-gray-500">
-          <Heart className="w-6 h-6" />
-          <span className="text-sm">Cal iniciar sessió per guardar</span>
-        </div>
-       )}
+          <div className="flex flex-col items-center text-gray-500">
+            <Heart className="w-6 h-6" />
+            <span className="text-sm">Cal iniciar sessió per guardar</span>
+          </div>
+        )}
         <div className="flex flex-col items-center">
           <Share2
-          onClick={() => {
-            navigator.clipboard.writeText(window.location.href);
-            alert("Enllaç copiat al porta-retalls!");
-          }}
-          className="w-6 h-6" />
+            onClick={() => {
+              navigator.clipboard.writeText(window.location.href);
+              alert("Enllaç copiat al porta-retalls!");
+            }}
+            className="w-6 h-6" />
           <span className="text-sm">Compartir</span>
         </div>
       </div>

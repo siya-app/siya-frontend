@@ -48,7 +48,7 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
                     calculateDistance: calculateDistance
                 }) as TerraceWithDistance[];
 
-                console.log("📍 Nearby terraces within 2km:", nearbyTerraces.map(t => ({
+                console.log("📍 Nearby terraces within 1km:", nearbyTerraces.map(t => ({
                     name: t.business_name,
                     distance: t.distance?.toFixed(2)
                 })));
@@ -79,7 +79,7 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
         <div className="mt-5">
             <h2 className="montserrat-siya text-xl m-2 ms-3 siyaDark-text">{titleByOrder}<span className="inline-icon"><HiArrowSmRight /></span></h2>
             <ScrollSnap>
-                {Array.isArray(sortedTerraces) && sortedTerraces.map((terrace: CustomTerraceType) => (
+                {Array.isArray(sortedTerraces) && sortedTerraces.length > 0 && sortedTerraces.map((terrace: CustomTerraceType) => (
                     <BlobCard
                         key={terrace.cadastro_ref}
                         className="snap-start shrink-0 w-[60%] sm:w-[35%]"
