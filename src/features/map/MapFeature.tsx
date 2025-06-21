@@ -5,15 +5,11 @@ import { fetchTerraces } from "../../services/fetchTerraces";
 import type { Terrace } from "../../types/TerraceType";
 import TerraceMarker from "./TerraceMarker";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { useAuth } from "../../context/useAuth"; //importa context d'suari per recuperar favs
-import fetchUserFavorites from "../favorites/fetchUserFavorites"; //importar la funcio que busca favs per a l'usuari
 
 const Map = () => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const { location, loading, error } = useUserLocation();
-  const { user } = useAuth(); //get that user bitch!
-
   const [terraces, setTerraces] = useState<Terrace[]>([]);
 
   useEffect(() => {
@@ -41,8 +37,7 @@ const Map = () => {
 
     data.forEach((terrace) => {
       if (terrace.latitude && terrace.longitude) {
-        const isFavorite = false; // afegir la lògica
-        TerraceMarker({ terrace, map, isFavorite });
+        TerraceMarker({ terrace, map });
       }
     });
   });
