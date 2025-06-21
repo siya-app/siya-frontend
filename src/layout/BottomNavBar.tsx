@@ -30,7 +30,7 @@ export default function Footer() {
                 </Link>
 
                 <Link
-                    to="/buscar-terraza"
+                    to="/buscar-terrassa"
                     className="flex flex-col items-center text-xs hover:text-gray-200 transition-colors"
                 >
                     <FaFilter className="text-lg mb-1" />

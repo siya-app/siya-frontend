@@ -1,5 +1,5 @@
 import Header from "./Header";
-import Footer from "./Footer";
+import Footer from "./BottomNavBar";
 
 //changed class of main to no padding/margin for the sliders to look cool - Laia
 export default function Layout({ children }: { children: React.ReactNode }) {

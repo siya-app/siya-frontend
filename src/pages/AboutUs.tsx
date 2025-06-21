@@ -1,15 +1,15 @@
 import blueSky from '../assets/blue-sky.jpg';
 import siyaLogo from '../../public/bg-transp-logo-siya 1.svg';
-import siyaTitle from '../../public/siya-title-bg-transp.png'
+import siyaTitle from '../assets/bg-transparent-title-600x300.png'
 
 function AboutUs() {
     return (
-        <div className='flex flex-col justify-center items-center m-0'>
-            <img src={siyaTitle} className='w-1/3'></img>
+        <div className='flex flex-col justify-center items-center'>
             <h2 className="siyaRed-text
                 system-condensed
                 text-3xl
                 mb-5
+                mt-5
                 font-extrabold text-center">
                 Més temps per vosaltres :)</h2>
             <div>
@@ -30,6 +30,8 @@ function AboutUs() {
                 mb-5
                 font-extrabold text-center'>Vosaltres decidiu, nosaltres ho busquem.</h3>
                 <img src={siyaLogo} className='w-1/2 justify-center'></img>
+            <img src={siyaTitle} className='w-1/3'></img>
+
         </div>
     )
 }

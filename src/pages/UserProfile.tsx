@@ -53,6 +53,17 @@ export default function Profile() {
           </p>
         </div>
       </div>
+      <Button
+      onClick={() => navigate("/buscar-terrassa")}
+      className={`text-primary-content px-4 py-2 mt-8
+        m-4 bg-gr bg-siya-principal text-white rounded-full
+        flex justify-between items-center
+        toggle-height
+
+        mx-auto`}
+      >
+        Reservar terrassa
+      </Button>
       <TerraceSlider
         list={terraceList}
         orderBy={"nearby"}

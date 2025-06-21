@@ -79,7 +79,7 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
         <div className="mt-5">
             <h2 className="montserrat-siya text-xl m-2 ms-3 siyaDark-text">{titleByOrder}<span className="inline-icon"><HiArrowSmRight /></span></h2>
             <ScrollSnap>
-                {sortedTerraces.map((terrace: CustomTerraceType) => (
+                {Array.isArray(sortedTerraces) && sortedTerraces.map((terrace: CustomTerraceType) => (
                     <BlobCard
                         key={terrace.cadastro_ref}
                         className="snap-start shrink-0 w-[60%] sm:w-[35%]"

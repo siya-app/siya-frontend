@@ -39,7 +39,6 @@ export function BlobCarousel({
             {/* <h2 className="text-lg text-siya-dark-green font-semibold ms-3 mb-2 mt-2 system-sans">{categoryTitle}</h2> */}
             <ScrollSnap>
                 {Object.entries(blobs[type]).map(([id, src]) => (
-
                     <div key={id} className="snap-start shrink-0 w-[5em] mx-1">
                         <div className={"flex flex-col justify-start items-center pb-2"}>
                             <img
