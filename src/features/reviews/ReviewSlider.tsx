@@ -14,7 +14,6 @@ export function ReviewSlider({ terraceId }: Props) {
     queryKey: ['reviews', terraceId],
     queryFn: () => fetchReviewsByTerraceId(terraceId),
   });
-  console.log(reviews);
 
   if (isLoading) return <p>Carregant reviews...</p>;
   if (error) return <p className="text-red-500">Error carregant les reviews.</p>;
@@ -28,7 +27,7 @@ export function ReviewSlider({ terraceId }: Props) {
           key={review.id}
           rating={review.rating}
           comment={review.comment}
-          userName={review.user?.name || "Anònim"} // Si Supabase retorna join
+          userName={review.userName || "Anònim"} // Si Supabase retorna join
         />
       ))}
     </ScrollSnap>

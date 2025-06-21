@@ -3,19 +3,32 @@ import { useEffect, useState } from "react";
 import { Heart, Share2 } from "lucide-react";
 import type { Terrace } from "../../types/TerraceType";
 import { fetchTerraceById } from "../../services/fetchTerraceById";
-import {ReviewSlider} from "../reviews/ReviewSlider";
+import { ReviewSlider } from "../reviews/ReviewSlider";
 import { ReviewForm } from "../reviews/ReviewForm";
-// import CategoryBlobs from "../components/CategoryBlobs"; // si existeix
-import { useQueryClient } from '@tanstack/react-query';
-import {useAuth} from "../../context/useAuth"; // hook per obtenir l'usuari autenticat
+import { useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "../../context/useAuth";
+import { useFavorites } from "../../hooks/useFavorites";
+
 
 const TerraceDetailsView = () => {
-  const { id } = useParams(); // id de la URL
+  const { id } = useParams();
   const [terrace, setTerrace] = useState<Terrace | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loadingTerrace, setLoadingTerrace] = useState(true);
 
   const queryClient = useQueryClient();
-  const user = useAuth();
+  const { user } = useAuth();
+
+  const { isFavorite, addFavorite, removeFavorite, loading } = useFavorites();
+  const favorite = isFavorite(id || "");
+
+  const toggleFavorite = () => {
+  if (!id || !user?.id) return;
+    if (favorite) {
+      removeFavorite(id);
+    } else {
+      addFavorite(id);
+    }
+  };
 
   useEffect(() => {
     if (!id) return;
@@ -23,10 +36,10 @@ const TerraceDetailsView = () => {
     fetchTerraceById(id)
       .then((data) => setTerrace(data))
       .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
+      .finally(() => setLoadingTerrace(false));
   }, [id]);
 
-  if (loading) return <p className="p-4">Carregant terrassa...</p>;
+  if (loadingTerrace) return <p className="p-4">Carregant terrassa...</p>;
   if (!terrace) return <p className="p-4 text-red-500">No s'ha trobat la terrassa.</p>;
 
   return (
@@ -52,31 +65,46 @@ const TerraceDetailsView = () => {
         <span>{terrace.address}</span>
       </div>
 
-      {/* Blobs, accions, ressenyes... */}
+      {/* Accions: Favorit i Compartir */}
       <div className="flex justify-around pt-4">
-        <div className="flex flex-col items-center">
+        {user ? (
+        <button
+          onClick={toggleFavorite}
+          className="flex flex-col items-center disabled:opacity-50"
+          disabled={loading}
+        >
+          <Heart className={`w-6 h-6 transition-all ${favorite ? "fill-red-500 text-red-500" : ""}`} />
+          <span className="text-sm">{favorite ? "Guardat" : "Guardar"}</span>
+        </button>
+        ) : (
+        <div className="flex flex-col items-center text-gray-500">
           <Heart className="w-6 h-6" />
-          <span className="text-sm">Guardar</span>
+          <span className="text-sm">Cal iniciar sessió per guardar</span>
         </div>
+       )}
         <div className="flex flex-col items-center">
-          <Share2 className="w-6 h-6" />
+          <Share2
+          onClick={() => {
+            navigator.clipboard.writeText(window.location.href);
+            alert("Enllaç copiat al porta-retalls!");
+          }}
+          className="w-6 h-6" />
           <span className="text-sm">Compartir</span>
         </div>
       </div>
 
       <div className="pt-6">
-           <h2 className="text-xl font-medium">Ressenyes</h2>
+        <h2 className="text-xl font-medium">Ressenyes</h2>
       </div>
       <ReviewSlider terraceId={terrace.id} />
       <div className="pt-6">
-           <h2 className="text-xl font-medium">Deixa la teva Ressenya</h2>
+        <h2 className="text-xl font-medium">Deixa la teva Ressenya</h2>
       </div>
       <ReviewForm
-        userId={user.user?.id || ''}
+        userId={user?.id || ""}
         terraceId={terrace.id}
         onSuccess={() => {
-          // p. ex. tornar a carregar reviews
-          queryClient.invalidateQueries({ queryKey: ['reviews', terrace.id] });
+          queryClient.invalidateQueries({ queryKey: ["reviews", terrace.id] });
         }}
       />
     </div>
