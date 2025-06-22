@@ -7,14 +7,15 @@ import { ReviewSlider } from "../reviews/ReviewSlider";
 import { ReviewForm } from "../reviews/ReviewForm";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../../context/useAuth";
+import { useNavigate } from "react-router-dom";
 import { useFavorites } from "../../hooks/useFavorites";
 import { RiHeartsLine, RiHeartsFill } from "react-icons/ri";
-
 
 const TerraceDetailsView = () => {
   const { id } = useParams();
   const [terrace, setTerrace] = useState<Terrace | null>(null);
   const [loadingTerrace, setLoadingTerrace] = useState(true);
+  const navigate = useNavigate();
 
   const queryClient = useQueryClient();
   const { user } = useAuth();
@@ -40,8 +41,29 @@ const TerraceDetailsView = () => {
       .finally(() => setLoadingTerrace(false));
   }, [id]);
 
+  const handleBooking = () => {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      navigate('/login', { 
+        state: { 
+          message: "Has d'iniciar sessión para reservar esta terraza",
+          returnTo: `/terrace/${id}`
+        } 
+      });
+      return;
+    }
+
+    // Codificar el token para URL
+    const encodedToken = encodeURIComponent(token);
+    
+    // Redirigir al calendario Angular
+    window.location.href = `http://localhost:4200/calendar?terraceId=${id}&token=${encodedToken}`;
+  };
+
   if (loadingTerrace) return <p className="p-4">Carregant terrassa...</p>;
-  if (!terrace) return <p className="p-4 text-red-500">No s'ha trobat la terrassa.</p>;
+  if (!terrace)
+    return <p className="p-4 text-red-500">No s'ha trobat la terrassa.</p>;
 
   return (
     <div className="p-4 space-y-3">
@@ -74,7 +96,11 @@ const TerraceDetailsView = () => {
             className="flex flex-col items-center disabled:opacity-50"
             disabled={loading}
           >
-            <Heart className={`w-6 h-6 transition-all ${favorite ? "fill-red-500 text-red-500" : ""}`} />
+            <Heart
+              className={`w-6 h-6 transition-all ${
+                favorite ? "fill-red-500 text-red-500" : ""
+              }`}
+            />
             <span className="text-sm">{favorite ? "Guardat" : "Guardar"}</span>
           </button>
         ) : (
@@ -89,11 +115,23 @@ const TerraceDetailsView = () => {
               navigator.clipboard.writeText(window.location.href);
               alert("Enllaç copiat al porta-retalls!");
             }}
-            className="w-6 h-6" />
+            className="w-6 h-6"
+          />
           <span className="text-sm">Compartir</span>
         </div>
       </div>
-
+      {terrace.is_claimed && (
+        <div className="flex justify-center mt-4">
+          <button
+            className="bg-siya-principal text-white px-4 py-2 rounded-full font-semibold hover:bg-siya-dark-green transition"
+            onClick={() => {
+              handleBooking
+            }}
+          >
+            Reservar taula
+          </button>
+        </div>
+      )}
       <div className="pt-6">
         <h2 className="text-xl font-medium">Ressenyes</h2>
       </div>
