@@ -11,6 +11,7 @@ import LogIn from '../pages/LogIn'
 import SignUp from '../pages/SignUp'
 import PartnerPage from "../pages/PartnerPage";
 import ContactUsPage from "../pages/ContactUsPage";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
 
 const AppRoutes = () => {
   return (
@@ -28,6 +29,7 @@ const AppRoutes = () => {
         path="/terrassa/:id"
         element={<TerraceDetailsView />}
       />
+      <Route path="/politica-privacitat" element={<PrivacyPolicy/>} />
       <Route path="*" element={<NotFoundPage />} />  {/* Catch-all 404 route */}
     </Routes>
   );
