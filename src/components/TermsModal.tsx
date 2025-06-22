@@ -34,7 +34,14 @@ function TermsModal({ isOpen, onClose }: ModalProps) {
 
         
         <div className="py-4 max-h-96 overflow-y-auto text-gray-700 text-sm">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus id ab aut blanditiis. Autem consequatur optio deserunt et odio natus temporibus, voluptate velit officia facilis expedita. Quaerat atque aspernatur quos ab neque facere minima vel asperiores dolores enim quisquam exercitationem, dicta, alias perferendis reiciendis fugit sint voluptatibus quas dolorem, repudiandae debitis ratione. Architecto, alias? Earum, veniam, quae minus vel nemo, quidem repellat incidunt dignissimos harum facilis quibusdam neque obcaecati? Aliquam numquam quaerat sed, possimus cum veritatis harum. Et eum recusandae tempora? Qui suscipit mollitia saepe deleniti iste earum dignissimos facilis nam maiores a adipisci, enim quo numquam. Nemo, nobis atque.
+          <h3>Benvingut/da a Siya! En registrar-te i utilitzar aquesta aplicació, acceptes les següents condicions:</h3>
+          <p>- Per oferir-te serveis personalitzats, Siya utilitza la teva ubicació per mostrar terrasses i la previsió meteorològica.</p>
+          <p>Recordem que el consum d’alcohol no està recomanat per a menors de 18 anys. Et demanem que facis un ús responsable dels serveis relacionats amb el consum d’alcohol.</p>
+          <p>- Les reserves de taula requereixen un pagament a través de Stripe. Si finalment vas al restaurant, aquesta quantitat es descomptarà del compte.</p>
+          <p>- Siya no es fa responsable de possibles errors en la informació, ni dels serveis oferts pels propietaris de les terrasses.</p>
+          <p>Podem modificar aquestes condicions en qualsevol moment, informant als usuaris a través de l’aplicació.</p>
+          <p>Per qualsevol consulta, pots contactar-nos a siya.bcn.app[@]gmail.com</p>
+          <p>Gràcies per utilitzar Siya!</p>
         </div>
 
        
