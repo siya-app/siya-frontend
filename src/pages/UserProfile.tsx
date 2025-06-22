@@ -10,6 +10,7 @@ import Button from "../components/Button";
 import DeleteAccount from "../features/delete-account/DeleteAccount";
 import UpdateAccount from "../features/update-account/UpdateAccount";
 import AuthContext from "../context/AuthContext";
+import OwnerActions from "../features/owner-actions/OwnerActions";
 
 
 
@@ -51,8 +52,8 @@ export default function Profile() {
       </Button>
 
       <TerraceSlider list={terraceList} orderBy={"nearby"} />
-
-      <div
+      <OwnerActions />
+      {/* <div
         onClick={() => setOpenSection((prev) => !prev)}
         className="cursor-pointer collapse-title text-primary-content px-4 py-2 m-4 bg-siya-terciario flex justify-between items-center toggle-height rounded"
       >
@@ -74,7 +75,7 @@ export default function Profile() {
         <div className="p-4">
           <TerraceClaim />
         </div>
-      </div>
+      </div> */}
 
       <div className="m-auto w-fit mb-4">
         <Button
