@@ -8,6 +8,7 @@ import TerraceSlider from "../components/slider/TerraceSlider";
 import { useTerraceList } from "../hooks/useTerraceList";
 import Button from "../components/Button";
 import DeleteAccount from "../features/delete-account/DeleteAccount";
+import UpdateAccount from "../features/update-account/UpdateAccount";
 
 export default function Profile() {
   const [user, setUser] = useState<any>(null);
@@ -15,6 +16,7 @@ export default function Profile() {
   const { terraceList } = useTerraceList();
   const [openSection, setOpenSection] = useState<boolean>(false);
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -87,6 +89,14 @@ export default function Profile() {
           <TerraceClaim />
         </div>
       </div>
+      <div className="m-auto w-fit mb-4">
+        <Button
+          onClick={() => setShowEditModal(true)}
+          className="border-2 border-siya-principal rounded-xl p-2 bg-gr bg-siya-principal text-white"
+        >
+          Editar perfil
+        </Button>
+      </div>
       <div className="m-auto w-fit">
         <Button
           onClick={() => setShowModal(true)}
@@ -95,6 +105,10 @@ export default function Profile() {
           Eliminar compte
         </Button>
       </div>
+      <UpdateAccount
+        isOpen={showEditModal}
+        onClose={() => setShowEditModal(false)}
+      />
       <DeleteAccount isOpen={showModal} onClose={() => setShowModal(false)} />
       <div className="flex justify-center m-5">
         <Button
