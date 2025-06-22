@@ -23,7 +23,7 @@ const API = axios.create({
 API.interceptors.request.use(
   (config) => {
    
-    const token = localStorage.getItem('authToken'); // O sessionStorage.getItem('token');
+    const token = localStorage.getItem('token'); // O sessionStorage.getItem('token');
 
     if (token) {
    
@@ -45,7 +45,7 @@ API.interceptors.response.use(
     // Si recibimos un 401 (No autorizado) y hay un token, podría significar que el token es inválido/expirado
     if (error.response && error.response.status === 401) {
       console.log('Token expirat o no válido. Redirigint al login...');
-      localStorage.removeItem('authToken'); // Limpia el token
+      localStorage.removeItem('token'); // Limpia el token
       // Aquí podrías redirigir al usuario a la página de login
       // window.location.href = '/login'; // O usar history.push si usas React Router
     }

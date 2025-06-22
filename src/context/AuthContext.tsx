@@ -1,4 +1,4 @@
-import { createContext, useState, type ReactNode, useEffect } from 'react';
+import { createContext, useState, type ReactNode, useEffect } from "react";
 
 interface User {
   id: string;
@@ -10,6 +10,7 @@ interface AuthContextType {
   user: User | null;
   logout: () => void;
   loading: boolean;
+  setUser: (user: User | null) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -23,16 +24,29 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
-        setUser(parsedUser);
+
+        if (
+          parsedUser &&
+          parsedUser.id &&
+          parsedUser.name &&
+          parsedUser.email
+        ) {
+          setUser(parsedUser);
+        } else {
+          console.warn("Usuari mal format (estructura inválida).");
+          setUser(null);
+          localStorage.removeItem("user");
+        }
       } catch {
-        console.warn("Usuari mal format al localStorage.");
+        console.warn("Usuari mal format al localStorage (parse error).");
         setUser(null);
+        localStorage.removeItem("user");
       }
     }
     setLoading(false);
   }, []);
 
-    // Permet tancar sessió globalment
+  // Permet tancar sessió globalment
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -40,7 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, logout, loading }}>
+    <AuthContext.Provider value={{ user, logout, loading, setUser }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import API from "../../services/apiUser";
 import { useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import AuthContext from "../../context/AuthContext";
 
 export default function UpdateAccount({ isOpen, onClose }) {
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
+
   const [name, setName] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -13,9 +16,13 @@ export default function UpdateAccount({ isOpen, onClose }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
 
+  if (!auth) return null;
+
+  const { setUser } = auth;
+
   if (!isOpen) return null;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setSuccess("");
@@ -26,7 +33,7 @@ export default function UpdateAccount({ isOpen, onClose }) {
     }
 
     if (newPassword && newPassword.length < 8) {
-      setError("La nova contrasenya da de contenir 8 caràcters com a mínim.");
+      setError("La nova contrasenya ha de contenir 8 caràcters com a mínim.");
       return;
     }
 
@@ -40,27 +47,34 @@ export default function UpdateAccount({ isOpen, onClose }) {
     const user = JSON.parse(userString);
 
     try {
-      const res = await API.put(`/users/${user.id}`, {
-        name: name || user.name,
-        currentPassword,
-        newPassword: newPassword || undefined,
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const res = await API.put(
+        `/users/${user.id}`,
+        {
+          name: name || user.name,
+          currentPassword,
+          newPassword: newPassword || undefined,
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      const { id, name: updatedName, email } = res.data.user;
+      const newUser = { id, name: updatedName, email };
+
+     
+      localStorage.setItem("user", JSON.stringify(newUser));
+      setUser(newUser);
 
       setSuccess("Perfil actualitzat correctament.");
       setTimeout(() => {
         setSuccess("");
         onClose();
-        window.location.reload(); 
       }, 1500);
-    } catch (err) {
-      setError(err.response?.data?.error || "Error a l'actualitzar perfil");
+    } catch (err: any) {
+      setError(err.response?.data?.error || "Error a l'actualizar perfil");
     }
   };
 
