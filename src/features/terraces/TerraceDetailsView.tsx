@@ -42,23 +42,33 @@ const TerraceDetailsView = () => {
   }, [id]);
 
   const handleBooking = () => {
-    const token = localStorage.getItem('token');
-    
-    if (!token) {
-      navigate('/login', { 
-        state: { 
-          message: "Has d'iniciar sessión para reservar esta terraza",
+     const token = localStorage.getItem('token');
+    const userString = localStorage.getItem('user');
+
+    if (!token || !userString) {
+      navigate('/login', {
+        state: {
+          message: 'Debes iniciar sesión para reservar esta terraza',
           returnTo: `/terrace/${id}`
-        } 
+        }
       });
       return;
     }
 
-    // Codificar el token para URL
-    const encodedToken = encodeURIComponent(token);
-    
-    // Redirigir al calendario Angular
-    window.location.href = `http://localhost:4200/calendar?terraceId=${id}&token=${encodedToken}`;
+    const user = JSON.parse(userString);
+
+    const params = new URLSearchParams({
+      token,
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      id_terrace: user.id_terrace ?? '',
+      restaurantId: user.restaurantId ?? '',
+      terraceId: id ?? ''
+    });
+
+    window.location.href = `http://localhost:4200/calendar?${params.toString()}`;
   };
 
   if (loadingTerrace) return <p className="p-4">Carregant terrassa...</p>;
@@ -124,9 +134,7 @@ const TerraceDetailsView = () => {
         <div className="flex justify-center mt-4">
           <button
             className="bg-siya-principal text-white px-4 py-2 rounded-full font-semibold hover:bg-siya-dark-green transition"
-            onClick={() => {
-              handleBooking
-            }}
+            onClick={handleBooking}
           >
             Reservar taula
           </button>
