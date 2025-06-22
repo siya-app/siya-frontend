@@ -120,7 +120,7 @@ export default function UpdateAccount({ isOpen, onClose }) {
             <label className="block mb-1">Contrasenya actual (obligatoria):</label>
             <div className="relative">
               <input
-                type={showPassword ? "text" : "password"}
+                type={showCurrentPassword ? "text" : "password"}
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 required
