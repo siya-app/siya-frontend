@@ -53,6 +53,16 @@ export default function Profile() {
           </p>
         </div>
       </div>
+      <Button
+      onClick={() => navigate("/buscar-terrassa")}
+      className={`text-primary-content px-4 py-2 mt-8
+        m-4 bg-gr bg-siya-principal text-white rounded-full
+        flex justify-between items-center
+        toggle-height
+        mx-auto`}
+      >
+        Reservar taula
+      </Button>
       <TerraceSlider
         list={terraceList}
         orderBy={"nearby"}
@@ -67,7 +77,7 @@ export default function Profile() {
         rounded
         "
       >
-        <h3 className="text-xl m-2">Ets propietari d'una terrassa?</h3>
+        <h3 id="claimTerrace" className="text-xl m-2">Ets propietari d'una terrassa?</h3>
         {openSection ? (
           <FaChevronUp className="siyaDark-text" />
         ) : (

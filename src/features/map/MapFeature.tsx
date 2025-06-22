@@ -4,7 +4,6 @@ import { useUserLocation } from "../../hooks/useUserLocation";
 import { fetchTerraces } from "../../services/fetchTerraces";
 import type { Terrace } from "../../types/TerraceType";
 import TerraceMarker from "./TerraceMarker";
-
 import "mapbox-gl/dist/mapbox-gl.css";
 
 const Map = () => {
@@ -38,8 +37,7 @@ const Map = () => {
 
     data.forEach((terrace) => {
       if (terrace.latitude && terrace.longitude) {
-        const isFavorite = false; // Aquí més endavant pots afegir la lògica
-        TerraceMarker({ terrace, map, isFavorite });
+        TerraceMarker({ terrace, map });
       }
     });
   });
