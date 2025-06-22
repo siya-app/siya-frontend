@@ -10,7 +10,7 @@ import AboutUs from "../pages/AboutUsPage";
 import LogIn from '../pages/LogIn'
 import SignUp from '../pages/SignUp'
 import PartnerPage from "../pages/PartnerPage";
-import ContactUsPage from "../pages/contactUsPage";
+import ContactUsPage from "../pages/ContactUsPage";
 
 const AppRoutes = () => {
   return (
