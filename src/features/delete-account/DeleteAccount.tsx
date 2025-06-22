@@ -57,7 +57,7 @@ export default function DeleteAccount({ isOpen, onClose }) {
           ✕
         </button>
         <h3 className="text-xl font-bold mb-4">Segur que vols eliminar el teu compte?</h3>
-
+        <h4 className="text-center font-bold mb-4">S'esborraran totes les teves dades, com ara favorits i reserves, i no es podran recuperar.</h4>
         <form onSubmit={handleDelete} className="flex flex-col gap-4">
           <div>
             <label className="block mb-1">Introdueix la teva contrasenya:</label>
