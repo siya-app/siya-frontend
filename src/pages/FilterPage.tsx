@@ -21,16 +21,13 @@ import { useFilterContext } from "../context/FilterContext";
 // xix kebab - url: 8f87f1e9-85fc-4b85-b408-25dbbe92aac2/tags
 // la terraza miro - url: a93749f0-7efe-4266-ab43-9e80234cb701/tags
 // nori sushi&cocktails - url: abc19588-83cd-4053-8d13-5f75de5e54f3/tags
-//
+
 
 
 const FilterPage = () => {
 
   const { terraceList } = useTerraceList();
   const [openSection, setOpenSection] = useState<string | null>(null);
-  // const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  // const [filteredTerraces, setFilteredTerraces] = useState<CustomTerraceType[]>([]);
-  // const [searchQuery, setSearchQuery] = useState('');
 
   const {
     selectedTags,
@@ -54,61 +51,6 @@ const FilterPage = () => {
     });
 
   };
-
-  // useEffect(() => {
-  //   setFilteredTerraces(() => {
-  //     const filteredTerraces = terraceList.filter((terrace) => {
-  //       if (!terrace.tags) return false;
-  //       const tagGroups = Object.values(terrace.tags);
-  //       const allTags = tagGroups.flat();
-
-  //       return selectedTags.every(tag => allTags.includes(tag));
-  //     });
-  //     return filteredTerraces;
-  //   });
-  // }, [selectedTags, terraceList]);
-
-  // useEffect(() => {
-  //   if (searchQuery === '') {
-  //     setFilteredTerraces(terraceList);
-  //     return;
-  //   }
-
-  //   const searchedTerraces = terraceList.filter((terrace) =>
-  //     terrace.business_name?.toLowerCase().includes(searchQuery.toLowerCase())
-  //   );
-
-  //   setFilteredTerraces(searchedTerraces);
-  // }, [searchQuery, terraceList]);
-
-  // const resetFilters = (list: string[]) => {
-  //   setSelectedTags((prev) => prev = []);
-  //   setSearchQuery('')
-  // }
-
-  // const filterBySearch = (terraces: CustomTerraceType[], query: string) => {
-  //   if (!query || query === '') return terraces;
-
-  //   return terraces.filter((terrace) =>
-  //     terrace.business_name?.toLowerCase().includes(query.toLowerCase())
-  //   );
-  // }
-
-  // useEffect(() => {
-  //   const filtered = terraceList.filter((terrace) => {
-  //     // Tag filtering
-  //     const tagGroups = Object.values(terrace.tags || {});
-  //     const allTags = tagGroups.flat();
-  //     const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => allTags.includes(tag));
-
-  //     // Search filtering
-  //     const matchesSearch = searchQuery === '' || terrace.business_name?.toLowerCase().includes(searchQuery.toLowerCase());
-
-  //     return matchesTags && matchesSearch;
-  //   });
-
-  //   setFilteredTerraces(filtered);
-  // }, [selectedTags, searchQuery, terraceList]);
 
 
   return (

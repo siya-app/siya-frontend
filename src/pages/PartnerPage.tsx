@@ -8,20 +8,20 @@ function PartnerPage() {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen m-0">
+        <div className="relative min-h-screen m-0 w-full h-full">
             {/* Background Image (with opacity) */}
             <div
                 className="absolute inset-0
                 bg-cover bg-center bg-repeat
-                opacity-40 z-0 mt-17
-                h-[120%] w-[120%]
+                opacity-40 z-0
+                overflow-hidden
                 "
                 style={{ backgroundImage: `url(${longTicket})`, backgroundSize: "cover" }}
             />
 
             {/* Content (full opacity) */}
-            <div className="relative z-10 place-items-end"> {/* z-10 brings content above background */}
-                <h1 className="text-6xl w-[80%] text-right mx-10 my-0
+            <div className="relative z-10 place-items-end m-0"> {/* z-10 brings content above background */}
+                <h1 className="text-6xl w-[80%] text-right mx-8 my-0
                 siyaRed-text md:text-8xl md:w-1/2
                 montserrat-siya">
                     Aquest pot ser el teu nou ticket de tancament de caixa ;D
