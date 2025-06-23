@@ -1,10 +1,11 @@
 // components/Map/TerraceMarker.tsx
 import mapboxgl from "mapbox-gl";
 import { Heart } from "lucide-react";
-import type { Terrace } from "../../types/TerraceType";
+// import type { Terrace } from "../../types/TerraceType";
+import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
 
 type Props = {
-  terrace: Terrace;
+  terrace: CustomTerraceType;
   map: mapboxgl.Map;
   isFavorite?: boolean; // Pots passar-ho quan tinguis aquesta info
 };

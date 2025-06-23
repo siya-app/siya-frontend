@@ -5,12 +5,17 @@ import { fetchTerraces } from "../../services/fetchTerraces";
 import type { Terrace } from "../../types/TerraceType";
 import TerraceMarker from "./TerraceMarker";
 import "mapbox-gl/dist/mapbox-gl.css";
+import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
 
-const Map = () => {
+interface MapProps {
+  terraces: CustomTerraceType[];
+}
+
+const Map = ({terraces}: MapProps) => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const { location, loading, error } = useUserLocation();
-  const [terraces, setTerraces] = useState<Terrace[]>([]);
+  // const [terraces, setTerraces] = useState<Terrace[]>([]);
 
   useEffect(() => {
     if (!mapContainerRef.current || loading || !location) return;
@@ -21,7 +26,7 @@ const Map = () => {
       container: mapContainerRef.current,
       center: [location.longitude, location.latitude],
       style: "mapbox://styles/mapbox/light-v10",
-      zoom: 16,
+      zoom: 15,
     });
 
     mapRef.current = map;
@@ -32,14 +37,19 @@ const Map = () => {
       .addTo(map);
     
       // Carreguem les terrasses i afegim marcadors
-  fetchTerraces().then((data) => {
-    setTerraces(data);
+  // fetchTerraces().then((data) => {
+  //   setTerraces(data);
 
-    data.forEach((terrace) => {
-      if (terrace.latitude && terrace.longitude) {
-        TerraceMarker({ terrace, map });
-      }
-    });
+  //   data.forEach((terrace) => {
+  //     if (terrace.latitude && terrace.longitude) {
+  //       TerraceMarker({ terrace, map });
+  //     }
+  //   });
+  // });
+  terraces.forEach((terrace) => {
+    if (terrace.latitude && terrace.longitude) {
+      TerraceMarker({ terrace, map });
+    }
   });
 
     return () => {
