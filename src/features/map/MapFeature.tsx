@@ -49,7 +49,7 @@ const Map = () => {
     return () => {
       map?.remove();
     };
-  }, [location, loading]);
+  }, [location, loading, isFavorite]);
 
   if (loading) return <p>Carregant mapa…</p>;
   if (error) return <p>Error: {error}</p>;
