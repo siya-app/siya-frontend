@@ -4,6 +4,7 @@ import Button from "../../components/Button";
 import TerraceClaim from "../terrace-claim/TerraceClaim";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { TerraceContext } from "../../context/filteredTerraces.context";
+import { UserContext } from "../../context/filteredUsers.context";
 
 function OwnerActions() {
   const [user, setUser] = useState<any>(null);
@@ -11,12 +12,14 @@ function OwnerActions() {
   const navigate = useNavigate();
 
   const {allTerraces, error, getTerraces, claimedTerraces} = useContext(TerraceContext)!
+  const {getUsers, allUsers, owners, userError} = useContext(UserContext)!
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("token");
 
     getTerraces();
+    getUsers();
 
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -26,6 +29,10 @@ function OwnerActions() {
   }, []);
   console.log(allTerraces, error);
   console.log(claimedTerraces);
+  console.log(allUsers, userError);
+  console.log(owners);
+  
+  
   
   
   const goToOwnedTerrace = () => {

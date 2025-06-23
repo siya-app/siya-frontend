@@ -6,7 +6,7 @@ interface Terrace {
   address: string;
   business_name: string;
   is_claimed : boolean;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface TerraceContextType {
@@ -30,9 +30,9 @@ function TerraceProvider ({ children }: TerraceProviderProps) {
     const getTerraces = async () => {
             const terraceURL = import.meta.env.VITE_API_ALL_TERRACES
         try{
-            const response = await axios.get(terraceURL);
+            const response = await axios.get<Terrace[]>(terraceURL);
             setAllTerraces(response.data);
-            const newArray = allTerraces.filter(terrace => terrace.is_claimed === true)
+            const newArray = response.data.filter(terrace  => terrace.is_claimed === true)
             setClaimedTerraces(newArray)
             
             
