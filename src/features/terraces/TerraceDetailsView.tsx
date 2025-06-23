@@ -9,8 +9,20 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../../context/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useFavorites } from "../../hooks/useFavorites";
-import { RiHeartsLine, RiHeartsFill } from "react-icons/ri";
+// import { RiHeartsLine, RiHeartsFill } from "react-icons/ri";
+import { GoPin } from "react-icons/go";
 import RatingStars from "../../components/RatingStars";
+import { GrCurrency } from "react-icons/gr";
+import { GrRss } from "react-icons/gr";
+import { GrWheelchairActive } from "react-icons/gr";
+import { IoBusiness } from "react-icons/io5";
+import { FaQuestion } from "react-icons/fa";
+import { PiBowlFoodBold } from "react-icons/pi";
+
+
+
+
+
 
 const TerraceDetailsView = () => {
   const { id } = useParams();
@@ -94,14 +106,48 @@ const TerraceDetailsView = () => {
         </h1>
         <div className="text-right text-siya-dark-green">
           <RatingStars
-          rating={terrace.average_rating}
+            rating={terrace.average_rating}
           />
         </div>
       </div>
 
-      <div className="flex items-center gap-2 text-gray-700">
-        <span>📍</span>
-        <span>{terrace.address}</span>
+      <div className="flex flex-col items-start gap-2 text-gray-700">
+        <span>
+          <GoPin className="inline-icon me-2 text-xl" />
+          {terrace.address}</span>
+
+        <span>
+          <IoBusiness className="inline-icon me-2 text-xl" />
+          {terrace.neighbourhood_name}</span>
+
+        <span>
+          <GrWheelchairActive className="inline-icon me-2 text-xl" />
+          {terrace.has_disabled_access ?
+            "Si" :
+            <FaQuestion className="inline-icon text-siya-principal" />}</span>
+
+        <span>
+          <GrCurrency className="inline-icon me-2 text-xl" />
+          {terrace.average_price ?
+            terrace.average_price + "€" :
+            <FaQuestion className="inline-icon text-siya-principal" />}</span>
+
+        <span>
+          <GrRss className="inline-icon me-2 text-xl" />
+          {terrace.has_wifi ?
+            "Si" :
+            terrace.has_wifi === null ?
+            <FaQuestion className="inline-icon text-siya-principal" /> :
+            "No"}</span>
+
+        <span>
+          <PiBowlFoodBold className="inline-icon me-2 text-xl" />
+          {terrace.has_kitchen ?
+            "Si" :
+            terrace.has_kitchen === null ?
+            <FaQuestion className="inline-icon text-siya-principal" /> :
+            "No"
+          }</span>
       </div>
 
       {/* Accions: Favorit i Compartir */}
@@ -150,8 +196,8 @@ const TerraceDetailsView = () => {
         <h2 className="text-xl font-medium">Ressenyes</h2>
       </div>
       <ReviewSlider
-      terraceId={terrace.id}
-      refresh={refreshReviews}
+        terraceId={terrace.id}
+        refresh={refreshReviews}
       />
       <div className="pt-6">
         <h2 className="text-xl font-medium">La teva opinió és molt important per nosaltres...</h2>
@@ -163,6 +209,7 @@ const TerraceDetailsView = () => {
           const updatedTerrace = await fetchTerraceById(terrace.id);
           setTerrace(updatedTerrace);
           setRefreshReviews(prev => !prev);
+
         }}
       />
     </div>

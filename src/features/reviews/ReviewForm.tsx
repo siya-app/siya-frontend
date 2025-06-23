@@ -18,13 +18,14 @@ export function ReviewForm({ userId, terraceId, onSuccess }: {
     setLoading(true);
     setError('');
     setSuccessMessage('');
+    setRating(0);
 
     try {
       await createReview({ rating, comment, userId, terraceId });
       setSuccessMessage('Review publicada amb èxit! ✅');
       onSuccess?.(); // p. ex. refrescar el slider
       setComment('');
-      setRating(5);
+      setRating(0);
 
       // Esborra el missatge d'èxit després de 3 segons
       setTimeout(() => setSuccessMessage(''), 3000);
