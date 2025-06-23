@@ -10,6 +10,7 @@ import { useAuth } from "../../context/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useFavorites } from "../../hooks/useFavorites";
 import { RiHeartsLine, RiHeartsFill } from "react-icons/ri";
+import RatingStars from "../../components/RatingStars";
 
 const TerraceDetailsView = () => {
   const { id } = useParams();
@@ -89,8 +90,10 @@ const TerraceDetailsView = () => {
           {terrace.business_name.split(" ").slice(1).join(" ")}
         </h1>
         <div className="text-right text-siya-dark-green">
-          <div className="text-2xl">⭐ {terrace.average_rating}/10</div>
+                        <RatingStars rating={5} />
+
         </div>
+
       </div>
 
       <div className="flex items-center gap-2 text-gray-700">
@@ -143,6 +146,7 @@ const TerraceDetailsView = () => {
       <div className="pt-6">
         <h2 className="text-xl font-medium">Ressenyes</h2>
       </div>
+      
       <ReviewSlider terraceId={terrace.id} />
       <div className="pt-6">
         <h2 className="text-xl font-medium">Deixa la teva Ressenya</h2>

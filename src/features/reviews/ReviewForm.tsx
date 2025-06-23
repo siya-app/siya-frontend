@@ -69,7 +69,7 @@ export function ReviewForm({ userId, terraceId, onSuccess }: {
       <button
         type="submit"
         disabled={loading}
-        className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+            className="bg-siya-principal text-white px-4 py-2 rounded-full font-semibold hover:bg-siya-dark-green transition"
       >
         {loading ? 'Enviant...' : 'Enviar Review'}
       </button>

@@ -5,12 +5,14 @@ import { fetchTerraces } from "../../services/fetchTerraces";
 import type { Terrace } from "../../types/TerraceType";
 import TerraceMarker from "./TerraceMarker";
 import "mapbox-gl/dist/mapbox-gl.css";
+import useFavorites from "../../hooks/useFavorites";
 
 const Map = () => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const { location, loading, error } = useUserLocation();
   const [terraces, setTerraces] = useState<Terrace[]>([]);
+  const { isFavorite } = useFavorites();
 
   useEffect(() => {
     if (!mapContainerRef.current || loading || !location) return;
@@ -25,6 +27,8 @@ const Map = () => {
     });
 
     mapRef.current = map;
+    map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
+
 
     new mapboxgl.Marker({ color: 'siya-red', rotation: 15, scale: 1.2 })
       .setPopup(new mapboxgl.Popup().setHTML("<h3>La teva ubicació</h3>"))
@@ -37,7 +41,7 @@ const Map = () => {
 
     data.forEach((terrace) => {
       if (terrace.latitude && terrace.longitude) {
-        TerraceMarker({ terrace, map });
+        TerraceMarker({ terrace, map, isFavorite: isFavorite(terrace.id) });
       }
     });
   });
