@@ -6,10 +6,15 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { TerraceContext } from "../../context/filteredTerraces.context";
 import { UserContext } from "../../context/filteredUsers.context";
 import type { User } from "../../types/User";
+import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
+import { HiArrowSmRight } from "react-icons/hi";
+import BlobCard from "../../components/slider/BlobCard";
+import redBlob from '../../assets/blobs/red-blob.png'
 
 function OwnerActions() {
   const [user, setUser] = useState<User | null>(null);
   const [openSection, setOpenSection] = useState(false);
+  const [ownedTerrace, setOwnedTerrace] = useState<CustomTerraceType| null>(null)
   const navigate = useNavigate();
 
   const {allTerraces, error, getTerraces, claimedTerraces} = useContext(TerraceContext)!
@@ -37,12 +42,13 @@ function OwnerActions() {
       console.log("Claimed Terraces: ", claimedTerraces);
       
       if (owner) {
-        const ownedTerrace = claimedTerraces.find(terrace => terrace.id === owner.id_terrace);
+        const foundTerrace = claimedTerraces.find(terrace => terrace.id === owner.id_terrace);
+        setOwnedTerrace(foundTerrace)
         console.log("Owned terrace: ", ownedTerrace);
       }
     }
       
-  }, [user, owners, claimedTerraces]);
+  }, [user, owners, claimedTerraces, ownedTerrace]);
 
   
   
@@ -55,8 +61,21 @@ function OwnerActions() {
   if (!user) return <p>Carregant dades de l'usuari...</p>;
   return (
     <>
-      {user.role === "owner" && (
-        <div className="flex flex-col md:flex-row gap-4">
+      {user.role === "owner" &&  ownedTerrace && ( <>
+        <div className="mt-5">
+          <h2 className="montserrat-siya text-xl
+            m-2 ms-3 siyaDark-text">La meva terrassa <span className="inline-icon"><HiArrowSmRight /></span></h2>
+            <BlobCard
+                                        key={ownedTerrace.cadastro_ref}
+                                        className="snap-start shrink-0 w-[60%] sm:w-[35%] m-auto"
+                                        picture={ownedTerrace.profile_pic ?? ""}
+                                        businessName={ownedTerrace.business_name}
+                                        rating={ownedTerrace.average_rating ?? 0}
+                                        blob={redBlob}
+                                        id={ownedTerrace.id}
+                                    />
+            </div>
+            <div className="flex flex-col md:flex-row gap-4 m-3">
           <Button
             onClick={goToOwnedTerrace}
             className="bg-siya-dark-green
@@ -65,13 +84,13 @@ function OwnerActions() {
         py-2
         px-4
         rounded
-        cursor-pointer"
+        cursor-pointer w-fit"
           >
             Veure la meva terrassa
           </Button>
           {/* Aquí van otros dos botones de editar y darse de baja */}
         </div>
-      )}
+      </>)}
       {user.role === "client" &&( <>
         <div
                 onClick={() => setOpenSection((prev) => !prev)}
