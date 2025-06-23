@@ -5,12 +5,14 @@ import { UserLocationProvider } from './context/UserLocationProvider'
 import AppRoutes from './routes/AppRoutes'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './context/AuthContext';
+import { FilterProvider } from './context/FilterContext';
 
 const queryClient = new QueryClient();
 
 function App() {
 
   return (
+    <FilterProvider>
     <UserLocationProvider>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
@@ -20,6 +22,7 @@ function App() {
         </AuthProvider>
       </QueryClientProvider>
     </UserLocationProvider>
+    </FilterProvider>
   )
 }
 

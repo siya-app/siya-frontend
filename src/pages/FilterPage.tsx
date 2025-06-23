@@ -9,6 +9,7 @@ import type { CustomTerraceType } from "../types/zod/customTerrace-schema";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { BLOB_TRANSLATIONS } from "../services/blobList.service";
 import SliderButton from "../components/slider/SliderButton";
+import { useFilterContext } from "../context/FilterContext";
 
 
 //restaurants with inserted tags:
@@ -25,11 +26,20 @@ import SliderButton from "../components/slider/SliderButton";
 
 const FilterPage = () => {
 
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const { terraceList } = useTerraceList();
-  const [filteredTerraces, setFilteredTerraces] = useState<CustomTerraceType[]>([]);
   const [openSection, setOpenSection] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  // const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  // const [filteredTerraces, setFilteredTerraces] = useState<CustomTerraceType[]>([]);
+  // const [searchQuery, setSearchQuery] = useState('');
+
+  const {
+    selectedTags,
+    setSelectedTags,
+    searchQuery,
+    setSearchQuery,
+    filteredTerraces,
+    resetFilters,
+  } = useFilterContext();
 
   const categoryTitle = (type: keyof typeof BLOB_TRANSLATIONS.categories) => BLOB_TRANSLATIONS.categories[type];
 
@@ -71,10 +81,10 @@ const FilterPage = () => {
   //   setFilteredTerraces(searchedTerraces);
   // }, [searchQuery, terraceList]);
 
-  const resetFilters = (list: string[]) => {
-    setSelectedTags((prev) => prev = []);
-    setSearchQuery('')
-  }
+  // const resetFilters = (list: string[]) => {
+  //   setSelectedTags((prev) => prev = []);
+  //   setSearchQuery('')
+  // }
 
   // const filterBySearch = (terraces: CustomTerraceType[], query: string) => {
   //   if (!query || query === '') return terraces;
@@ -84,21 +94,21 @@ const FilterPage = () => {
   //   );
   // }
 
-  useEffect(() => {
-    const filtered = terraceList.filter((terrace) => {
-      // Tag filtering
-      const tagGroups = Object.values(terrace.tags || {});
-      const allTags = tagGroups.flat();
-      const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => allTags.includes(tag));
+  // useEffect(() => {
+  //   const filtered = terraceList.filter((terrace) => {
+  //     // Tag filtering
+  //     const tagGroups = Object.values(terrace.tags || {});
+  //     const allTags = tagGroups.flat();
+  //     const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => allTags.includes(tag));
 
-      // Search filtering
-      const matchesSearch = searchQuery === '' || terrace.business_name?.toLowerCase().includes(searchQuery.toLowerCase());
+  //     // Search filtering
+  //     const matchesSearch = searchQuery === '' || terrace.business_name?.toLowerCase().includes(searchQuery.toLowerCase());
 
-      return matchesTags && matchesSearch;
-    });
+  //     return matchesTags && matchesSearch;
+  //   });
 
-    setFilteredTerraces(filtered);
-  }, [selectedTags, searchQuery, terraceList]);
+  //   setFilteredTerraces(filtered);
+  // }, [selectedTags, searchQuery, terraceList]);
 
 
   return (
@@ -117,7 +127,7 @@ const FilterPage = () => {
 
       {(['food', 'emotional', 'placement', 'cover', 'dietary'] as const).map((type: keyof typeof BLOB_TRANSLATIONS.categories) => (
         <div key={type}
-        className="shadow-md
+          className="shadow-md
           border-l- border-r-4 border-t- border-b-4 border-siya-dark-green
           siyaDark-text m-2 mt-3 bg-gray-50
           shadow-neutral-300 my-2 rounded-2xl overflow-hidden">
@@ -149,16 +159,16 @@ const FilterPage = () => {
       {(selectedTags.length > 0 || searchQuery !== '') ? (
         filteredTerraces.length > 0 ? (
           <>
-          <TerraceSlider
-            list={filteredTerraces}
-          />
+            <TerraceSlider
+              list={filteredTerraces}
+            />
 
-          <TerraceSlider
-          orderBy="nearby"
-            list={filteredTerraces}
-          />
+            <TerraceSlider
+              orderBy="nearby"
+              list={filteredTerraces}
+            />
           </>
-          
+
         ) : (
           <p className="text-center text-lg text-gray-500 mt-4">No s'han trobat terrasses</p>
         )
@@ -177,7 +187,9 @@ const FilterPage = () => {
         />
       </div>
       <div className="m-8">
-        <Map />
+        <Map
+        terraces={filteredTerraces}
+        />
       </div>
     </div>
   );

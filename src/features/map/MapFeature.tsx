@@ -17,6 +17,7 @@ const Map = ({terraces}: MapProps) => {
   const { location, loading, error } = useUserLocation();
   // const [terraces, setTerraces] = useState<Terrace[]>([]);
 
+  // for location-changing
   useEffect(() => {
     if (!mapContainerRef.current || loading || !location) return;
 
@@ -35,28 +36,30 @@ const Map = ({terraces}: MapProps) => {
       .setPopup(new mapboxgl.Popup().setHTML("<h3>La teva ubicació</h3>"))
       .setLngLat([location.longitude, location.latitude])
       .addTo(map);
-    
-      // Carreguem les terrasses i afegim marcadors
-  // fetchTerraces().then((data) => {
-  //   setTerraces(data);
-
-  //   data.forEach((terrace) => {
-  //     if (terrace.latitude && terrace.longitude) {
-  //       TerraceMarker({ terrace, map });
-  //     }
-  //   });
-  // });
-  terraces.forEach((terrace) => {
-    if (terrace.latitude && terrace.longitude) {
-      TerraceMarker({ terrace, map });
-    }
-  });
 
     return () => {
       map?.remove();
     };
   }, [location, loading]);
 
+  // for filter-changing
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    const previousMarkers = document.querySelectorAll('.terrace-marker');
+    previousMarkers.forEach((el) => el.remove());
+  
+    terraces.forEach((terrace) => {
+      if (terrace.latitude && terrace.longitude) {
+        TerraceMarker({ terrace, map });
+      }
+    });
+  }, [terraces]);
+
+  //this lines have to be after useEffects(), as hooks
+  // can not be conditionally called
+  //! do not move them ♥︎
   if (loading) return <p>Carregant mapa…</p>;
   if (error) return <p>Error: {error}</p>;
 

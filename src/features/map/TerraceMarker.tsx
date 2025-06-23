@@ -13,6 +13,7 @@ type Props = {
 const TerraceMarker = ({ terrace, map, isFavorite = false }: Props) => {
   // Crea el contenidor del marcador
   const el = document.createElement("div");
+  el.className = "terrace-marker";
 
   if (isFavorite) {
     const heartIcon = document.createElement("div");
