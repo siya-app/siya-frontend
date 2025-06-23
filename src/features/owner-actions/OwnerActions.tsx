@@ -1,17 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import TerraceClaim from "../terrace-claim/TerraceClaim";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { TerraceContext } from "../../context/filteredTerraces.context";
 
 function OwnerActions() {
   const [user, setUser] = useState<any>(null);
   const [openSection, setOpenSection] = useState(false);
   const navigate = useNavigate();
 
+  const {allTerraces, error, getTerraces, claimedTerraces} = useContext(TerraceContext)!
+
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("token");
+
+    getTerraces();
 
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -19,7 +24,10 @@ function OwnerActions() {
       navigate("/login");
     }
   }, []);
-
+  console.log(allTerraces, error);
+  console.log(claimedTerraces);
+  
+  
   const goToOwnedTerrace = () => {
     if (!user || !user.id) return;
     //ruta a angular
