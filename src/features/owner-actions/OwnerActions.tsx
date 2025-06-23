@@ -5,9 +5,10 @@ import TerraceClaim from "../terrace-claim/TerraceClaim";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { TerraceContext } from "../../context/filteredTerraces.context";
 import { UserContext } from "../../context/filteredUsers.context";
+import type { User } from "../../types/User";
 
 function OwnerActions() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [openSection, setOpenSection] = useState(false);
   const navigate = useNavigate();
 
@@ -27,12 +28,22 @@ function OwnerActions() {
       navigate("/login");
     }
   }, []);
-  console.log(allTerraces, error);
-  console.log(claimedTerraces);
-  console.log(allUsers, userError);
-  console.log(owners);
-  
-  
+ 
+  useEffect(() => {
+    if (user) {
+      console.log("User ID:", user.id);
+      const owner = owners.find(owner => owner.id === user.id);
+      console.log("Owner found:", owner);
+      console.log("Claimed Terraces: ", claimedTerraces);
+      
+      if (owner) {
+        const ownedTerrace = claimedTerraces.find(terrace => terrace.id === owner.id_terrace);
+        console.log("Owned terrace: ", ownedTerrace);
+      }
+    }
+      
+  }, [user, owners, claimedTerraces]);
+
   
   
   const goToOwnedTerrace = () => {
@@ -41,7 +52,7 @@ function OwnerActions() {
     window.location.href = `http://localhost:4200/profile/${user.id}`;
   };
 
-  if (!user) return <p>Carregant dades d'usuari...</p>;
+  if (!user) return <p>Carregant dades de l'usuari...</p>;
   return (
     <>
       {user.role === "owner" && (

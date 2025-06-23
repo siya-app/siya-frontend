@@ -1,15 +1,7 @@
 import { createContext, useState, type ReactNode } from "react";
 import axios from 'axios'
+import type { User } from "../types/User";
 
-interface User {
-    id : string;
-    name :  string;
-    email : string;
-    birth_date : string;
-    id_terrace : string | null;
-    rol : "client" | "owner";
-    [key: string]: unknown;
-}
 
 interface UserContextType {
     allUsers : User[];
