@@ -45,7 +45,7 @@ const Home = () => {
         list={terraceList}
       />
       <TerraceSlider
-        orderBy="is_claimed"
+        orderBy="rating"
         list={terraceList}
       />
       <section id="loginForm">

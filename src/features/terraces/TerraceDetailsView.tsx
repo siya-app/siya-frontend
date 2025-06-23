@@ -121,33 +121,35 @@ const TerraceDetailsView = () => {
           {terrace.neighbourhood_name}</span>
 
         <span>
-          <GrWheelchairActive className="inline-icon me-2 text-xl" />
-          {terrace.has_disabled_access ?
-            "Si" :
-            <FaQuestion className="inline-icon text-siya-principal" />}</span>
-
-        <span>
           <GrCurrency className="inline-icon me-2 text-xl" />
           {terrace.average_price ?
             terrace.average_price + "€" :
             <FaQuestion className="inline-icon text-siya-principal" />}</span>
 
         <span>
-          <GrRss className="inline-icon me-2 text-xl" />
-          {terrace.has_wifi ?
-            "Si" :
-            terrace.has_wifi === null ?
-            <FaQuestion className="inline-icon text-siya-principal" /> :
-            "No"}</span>
-
-        <span>
           <PiBowlFoodBold className="inline-icon me-2 text-xl" />
           {terrace.has_kitchen ?
             "Si" :
             terrace.has_kitchen === null ?
-            <FaQuestion className="inline-icon text-siya-principal" /> :
-            "No"
+              <FaQuestion className="inline-icon text-siya-principal" /> :
+              "No"
           }</span>
+
+        <span>
+          <GrRss className="inline-icon me-2 text-xl" />
+          {terrace.has_wifi ?
+            "Si" :
+            terrace.has_wifi === null ?
+              <FaQuestion className="inline-icon text-siya-principal" /> :
+              "No"}</span>
+
+        <span>
+          <GrWheelchairActive className="inline-icon me-2 text-xl" />
+          {terrace.has_disabled_access ?
+            "Si" :
+            terrace.has_disabled_access === null ?
+            <FaQuestion className="inline-icon text-siya-principal" /> :
+            "No"}</span>
       </div>
 
       {/* Accions: Favorit i Compartir */}
