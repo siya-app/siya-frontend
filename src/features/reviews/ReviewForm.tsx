@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { createReview } from './createReview';
+import RatingStarsInput from "../../components/RatingStarsInput";
 
 export function ReviewForm({ userId, terraceId, onSuccess }: {
   userId: string;
@@ -40,20 +41,13 @@ export function ReviewForm({ userId, terraceId, onSuccess }: {
 
   return (
     <form onSubmit={handleSubmit} className="p-4 rounded shadow bg-white">
+    
+      <RatingStarsInput
+      terraceId={terraceId}
+      initialRating={0}
+      onChange={(newRating) => setRating(newRating)}/>
       <label className="block mb-2">
-        Nota (1-5):
-        <input
-          type="number"
-          min="1"
-          max="5"
-          value={rating}
-          onChange={(e) => setRating(Number(e.target.value))}
-          className="border p-2 w-full"
-          required
-        />
-      </label>
-      <label className="block mb-2">
-        Comentari:
+      <p className='pb-4'>Explica'ns la teva experiència:</p>
         <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
@@ -69,7 +63,7 @@ export function ReviewForm({ userId, terraceId, onSuccess }: {
       <button
         type="submit"
         disabled={loading}
-        className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+        className="mt-2 px-4 py-2 bg-siya-dark-green text-white rounded"
       >
         {loading ? 'Enviant...' : 'Enviar Review'}
       </button>

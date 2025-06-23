@@ -10,12 +10,12 @@ function RatingStars({ rating }: RatingStarsProps) {
     .fill(0)
     .map((_, i) =>
         i < Math.round(rating) ?
-        <FaStar key={i} className="text-black" /> :
-        <FaRegStar key={i} className="text-black" />
+        <FaStar key={i} className="text-yellow-400 text-xl" /> :
+        <FaRegStar key={i} className="text-yellow-400 text-xl" />
     );
 
     return (
-        <div className="flex justify-center gap-0.5 text-sm siyaDark-text">{stars}</div>
+        <div className="flex justify-center gap-0.5 siyaDark-text">{stars}</div>
     )
 }
 

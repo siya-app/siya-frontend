@@ -53,29 +53,6 @@ export default function Profile() {
 
       <TerraceSlider list={terraceList} orderBy={"nearby"} />
       <OwnerActions />
-      {/* <div
-        onClick={() => setOpenSection((prev) => !prev)}
-        className="cursor-pointer collapse-title text-primary-content px-4 py-2 m-4 bg-siya-terciario flex justify-between items-center toggle-height rounded"
-      >
-        <h3 id="claimTerrace" className="text-xl m-2">
-          Ets propietari d'una terrassa?
-        </h3>
-        {openSection ? (
-          <FaChevronUp className="siyaDark-text" />
-        ) : (
-          <FaChevronDown className="siyaDark-text" />
-        )}
-      </div>
-
-      <div
-        className={`toggle-height transition-all duration-600 ${
-          openSection ? "max-h-[1000px]" : "max-h-0"
-        }`}
-      >
-        <div className="p-4">
-          <TerraceClaim />
-        </div>
-      </div> */}
 
       <div className="m-auto w-fit mb-4">
         <Button

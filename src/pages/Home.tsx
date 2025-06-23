@@ -30,10 +30,12 @@ const Home = () => {
   }, [location, terraceList]);
 
   return (
-    <div>
+    <div className="mb-10">
       <Hero />
       <div className="m-8 relative map-container">  {/* Added relative positioning */}
-        <Map />
+        <Map
+        terraces={terraceList}
+        />
         <div className="absolute top-1 right-1 z-1">  {/* Weather floating position */}
           <WeatherFeature />
         </div>

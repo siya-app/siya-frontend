@@ -66,7 +66,7 @@ function OwnerActions() {
                   openSection ? "max-h-[1000px]" : "max-h-0"
                 }`}
               >
-                <div className="p-4">
+                <div className="p-4 mb-10">
                   <TerraceClaim />
                 </div>
               </div>

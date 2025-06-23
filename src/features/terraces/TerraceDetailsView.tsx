@@ -10,11 +10,13 @@ import { useAuth } from "../../context/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useFavorites } from "../../hooks/useFavorites";
 import { RiHeartsLine, RiHeartsFill } from "react-icons/ri";
+import RatingStars from "../../components/RatingStars";
 
 const TerraceDetailsView = () => {
   const { id } = useParams();
   const [terrace, setTerrace] = useState<Terrace | null>(null);
   const [loadingTerrace, setLoadingTerrace] = useState(true);
+  const [refreshReviews, setRefreshReviews] = useState(false);
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
@@ -42,13 +44,13 @@ const TerraceDetailsView = () => {
   }, [id]);
 
   const handleBooking = () => {
-     const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     const userString = localStorage.getItem('user');
 
     if (!token || !userString) {
       navigate('/login', {
         state: {
-          message: 'Debes iniciar sesión para reservar esta terraza',
+          message: 'Siusplau, inicia sessió per reservar la terrassa.',
           returnTo: `/terrace/${id}`
         }
       });
@@ -71,6 +73,8 @@ const TerraceDetailsView = () => {
     window.location.href = `http://localhost:4200/calendar?${params.toString()}`;
   };
 
+  console.log(`terrace rating: ${terrace?.average_rating}`)
+
   if (loadingTerrace) return <p className="p-4">Carregant terrassa...</p>;
   if (!terrace)
     return <p className="p-4 text-red-500">No s'ha trobat la terrassa.</p>;
@@ -89,7 +93,9 @@ const TerraceDetailsView = () => {
           {terrace.business_name.split(" ").slice(1).join(" ")}
         </h1>
         <div className="text-right text-siya-dark-green">
-          <div className="text-2xl">⭐ {terrace.average_rating}/10</div>
+          <RatingStars
+          rating={terrace.average_rating}
+          />
         </div>
       </div>
 
@@ -107,9 +113,8 @@ const TerraceDetailsView = () => {
             disabled={loading}
           >
             <Heart
-              className={`w-6 h-6 transition-all ${
-                favorite ? "fill-red-500 text-red-500" : ""
-              }`}
+              className={`w-6 h-6 transition-all ${favorite ? "fill-red-500 text-red-500" : ""
+                }`}
             />
             <span className="text-sm">{favorite ? "Guardat" : "Guardar"}</span>
           </button>
@@ -133,7 +138,8 @@ const TerraceDetailsView = () => {
       {terrace.is_claimed && (
         <div className="flex justify-center mt-4">
           <button
-            className="bg-siya-principal text-white px-4 py-2 rounded-full font-semibold hover:bg-siya-dark-green transition"
+            className="bg-siya-principal text-white px-4 py-2 rounded-full font-semibold
+            hover:bg-siya-dark-green transition"
             onClick={handleBooking}
           >
             Reservar taula
@@ -143,15 +149,20 @@ const TerraceDetailsView = () => {
       <div className="pt-6">
         <h2 className="text-xl font-medium">Ressenyes</h2>
       </div>
-      <ReviewSlider terraceId={terrace.id} />
+      <ReviewSlider
+      terraceId={terrace.id}
+      refresh={refreshReviews}
+      />
       <div className="pt-6">
-        <h2 className="text-xl font-medium">Deixa la teva Ressenya</h2>
+        <h2 className="text-xl font-medium">La teva opinió és molt important per nosaltres...</h2>
       </div>
       <ReviewForm
         userId={user?.id || ""}
         terraceId={terrace.id}
-        onSuccess={() => {
-          queryClient.invalidateQueries({ queryKey: ["reviews", terrace.id] });
+        onSuccess={async () => {
+          const updatedTerrace = await fetchTerraceById(terrace.id);
+          setTerrace(updatedTerrace);
+          setRefreshReviews(prev => !prev);
         }}
       />
     </div>
