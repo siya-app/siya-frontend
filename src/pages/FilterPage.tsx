@@ -10,6 +10,7 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { BLOB_TRANSLATIONS } from "../services/blobList.service";
 import SliderButton from "../components/slider/SliderButton";
 import { useFilterContext } from "../context/FilterContext";
+import ClusteredMap from "../features/map/ClusteredMap";
 
 
 //restaurants with inserted tags:
@@ -129,6 +130,9 @@ const FilterPage = () => {
         />
       </div>
       <div className="m-8">
+        <ClusteredMap
+        terraces={filteredTerraces}
+        />
         <Map
         terraces={filteredTerraces}
         />

@@ -37,7 +37,8 @@ const Home = () => {
         <Map
         terraces={terraceList}
         />
-        <ClusteredMap />
+        <ClusteredMap
+        terraces={terraceList} />
         <div className="absolute top-1 right-1 z-1">  {/* Weather floating position */}
           <WeatherFeature />
         </div>
