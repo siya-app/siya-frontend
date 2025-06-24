@@ -1,23 +1,27 @@
+// components/Map/ClusteredMapView.tsx
 import { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useUserLocation } from "../../hooks/useUserLocation";
+import { fetchTerraces } from "../../services/fetchTerraces";
 import { useTerraceClusters } from "../../hooks/useTerraceClusters";
-import type { CustomTerraceType } from "../../types/CustomTerraceType";
+import type { Terrace } from "../../types/TerraceType";
 import useFavorites from "../../hooks/useFavorites";
 import TerraceMarker from "./TerraceMarker";
 
-interface MapProps {
-  terraces: CustomTerraceType[];
-}
-
-const ClusteredMap = ({ terraces }: MapProps) => {
+const ClusteredMap = () => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const { location, loading, error } = useUserLocation();
+  const [terraces, setTerraces] = useState<Terrace[]>([]);
   const [bounds, setBounds] = useState<mapboxgl.LngLatBoundsLike | null>(null);
   const [zoom, setZoom] = useState(16);
   const { isFavorite } = useFavorites();
+
+  // Carreguem les terrasses
+  useEffect(() => {
+    fetchTerraces().then(setTerraces);
+  }, []);
 
   // Inicialitzem el mapa
   useEffect(() => {
@@ -53,40 +57,21 @@ const ClusteredMap = ({ terraces }: MapProps) => {
     return () => map.remove();
   }, [location, loading]);
 
-  // 🔁 Cada vegada que canvien les terrasses, actualitzem marcadors (no clústers)
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map) return;
-
-    // Eliminem marcadors previs
-    const previousMarkers = document.querySelectorAll(".terrace-marker");
-    previousMarkers.forEach((el) => el.remove());
-
-    terraces.forEach((terrace) => {
-      if (terrace.latitude && terrace.longitude) {
-        TerraceMarker({
-          terrace,
-          map,
-          isFavorite: isFavorite(terrace.id),
-        });
-      }
-    });
-  }, [terraces, isFavorite]);
-
-  // 🔁 Recalculem clústers si canvien els bounds o el zoom
+  // Clusters amb hook personalitzat
   const clusters = useTerraceClusters({ terraces, bounds, zoom });
 
-  // Afegim marcadors per als clústers
+  // Afegim marcadors (després d'obtenir els clusters)
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
 
-    const clusterMarkers: mapboxgl.Marker[] = [];
-
+    // Neteja marcadors previs
+    const markerEls: mapboxgl.Marker[] = [];
     clusters.forEach((cluster) => {
       const [lng, lat] = cluster.geometry.coordinates;
 
       if ("cluster" in cluster.properties) {
+        // És un clúster
         const el = document.createElement("div");
         el.className = "cluster-marker";
         el.style.width = "40px";
@@ -111,14 +96,25 @@ const ClusteredMap = ({ terraces }: MapProps) => {
           });
         });
 
-        clusterMarkers.push(marker);
+        markerEls.push(marker);
+      } else {
+        // És un punt individual -> fem servir el marcador
+        const id = cluster.properties.id;
+        const terrace = terraces.find((t) => t.id === id);
+        if (terrace) {
+          TerraceMarker({
+            terrace,
+            map,
+            isFavorite: isFavorite(terrace.id),
+          });
+        }
       }
     });
 
     return () => {
-      clusterMarkers.forEach((marker) => marker.remove());
+      markerEls.forEach((marker) => marker.remove());
     };
-  }, [clusters, zoom]);
+  }, [clusters, terraces, isFavorite]);
 
   if (loading) return <p>Carregant mapa…</p>;
   if (error) return <p>Error: {error}</p>;
