@@ -3,18 +3,19 @@ import { FaMapMarkerAlt, FaFilter, FaUser } from 'react-icons/fa'; // Importing 
 import { HiOutlineTicket } from "react-icons/hi";
 import { ImCalendar } from "react-icons/im";
 import { RiCalendarCheckFill } from "react-icons/ri";
+import { HiHome } from "react-icons/hi";
 
 
 export default function Footer() {
     return (
-        <footer className="siya2-bg text-white p-3 fixed bottom-0 left-0 w-full border-t border-white/20">
+        <footer className="siya2-bg text-siya-principal p-3 fixed bottom-0 left-0 w-full border-t border-white/20">
             <nav className="flex justify-around items-center z-[9999]">
                 <Link
                     to="/"
                     className="flex flex-col items-center text-xs hover:text-gray-200 transition-colors"
                 >
-                    <FaMapMarkerAlt className="text-lg mb-1" />
-                    <span>Prop teu</span>
+                    <HiHome className="text-lg mb-1" />
+                    <span>Inici</span>
                 </Link>
 
                 <Link

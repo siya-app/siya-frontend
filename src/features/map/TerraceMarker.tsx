@@ -1,10 +1,11 @@
 // components/Map/TerraceMarker.tsx
 import mapboxgl from "mapbox-gl";
 import { Heart } from "lucide-react";
-import type { Terrace } from "../../types/TerraceType";
+// import type { Terrace } from "../../types/TerraceType";
+import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
 
 type Props = {
-  terrace: Terrace;
+  terrace: CustomTerraceType;
   map: mapboxgl.Map;
   isFavorite?: boolean; // Pots passar-ho quan tinguis aquesta info
 };
@@ -12,6 +13,7 @@ type Props = {
 const TerraceMarker = ({ terrace, map, isFavorite = false }: Props) => {
   // Crea el contenidor del marcador
   const el = document.createElement("div");
+  el.className = "terrace-marker";
 
   if (isFavorite) {
     const heartIcon = document.createElement("div");
