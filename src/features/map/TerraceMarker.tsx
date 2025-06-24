@@ -1,7 +1,11 @@
 // components/Map/TerraceMarker.tsx
 import mapboxgl from "mapbox-gl";
+<<<<<<< Updated upstream
 import { Heart } from "lucide-react";
 // import type { Terrace } from "../../types/TerraceType";
+=======
+import type { Terrace } from "../../types/TerraceType";
+>>>>>>> Stashed changes
 import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
 
 type Props = {
