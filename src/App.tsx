@@ -7,22 +7,28 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "./context/AuthContext";
 import { TerraceProvider } from "./context/filteredTerraces.context";
 import { UserProvider } from "./context/filteredUsers.context";
-import { FilterProvider } from './context/FilterContext';
+import { FilterProvider } from "./context/FilterContext";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <UserLocationProvider>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <Layout>
-            <AppRoutes />
-          </Layout>
-        </AuthProvider>
-      </QueryClientProvider>
-    </UserLocationProvider>
-  )
+    <UserProvider>
+      <TerraceProvider>
+        <FilterProvider>
+          <UserLocationProvider>
+            <QueryClientProvider client={queryClient}>
+              <AuthProvider>
+                <Layout>
+                  <AppRoutes />
+                </Layout>
+              </AuthProvider>
+            </QueryClientProvider>
+          </UserLocationProvider>
+        </FilterProvider>
+      </TerraceProvider>
+    </UserProvider>
+  );
 }
 
 export default App;
