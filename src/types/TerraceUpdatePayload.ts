@@ -1,5 +1,4 @@
 export type TerraceUpdatePayload = {
-  currentPassword: string;
   average_price: number;
   has_wifi: boolean | null;
   pet_friendly: boolean | null;

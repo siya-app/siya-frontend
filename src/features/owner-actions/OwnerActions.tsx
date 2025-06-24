@@ -11,6 +11,7 @@ import { HiArrowSmRight } from "react-icons/hi";
 import BlobCard from "../../components/slider/BlobCard";
 import redBlob from '../../assets/blobs/red-blob.png';
 import UpdateTerrace from "../update-terrace/UpdateTerrace";
+import type { TerraceUpdatePayload } from "../../types/TerraceUpdatePayload";
 
 function OwnerActions() {
   const [user, setUser] = useState<User | null>(null);
@@ -62,6 +63,37 @@ function OwnerActions() {
     //ruta a angular
     window.location.href = `http://localhost:4200/profile/${user.id}`;
   };
+
+  const handleUpdateTerrace = async (formData: TerraceUpdatePayload) => {
+  try {
+    const token = localStorage.getItem("token");
+    const updateURL = `${import.meta.env.VITE_API_ALL_TERRACES}/${ownedTerrace.id}`;
+
+    const response = await fetch(updateURL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.error("Error updating terrace:", result.error || result.message);
+      // Opcional: mostrar notificación de error al usuario
+      return;
+    }
+
+    console.log("Terrace updated successfully:", result);
+    // Opcional: notificar éxito al usuario y refrescar datos si hace falta
+
+  } catch (err) {
+    console.error("Network/server error while updating terrace:", err);
+  }
+};
+
 
   if (!user) return <p>Carregant dades de l'usuari...</p>;
   return (
@@ -119,7 +151,7 @@ function OwnerActions() {
             Ja no soc propietari/ària
           </Button>
         </div>
-      <UpdateTerrace terrace={ownedTerrace} isOpen={isEditTerraceOpen} onClose={() => setIsEditTerraceOpen(false)} />
+      <UpdateTerrace terrace={ownedTerrace} isOpen={isEditTerraceOpen} onClose={() => setIsEditTerraceOpen(false)} onSubmit={handleUpdateTerrace}/>
 
       </>)}
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
 import { FiInfo } from "react-icons/fi";
@@ -46,8 +46,18 @@ function UpdateTerrace({
   );
   const [website, setWebsite] = useState(terrace?.website || "");
   const [profilePic, setProfilePic] = useState(terrace?.profile_pic || "");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  useEffect(() => {
+  if (!isOpen) {
+    setCurrentPassword("");
+    setPassError("");
+    setSuccessMessage("");
+  }
+}, [isOpen]);
 
   if (!isOpen) return null;
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,19 +70,18 @@ function UpdateTerrace({
       return;
     }
     const updatedData: TerraceUpdatePayload = {
-        average_price: averagePrice,
-        has_wifi: hasWifi,
-        pet_friendly: petFriendly,
-        can_smoke: canSmoke,
-        has_disabled_access: hasDisabledAccess,
-        reservation_fee: reservationFee,
-        tables: tables,
-        seats: seats,
-        phone_num: phoneNum,
-        instagram_account: instagramAccount,
-        website,
-        profile_pic: profilePic,
-      
+      average_price: averagePrice,
+      has_wifi: hasWifi,
+      pet_friendly: petFriendly,
+      can_smoke: canSmoke,
+      has_disabled_access: hasDisabledAccess,
+      reservation_fee: reservationFee,
+      tables: tables,
+      seats: seats,
+      phone_num: phoneNum,
+      instagram_account: instagramAccount,
+      website,
+      profile_pic: profilePic,
     };
 
     try {
@@ -91,9 +100,13 @@ function UpdateTerrace({
       const data = await res.json();
 
       if (res.ok && data.success) {
-          onSubmit({ currentPassword, ...updatedData });
-        
-        onClose();
+        onSubmit(updatedData);
+        setSuccessMessage("✅ Canvis desats correctament!");
+
+        setTimeout(() => {
+          setSuccessMessage("");
+          onClose();
+        }, 2000);
       } else {
         setPassError(data.error || "Error de verificació.");
       }
@@ -409,6 +422,11 @@ function UpdateTerrace({
               <p className="text-red-500 text-sm mt-1">{passError}</p>
             )}
           </div>
+          {successMessage && (
+            <p className="text-green-600 font-medium text-center">
+              {successMessage}
+            </p>
+          )}
 
           {/* Botón guardar */}
           <div className="pt-4 border-t border-gray-200 flex justify-end">
