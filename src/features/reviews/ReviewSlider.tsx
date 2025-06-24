@@ -32,7 +32,9 @@ export function ReviewSlider({ terraceId, refresh }: Props) {
   return (
     <ScrollSnap>
       {reviews.map((review: Review) => (
-        <div className="m-2">
+        <div
+        key={review.id + 1}
+        className="m-2">
           <ReviewCard
             key={review.id}
             rating={review.rating}

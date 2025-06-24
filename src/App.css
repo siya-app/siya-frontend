@@ -218,3 +218,7 @@
   overflow: hidden;
   transition: max-height 0.4s ease;
 }
+
+.animate-once {
+  animation-iteration-count: initial;
+}

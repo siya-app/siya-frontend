@@ -34,12 +34,12 @@ export default function Profile() {
   return (
     <>
       <div className="w-fit mx-auto p-6 bg-white shadow-lg rounded-lg m-3 ms-5 me-5 text-center">
-        <h2 className="text-3xl font-bold text-center mb-6 text-siya-dark-green">
+        <h2 className="text-3xl font-bold text-center mb-6 siyaRed-text">
           Hola, {user.name}!
         </h2>
         <div className="space-y-3 text-gray-700">
           <p className="text-lg">
-            <span className="font-semibold">Email:</span> {user.email}
+            <span className="font-semibold siyaDark-text">Email:</span> {user.email}
           </p>
         </div>
       </div>
@@ -57,18 +57,9 @@ export default function Profile() {
       <div className="m-auto w-fit mb-4">
         <Button
           onClick={() => setShowEditModal(true)}
-          className="border-2 border-siya-principal rounded-xl p-2 bg-siya-principal text-white"
+          className="border-2 border-siya-principal rounded-xl p-2 text-siya-principal w-fit"
         >
           Editar perfil
-        </Button>
-      </div>
-
-      <div className="m-auto w-fit">
-        <Button
-          onClick={() => setShowModal(true)}
-          className="border-2 border-siya-principal rounded-xl p-2 bg-siya-principal text-white"
-        >
-          Eliminar compte
         </Button>
       </div>
 
@@ -84,6 +75,15 @@ export default function Profile() {
           className="border-2 border-siya-principal rounded-xl p-2 text-siya-principal w-fit"
         >
           Log out
+        </Button>
+      </div>
+
+      <div className="m-auto w-fit mb-10">
+        <Button
+          onClick={() => setShowModal(true)}
+          className="border-2 rounded-xl p-2 siyaDark-bg text-white"
+        >
+          Eliminar compte
         </Button>
       </div>
     </>

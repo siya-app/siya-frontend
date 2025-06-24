@@ -17,7 +17,7 @@ export function useFavorites() {
     queryKey: ['favorites', userId],
     queryFn: async () => {
       if (!userId) return [];
- const res = await fetch(`http://localhost:8080/favorites?userId=${userId}`, {
+      const res = await fetch(`http://localhost:8080/favorites?userId=${userId}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       });

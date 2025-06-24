@@ -116,7 +116,7 @@ export const getBlobs = () => ({
 export const BLOB_TRANSLATIONS = {
     categories: {
         cover: "Tipus de coberta",
-        dietary: "Restriccions alimentàries",
+        dietary: "Tipus de dieta",
         emotional: "Ambient",
         food: "Tipus de menjar",
         placement: "Ubicació"
@@ -129,50 +129,50 @@ export const BLOB_TRANSLATIONS = {
     },
     dietary: {
         glutenFree: "Sense gluten",
-        vegan: "Vegà",
-        veggie: "Vegetarià"
+        vegan: "Vegana",
+        veggie: "Vegetariana"
     },
     emotional: {
-        cozy: "Acollidor",
+        cozy: "Acollidora",
         elegant: "Elegant",
         family: "Familiar",
-        friends: "Amb amics",
+        friends: "Pels amics",
         groups: "Per a grups",
         lgtbi: "LGTBI+ friendly",
         lively: "Té marxa",
         petLovers: "Pet-lover",
         relaxed: "Relax",
-        romantic: "Romàntic",
-        silent: "Silenciós",
+        romantic: "Romàntica",
+        silent: "Silenciosa",
         trendy: "En tendència"
     },
     food: {
-        american: "Americà",
-        asian: "Asiàtic",
+        american: "Americana",
+        asian: "Asiàtica",
         breakfast: "Esmorzar",
         brunch: "Brunch",
         burger: "Hamburguesa",
         chicken: "Pollastre",
-        chinese: "Xinès",
+        chinese: "Xinesa",
         dailyMenu: "Menú del dia",
-        indian: "Indi",
-        italian: "Italià",
+        indian: "India",
+        italian: "Italiana",
         kebab: "Kebab",
-        latin: "Llatí",
-        mex: "Mexicà",
+        latin: "Llatina",
+        mex: "Mexicana",
         middleEast: "Orient Mitjà",
-        peruvian: "Peruà",
+        peruvian: "Peruana",
         pizza: "Pizza",
-        spanish: "Espanyol",
+        spanish: "Espanyola",
         tapas: "Tapes",
-        thai: "Tailandès",
+        thai: "Tailandesa",
         viet: "Vietnamita"
     },
     placement: {
         nature: "Natura",
         park: "Parc",
         rooftop: "Rooftop",
-        seaside: "Marítim",
+        seaside: "Marítima",
         square: "Plaça",
         street: "Carrer"
     }
