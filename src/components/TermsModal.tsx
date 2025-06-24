@@ -40,7 +40,7 @@ function TermsModal({ isOpen, onClose }: ModalProps) {
           <br />
           <p>- Per oferir-te serveis personalitzats, Siya utilitza la teva ubicació per mostrar terrasses i la previsió meteorològica.</p>
           <p>- Recordem que el consum d’alcohol no està recomanat per a menors de 18 anys. Et demanem que facis un ús responsable dels serveis relacionats amb el consum d’alcohol.</p>
-          <p>- Les reserves de taula requereixen un pagament a través de Stripe. Si finalment vas al restaurant, aquesta quantitat es descomptarà del compte.</p>
+          <p>- Les reserves de taula requereixen un pagament per endavant. Si finalment vas al restaurant, aquesta quantitat es descomptarà del compte. Si anul·les la reserva amb com a mínim una hora d'antelció, recuperaràs la quantitat pagada.</p>
           <p>- Siya no es fa responsable de possibles errors en la informació, ni dels serveis oferts pels propietaris de les terrasses.</p>
           <p>- Podem modificar aquestes condicions en qualsevol moment, informant als usuaris a través de l’aplicació.</p>
           <p>- Per qualsevol consulta, pots contactar-nos a siya.bcn.app[@]gmail.com</p>
