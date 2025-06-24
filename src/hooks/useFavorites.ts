@@ -1,5 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '../context/useAuth';
+import { useCallback } from 'react';
+
 
 interface Favorite {
   id: string;
@@ -57,10 +59,8 @@ export function useFavorites() {
     }
   });
 
-  const isFavorite = (terraceId: string): boolean =>
-    !!(favorites as Favorite[] | undefined)?.find((f) => f.id_terrace === terraceId);
-
-  console.log('Favorites:', favorites);
+  const isFavorite = useCallback((terraceId: string): boolean =>
+    !!(favorites as Favorite[] | undefined)?.find((f) => f.id_terrace === terraceId), [favorites]);
 
   return {
     isFavorite,

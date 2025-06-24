@@ -109,6 +109,7 @@ const TerraceDetailsView = () => {
             rating={terrace.average_rating}
           />
         </div>
+
       </div>
 
       <div className="flex flex-col items-start gap-2 text-gray-700">
