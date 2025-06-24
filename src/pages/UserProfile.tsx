@@ -57,7 +57,7 @@ export default function Profile() {
       <div className="m-auto w-fit mb-4">
         <Button
           onClick={() => setShowEditModal(true)}
-          className="border-2 border-siya-principal rounded-xl p-2 bg-siya-principal text-white"
+          className="border-2 border-siya-principal rounded-xl p-2 text-siya-principal w-fit"
         >
           Editar perfil
         </Button>

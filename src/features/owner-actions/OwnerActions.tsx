@@ -86,7 +86,7 @@ function OwnerActions() {
         rounded
         cursor-pointer w-fit"
           >
-            Veure la meva terrassa
+            Reserves a la meva terrassa
           </Button>
           {/* Aquí van otros dos botones de editar y darse de baja */}
         </div>
