@@ -12,11 +12,13 @@ import BlobCard from "../../components/slider/BlobCard";
 import redBlob from '../../assets/blobs/red-blob.png';
 import UpdateTerrace from "../update-terrace/UpdateTerrace";
 import type { TerraceUpdatePayload } from "../../types/TerraceUpdatePayload";
+import TerraceUnclaim from "../terrace-unclaim/TerraceUnclaim";
 
 function OwnerActions() {
   const [user, setUser] = useState<User | null>(null);
   const [openSection, setOpenSection] = useState(false);
   const [isEditTerraceOpen, setIsEditTerraceOpen] = useState(false);
+  const [isUnclaimModalOpen, setIsUnclaimModalOpen] = useState(false);
   const [ownedTerrace, setOwnedTerrace] = useState<CustomTerraceType| null>(null)
   const navigate = useNavigate();
 
@@ -140,6 +142,7 @@ function OwnerActions() {
             Editar terrassa
           </Button>
           <Button
+          onClick={() => setIsUnclaimModalOpen(true)}
           className="bg-siya-dark-green
         text-siya-lemon-cream
         font-bold
@@ -152,6 +155,13 @@ function OwnerActions() {
           </Button>
         </div>
       <UpdateTerrace terrace={ownedTerrace} isOpen={isEditTerraceOpen} onClose={() => setIsEditTerraceOpen(false)} onSubmit={handleUpdateTerrace}/>
+<TerraceUnclaim
+  isOpen={isUnclaimModalOpen}
+  onClose={() => setIsUnclaimModalOpen(false)}
+  onUnclaimSuccess={() => {
+  window.location.reload();
+  }}
+/>
 
       </>)}
 
