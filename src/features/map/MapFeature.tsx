@@ -31,11 +31,24 @@ const Map = ({terraces}: MapProps) => {
     });
 
     mapRef.current = map;
+    map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
+
 
     new mapboxgl.Marker({ color: 'siya-red', rotation: 15, scale: 1.2 })
       .setPopup(new mapboxgl.Popup().setHTML("<h3>La teva ubicació</h3>"))
       .setLngLat([location.longitude, location.latitude])
       .addTo(map);
+    
+      // Carreguem les terrasses i afegim marcadors
+  fetchTerraces().then((data) => {
+    setTerraces(data);
+
+    data.forEach((terrace) => {
+      if (terrace.latitude && terrace.longitude) {
+        TerraceMarker({ terrace, map });
+      }
+    });
+  });
 
     return () => {
       map?.remove();

@@ -1,0 +1,129 @@
+import { useRef, useEffect, useState } from "react";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+import { useUserLocation } from "../../hooks/useUserLocation";
+import { useTerraceClusters } from "../../hooks/useTerraceClusters";
+import type { CustomTerraceType } from "../../types/CustomTerraceType";
+import useFavorites from "../../hooks/useFavorites";
+import TerraceMarker from "./TerraceMarker";
+
+interface MapProps {
+  terraces: CustomTerraceType[];
+}
+
+const ClusteredMap = ({ terraces }: MapProps) => {
+  const mapRef = useRef<mapboxgl.Map | null>(null);
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const { location, loading, error } = useUserLocation();
+  const [bounds, setBounds] = useState<mapboxgl.LngLatBoundsLike | null>(null);
+  const [zoom, setZoom] = useState(16);
+  const { isFavorite } = useFavorites();
+
+  // Inicialitzem el mapa
+  useEffect(() => {
+    if (!mapContainerRef.current || !location || loading) return;
+
+    mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
+
+    const map = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      center: [location.longitude, location.latitude],
+      style: "mapbox://styles/mapbox/light-v10",
+      zoom: 16,
+    });
+
+    mapRef.current = map;
+
+    map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "top-left");
+
+    new mapboxgl.Marker({ color: "#d00" })
+      .setPopup(new mapboxgl.Popup().setHTML("<h3>La teva ubicació</h3>"))
+      .setLngLat([location.longitude, location.latitude])
+      .addTo(map);
+
+    map.on("moveend", () => {
+      setBounds(map.getBounds().toArray());
+      setZoom(map.getZoom());
+    });
+
+    // Inicialitzem bounds
+    setBounds(map.getBounds().toArray());
+    setZoom(map.getZoom());
+
+    return () => map.remove();
+  }, [location, loading]);
+
+  // 🔁 Cada vegada que canvien les terrasses, actualitzem marcadors (no clústers)
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    // Eliminem marcadors previs
+    const previousMarkers = document.querySelectorAll(".terrace-marker");
+    previousMarkers.forEach((el) => el.remove());
+
+    terraces.forEach((terrace) => {
+      if (terrace.latitude && terrace.longitude) {
+        TerraceMarker({
+          terrace,
+          map,
+          isFavorite: isFavorite(terrace.id),
+        });
+      }
+    });
+  }, [terraces, isFavorite]);
+
+  // 🔁 Recalculem clústers si canvien els bounds o el zoom
+  const clusters = useTerraceClusters({ terraces, bounds, zoom });
+
+  // Afegim marcadors per als clústers
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    const clusterMarkers: mapboxgl.Marker[] = [];
+
+    clusters.forEach((cluster) => {
+      const [lng, lat] = cluster.geometry.coordinates;
+
+      if ("cluster" in cluster.properties) {
+        const el = document.createElement("div");
+        el.className = "cluster-marker";
+        el.style.width = "40px";
+        el.style.height = "40px";
+        el.style.borderRadius = "50%";
+        el.style.backgroundColor = "#ff1818";
+        el.style.display = "flex";
+        el.style.alignItems = "center";
+        el.style.justifyContent = "center";
+        el.style.color = "white";
+        el.style.fontWeight = "bold";
+        el.innerText = cluster.properties.point_count.toString();
+
+        const marker = new mapboxgl.Marker({ element: el })
+          .setLngLat([lng, lat])
+          .addTo(map);
+
+        el.addEventListener("click", () => {
+          map.easeTo({
+            center: [lng, lat],
+            zoom: zoom + 2,
+          });
+        });
+
+        clusterMarkers.push(marker);
+      }
+    });
+
+    return () => {
+      clusterMarkers.forEach((marker) => marker.remove());
+    };
+  }, [clusters, zoom]);
+
+  if (loading) return <p>Carregant mapa…</p>;
+  if (error) return <p>Error: {error}</p>;
+
+  return <div ref={mapContainerRef} className="h-80 w-full" />;
+};
+
+export default ClusteredMap;

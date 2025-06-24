@@ -10,6 +10,7 @@ import WeatherFeature from "../features/weather/WeatherFeature";
 import { useAuth } from "../context/useAuth";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import ClusteredMap from "../features/map/ClusteredMap";
 
 const Home = () => {
   const { terraceList } = useTerraceList();
@@ -36,6 +37,7 @@ const Home = () => {
         <Map
         terraces={terraceList}
         />
+        <ClusteredMap />
         <div className="absolute top-1 right-1 z-1">  {/* Weather floating position */}
           <WeatherFeature />
         </div>
