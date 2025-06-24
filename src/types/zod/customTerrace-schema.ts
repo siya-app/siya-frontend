@@ -136,6 +136,7 @@ export const CustomTerraceSchema = z.object({
     instagram_account: z.string(),
     website: z.string(),
     profile_pic: z.string().optional(),
+    phone_num: z.string().optional(),
     tags: TagsSchema
 });
 

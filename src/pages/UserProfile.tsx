@@ -1,9 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import React from "react";
 import API from "../services/apiUser";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import TerraceClaim from "../features/terrace-claim/TerraceClaim";
 import TerraceSlider from "../components/slider/TerraceSlider";
 import { useTerraceList } from "../hooks/useTerraceList";
 import Button from "../components/Button";
@@ -19,7 +17,6 @@ export default function Profile() {
   const navigate = useNavigate();
   const { terraceList } = useTerraceList();
 
-  const [openSection, setOpenSection] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 

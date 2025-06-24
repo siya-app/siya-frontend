@@ -9,11 +9,13 @@ import type { User } from "../../types/User";
 import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
 import { HiArrowSmRight } from "react-icons/hi";
 import BlobCard from "../../components/slider/BlobCard";
-import redBlob from '../../assets/blobs/red-blob.png'
+import redBlob from '../../assets/blobs/red-blob.png';
+import UpdateTerrace from "../update-terrace/UpdateTerrace";
 
 function OwnerActions() {
   const [user, setUser] = useState<User | null>(null);
   const [openSection, setOpenSection] = useState(false);
+  const [isEditTerraceOpen, setIsEditTerraceOpen] = useState(false);
   const [ownedTerrace, setOwnedTerrace] = useState<CustomTerraceType| null>(null)
   const navigate = useNavigate();
 
@@ -40,6 +42,9 @@ function OwnerActions() {
       const owner = owners.find(owner => owner.id === user.id);
       console.log("Owner found:", owner);
       console.log("Claimed Terraces: ", claimedTerraces);
+      const terracesWithPhone = allTerraces.filter(terrace => terrace.phone_num != "")
+      console.log("con número", terracesWithPhone);
+      
       
       if (owner) {
         const foundTerrace = claimedTerraces.find(terrace => terrace.id === owner.id_terrace);
@@ -75,7 +80,8 @@ function OwnerActions() {
                                         id={ownedTerrace.id}
                                     />
             </div>
-            <div className="flex flex-col md:flex-row gap-4 m-3">
+            <div className="flex flex-col md:flex-row items-center gap-4 mx-auto my-4 text-center justify-center md:px-8 md:w-4/5">
+
           <Button
             onClick={goToOwnedTerrace}
             className="bg-siya-dark-green
@@ -88,9 +94,35 @@ function OwnerActions() {
           >
             Reserves a la meva terrassa
           </Button>
-          {/* Aquí van otros dos botones de editar y darse de baja */}
+          
+          <Button
+          onClick={() => setIsEditTerraceOpen(true)}
+          className="bg-siya-dark-green
+        text-siya-lemon-cream
+        font-bold
+        py-2
+        px-4
+        rounded
+        cursor-pointer w-fit"
+          >
+            Editar terrassa
+          </Button>
+          <Button
+          className="bg-siya-dark-green
+        text-siya-lemon-cream
+        font-bold
+        py-2
+        px-4
+        rounded
+        cursor-pointer w-fit"
+          >
+            Ja no soc propietari/ària
+          </Button>
         </div>
+      <UpdateTerrace terrace={ownedTerrace} isOpen={isEditTerraceOpen} onClose={() => setIsEditTerraceOpen(false)} />
+
       </>)}
+
       {user.role === "client" &&( <>
         <div
                 onClick={() => setOpenSection((prev) => !prev)}
