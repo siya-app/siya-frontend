@@ -1,33 +1,47 @@
-import { useEffect, useState, useContext } from "react";
-import React from "react";
+import { useEffect, useState } from "react";
 import API from "../services/apiUser";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import TerraceClaim from "../features/terrace-claim/TerraceClaim";
 import TerraceSlider from "../components/slider/TerraceSlider";
 import { useTerraceList } from "../hooks/useTerraceList";
 import Button from "../components/Button";
 import DeleteAccount from "../features/delete-account/DeleteAccount";
 import UpdateAccount from "../features/update-account/UpdateAccount";
-import AuthContext from "../context/AuthContext";
 import OwnerActions from "../features/owner-actions/OwnerActions";
+import UserReviews from "../features/user-reviews/UserReviews";
 
 
 
 export default function Profile() {
-  const { user, logout } = useContext(AuthContext)!;
   const navigate = useNavigate();
   const { terraceList } = useTerraceList();
 
-  const [openSection, setOpenSection] = useState(false);
+  const [user, setUser] = useState<any | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
   useEffect(() => {
-    if (!user) {
+    const storedUser = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
+
+    if (!storedUser || !token) {
       navigate("/login");
+    } else {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+      } catch (error) {
+        console.error("Error al parsear el usuario del localStorage", error);
+        navigate("/login");
+      }
     }
-  }, [user]);
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
 
   if (!user) return <p>Carregant dades de l'usuari...</p>;
 
@@ -43,7 +57,7 @@ export default function Profile() {
           </p>
         </div>
       </div>
-
+      <UserReviews />
       <Button
         onClick={() => navigate("/buscar-terrassa")}
         className="text-primary-content px-4 py-2 mt-8 m-4 bg-siya-principal text-white rounded-full flex justify-between items-center toggle-height mx-auto"

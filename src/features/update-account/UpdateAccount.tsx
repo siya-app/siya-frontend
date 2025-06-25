@@ -80,7 +80,7 @@ export default function UpdateAccount({ isOpen, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50"
       onClick={onClose}
     >
       <div
@@ -131,7 +131,7 @@ export default function UpdateAccount({ isOpen, onClose }) {
           </div>
 
           <div>
-            <label className="block mb-1">Contrasenya actual (obligatoria):</label>
+            <label className="block mb-1">Contrasenya actual (obligatòria):</label>
             <div className="relative">
               <input
                 type={showCurrentPassword ? "text" : "password"}
@@ -139,7 +139,7 @@ export default function UpdateAccount({ isOpen, onClose }) {
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 required
                 className="w-full px-4 py-2 border rounded pr-10"
-                placeholder="Contrasnya actual"
+                placeholder="Contrasenya actual"
               />
               <button
                 type="button"
