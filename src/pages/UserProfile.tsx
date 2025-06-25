@@ -33,7 +33,7 @@ export default function Profile() {
 
   return (
     <>
-      <div className="w-fit mx-auto p-6 bg-white shadow-lg rounded-lg m-3 ms-5 me-5 text-center">
+      <div className="w-fit items-center mx-auto p-6 bg-white shadow-lg rounded-lg mt-5 text-center">
         <h2 className="text-3xl font-bold text-center mb-6 siyaRed-text">
           Hola, {user.name}!
         </h2>

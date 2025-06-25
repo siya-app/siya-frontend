@@ -132,8 +132,8 @@ function TerraceClaim() {
   return (
     <>
 
-      <form onSubmit={claimTerrace} className="flex flex-col w-4/5 m-auto">
-        <h4>
+      <form onSubmit={claimTerrace} className="flex flex-col w-4/5 items-center  m-auto">
+        <h4 className="text-center mb-4">
           Per reclamar-la, introdueix la referència catastral del teu
           establiment a la casella següent:
         </h4>
@@ -143,12 +143,12 @@ function TerraceClaim() {
           value={catastro}
           onChange={(e) => setCatastro(e.target.value)}
           required
-          className="w-1/2 mt-2 border-1 border-siya-dark-green p-2 rounded m-2 ms-0"
+          className="w-3/4 mt-2 border-1 border-siya-dark-green p-2 rounded m-2 ms-0"
           disabled={loading || !currentUserId} // Deshabilitar si carga o no hay usuario
         />
         <Button
           type="submit"
-          className="w-fit
+          className="w-3/4
           bg-siya-dark-green
                 text-siya-lemon-cream
                 font-bold
