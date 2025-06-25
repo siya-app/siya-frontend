@@ -8,6 +8,7 @@ import { useEffect } from "react";
 
 type Props = {
   terraceId: string;
+  userId?: string;
   refresh: boolean;
   // setRefreshReviews:  React.Dispatch<React.SetStateAction<boolean>>;
 };
