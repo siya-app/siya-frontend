@@ -5,7 +5,7 @@ import { ReviewContext } from "../../context/reviews.context";
 import { useNavigate } from "react-router-dom";
 import { HiArrowSmRight } from "react-icons/hi";
 import { TerraceContext } from "../../context/filteredTerraces.context";
-import type {CustomTerraceSchema} from "../../types/zod/customTerrace-schema"
+import type {CustomTerraceType} from "../../types/zod/customTerrace-schema"
 
 interface Review {
   id: number;
@@ -56,7 +56,7 @@ function UserReviews() {
         <div className="flex flex-col md:flex-row flex-wrap gap-4 justify-center items-center">
           {personalReviews.length > 0 ? (
             personalReviews.map((review: Review) => 
-            { const currentTerrace = allTerraces.find((terrace : CustomTerraceSchema ) => terrace.id === review.terraceId);
+            { const currentTerrace = allTerraces.find((terrace : CustomTerraceType ) => terrace.id === review.terraceId);
               const terraceName = currentTerrace && currentTerrace.business_name ;
             
               return (
