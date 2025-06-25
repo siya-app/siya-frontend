@@ -19,6 +19,8 @@ import { PiBowlFoodBold } from "react-icons/pi";
 import { TagsModal } from "../../components/TagsModal";
 import Button from "../../components/Button";
 import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
+import TerraceSlider from "../../components/slider/TerraceSlider";
+import { useTerraceList } from "../../hooks/useTerraceList";
 
 
 const TerraceDetailsView = () => {
@@ -27,6 +29,7 @@ const TerraceDetailsView = () => {
   const [loadingTerrace, setLoadingTerrace] = useState(true);
   const [refreshReviews, setRefreshReviews] = useState(false);
   const [showTagsModal, setShowTagsModal] = useState(false);
+  const { terraceList } = useTerraceList();
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
@@ -90,6 +93,7 @@ const TerraceDetailsView = () => {
     return <p className="p-4 text-red-500">No s'ha trobat la terrassa.</p>;
 
   return (
+    <div>
     <div className="p-4 space-y-3 m-3">
       <div className="relative">
         <img
@@ -99,10 +103,10 @@ const TerraceDetailsView = () => {
         />
       </div>
       {/* Visualise tags */}
-      <div className="absolute top-19 right-2 z-1 rotate-16 animate-pulse animate-once">
+      <div className="absolute top-19 right-2 z-1 rotate-16 animate-pulse animate-twice">
         <Button
           onClick={() => setShowTagsModal(true)}
-          className="border-2 border-siya-principal p-2
+          className="border-2 border-siya-principal p-3
           text-siya-principal w-fit
           bg-white
           rounded-full">
@@ -235,6 +239,13 @@ const TerraceDetailsView = () => {
 
         }}
       />
+    </div>
+      <div>
+      <TerraceSlider
+      orderBy="nearby"
+      list={terraceList}
+      />
+      </div>
     </div>
   );
 };

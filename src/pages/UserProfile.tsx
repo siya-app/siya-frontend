@@ -1,4 +1,4 @@
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import API from "../services/apiUser";
 import { useNavigate } from "react-router-dom";
 import TerraceSlider from "../components/slider/TerraceSlider";
@@ -8,16 +8,24 @@ import DeleteAccount from "../features/delete-account/DeleteAccount";
 import UpdateAccount from "../features/update-account/UpdateAccount";
 import OwnerActions from "../features/owner-actions/OwnerActions";
 import UserReviews from "../features/user-reviews/UserReviews";
+import useFavorites from "../hooks/useFavorites";
+import { ReviewSlider } from "../features/reviews/ReviewSlider";
+import { HiArrowSmRight } from "react-icons/hi";
+
 
 
 
 export default function Profile() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { terraceList } = useTerraceList();
+  const { isFavorite, loading: loadingFavorites } = useFavorites();
+
 
   const [user, setUser] = useState<any | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+
+  const favoriteTerraces = terraceList.filter(terrace => isFavorite(terrace.id));
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -57,15 +65,33 @@ export default function Profile() {
           </p>
         </div>
       </div>
-      <UserReviews/>
+      {/* <UserReviews /> */}
+
       <Button
         onClick={() => navigate("/buscar-terrassa")}
-        className="text-primary-content px-4 py-2 mt-8 m-4 bg-siya-principal text-white rounded-full flex justify-between items-center toggle-height mx-auto"
+        className="text-primary-content px-4 py-2 mt-8 m-4 mb-10 bg-siya-principal text-white rounded-full flex justify-between items-center toggle-height mx-auto"
       >
         Reservar taula
       </Button>
 
-      <TerraceSlider list={terraceList} orderBy={"nearby"} />
+      {loadingFavorites ? (
+        <p className="text-center mt-10 text-gray-500">Carregant terrasses preferides...</p>
+
+      ) : favoriteTerraces.length > 0 ? (
+
+        <TerraceSlider list={favoriteTerraces} orderBy="favs" />
+      ) : (
+        <p className="text-center mt-10 text-gray-500">Encara no tens terrasses preferides. Descobreix-les a Siya!</p>
+      )}
+  <div className="mt-10 ms-4 mb-6">
+        <h3 className="text-xl">Les teves ressenyes <HiArrowSmRight className="inline-icon"/></h3>
+
+        <ReviewSlider
+          refresh={false}
+          userId={user?.id}
+        />
+      </div>
+
       <OwnerActions />
 
       <div className="m-auto w-fit mb-4">

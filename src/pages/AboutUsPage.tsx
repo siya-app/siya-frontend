@@ -1,5 +1,5 @@
 import blueSky from '../assets/blue-sky.jpg';
-import siyaTitle from '../assets/bg-transparent-title-600x300.png'
+import siyaTitle from '../assets/siya-title-svg.svg'
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 
@@ -39,6 +39,7 @@ function AboutUs() {
                         flex justify-between items-center
                         toggle-height
                         animate-pulse
+                        animate-twice
                         mx-auto`}
             >
                 Reservar taula

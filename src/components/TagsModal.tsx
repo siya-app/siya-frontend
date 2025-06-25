@@ -24,6 +24,7 @@ export const TagsModal = ({ isOpen, onClose, tags }: TagsModalProps) => {
                 <h2 className="text-xl font-bold">Etiquetes</h2>
                 <div className="grid grid-cols-3 gap-2">
                     {Object.entries(tags).map(([category, values]) =>
+                    category ? (
                         values.map((tag) => {
                             const blobs = getBlobs();
                             const blob = blobs[category as keyof BlobCollection]?.[tag];
@@ -36,6 +37,7 @@ export const TagsModal = ({ isOpen, onClose, tags }: TagsModalProps) => {
                                 </div>
                             );
                         })
+                    ) : <div> Qui no té tags, te cames"</div>
                     )}
                 </div>
             </div>

@@ -5,7 +5,7 @@ import { useTerraceList } from "../hooks/useTerraceList";
 import '../App.css';
 import WeatherFeature from "../features/weather/WeatherFeature";
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ClusteredMap from "../features/map/ClusteredMap";
 
 const Home = () => {

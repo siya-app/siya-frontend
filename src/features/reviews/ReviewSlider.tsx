@@ -2,21 +2,32 @@
 import ScrollSnap from "../../components/slider/ScrollSnap";
 import ReviewCard from "./ReviewCard";
 import { useQuery } from "@tanstack/react-query";
-import { fetchReviewsByTerraceId } from "../../features/reviews/fetchReviewsByTerraceId";
+import { fetchReviewsByTerraceId } from "../../features/reviews/fetchReviewsByTerraceId";            
 import { type Review } from "../../types/types";
 import { useEffect } from "react";
 
 type Props = {
-  terraceId: string;
+  terraceId?: string;
   userId?: string;
   refresh: boolean;
   // setRefreshReviews:  React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export function ReviewSlider({ terraceId, refresh }: Props) {
+export async function fetchReviewsByUserId(userId: string) {
+  const res = await fetch(`http://localhost:8080/reviews/from-user?userId=${userId}`);
+  if (!res.ok) throw new Error("Error fetching user reviews");
+  return await res.json();
+}
+
+export function ReviewSlider({ terraceId, userId, refresh }: Props) {
   const { data: reviews, isLoading, error, refetch } = useQuery({
-    queryKey: ['reviews', terraceId],
-    queryFn: () => fetchReviewsByTerraceId(terraceId),
+    queryKey: ['reviews', terraceId || userId],
+    queryFn: () => {
+      if (terraceId) return fetchReviewsByTerraceId(terraceId);
+      if (userId) return fetchReviewsByUserId(userId);
+      return Promise.resolve([]);
+    },
+    enabled: !!terraceId || !!userId,
   });
 
   useEffect(() => {
@@ -35,7 +46,7 @@ export function ReviewSlider({ terraceId, refresh }: Props) {
       {reviews.map((review: Review) => (
         <div
         key={review.id + 1}
-        className="m-2">
+        className="m-2 w-64 h-40 flex-shrink-0">
           <ReviewCard
             key={review.id}
             rating={review.rating}

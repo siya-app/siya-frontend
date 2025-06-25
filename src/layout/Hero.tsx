@@ -1,6 +1,6 @@
 import WeatherFeature from "../features/weather/WeatherFeature";
 import {useState, useEffect} from 'react'
-import siyaTitle from '../assets/bg-transparent-title-600x300.png'
+import siyaTitle from '../assets/siya-title-svg.svg'
 
 interface User {
   name: string;
