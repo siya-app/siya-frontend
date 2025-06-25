@@ -77,14 +77,6 @@ export default function Profile() {
         </Button>
       </div>
 
-      <div className="m-auto w-fit">
-        <Button
-          onClick={() => setShowModal(true)}
-          className="border-2 border-siya-principal rounded-xl p-2 bg-siya-principal text-white"
-        >
-          Eliminar compte
-        </Button>
-      </div>
 
       <UpdateAccount
         isOpen={showEditModal}
@@ -98,6 +90,14 @@ export default function Profile() {
           className="border-2 border-siya-principal rounded-xl p-2 text-siya-principal w-fit"
         >
           Log out
+        </Button>
+      </div>
+      <div className="m-auto w-fit">
+        <Button
+          onClick={() => setShowModal(true)}
+          className="border-2 border-siya-principal rounded-xl p-2 bg-siya-principal text-white"
+        >
+          Eliminar compte
         </Button>
       </div>
     </>
