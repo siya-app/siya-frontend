@@ -1,21 +1,25 @@
 import Hero from "../layout/Hero";
 import LogInForm from "../features/login-form/LogInForm";
 import TerraceSlider from "../components/slider/TerraceSlider";
-import TerraceClaim from "../features/terrace-claim/TerraceClaim";
 import { useTerraceList } from "../hooks/useTerraceList";
 import '../App.css';
 import WeatherFeature from "../features/weather/WeatherFeature";
-import { useAuth } from "../context/useAuth";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import ClusteredMap from "../features/map/ClusteredMap";
 
 const Home = () => {
   const { terraceList } = useTerraceList();
-  const user = useAuth();
+  const [user, setUser] = useState(null);
   const isLoggedIn = !!localStorage.getItem('token');
 
   const location = useLocation();
+    useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   useEffect(() => {
     if (location.hash === '#loginForm' && terraceList.length > 0) {
@@ -46,8 +50,8 @@ const Home = () => {
         list={terraceList}
       />
       <section id="loginForm">
-        {user?.user && isLoggedIn ?
-          <></> : <LogInForm />}
+        {user && isLoggedIn ?
+          <></> : <LogInForm onLoginSuccess={(user) => setUser(user)}/>}
       </section>
     </div>
   );
