@@ -41,18 +41,12 @@ function OwnerActions() {
  
   useEffect(() => {
     if (user) {
-      console.log("User ID:", user.id);
       const owner = owners.find(owner => owner.id === user.id);
-      console.log("Owner found:", owner);
-      console.log("Claimed Terraces: ", claimedTerraces);
-      const terracesWithPhone = allTerraces.filter(terrace => terrace.phone_num != "")
-      console.log("con número", terracesWithPhone);
       
       
       if (owner) {
         const foundTerrace = claimedTerraces.find(terrace => terrace.id === owner.id_terrace);
         setOwnedTerrace(foundTerrace)
-        console.log("Owned terrace: ", ownedTerrace);
       }
     }
       
@@ -84,12 +78,9 @@ function OwnerActions() {
 
     if (!response.ok) {
       console.error("Error updating terrace:", result.error || result.message);
-      // Opcional: mostrar notificación de error al usuario
       return;
     }
 
-    console.log("Terrace updated successfully:", result);
-    // Opcional: notificar éxito al usuario y refrescar datos si hace falta
 
   } catch (err) {
     console.error("Network/server error while updating terrace:", err);

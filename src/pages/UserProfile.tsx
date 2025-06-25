@@ -7,6 +7,7 @@ import Button from "../components/Button";
 import DeleteAccount from "../features/delete-account/DeleteAccount";
 import UpdateAccount from "../features/update-account/UpdateAccount";
 import OwnerActions from "../features/owner-actions/OwnerActions";
+import UserReviews from "../features/user-reviews/UserReviews";
 
 
 
@@ -56,7 +57,7 @@ export default function Profile() {
           </p>
         </div>
       </div>
-
+      <UserReviews/>
       <Button
         onClick={() => navigate("/buscar-terrassa")}
         className="text-primary-content px-4 py-2 mt-8 m-4 bg-siya-principal text-white rounded-full flex justify-between items-center toggle-height mx-auto"
