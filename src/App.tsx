@@ -8,26 +8,29 @@ import { AuthProvider } from "./context/AuthContext";
 import { TerraceProvider } from "./context/filteredTerraces.context";
 import { UserProvider } from "./context/filteredUsers.context";
 import { FilterProvider } from "./context/FilterContext";
+import { ReviewProvider } from "./context/reviews.context";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <UserProvider>
-      <TerraceProvider>
-        <FilterProvider>
-          <UserLocationProvider>
-            <QueryClientProvider client={queryClient}>
-              <AuthProvider>
-                <Layout>
-                  <AppRoutes />
-                </Layout>
-              </AuthProvider>
-            </QueryClientProvider>
-          </UserLocationProvider>
-        </FilterProvider>
-      </TerraceProvider>
-    </UserProvider>
+    <ReviewProvider>
+      <UserProvider>
+        <TerraceProvider>
+          <FilterProvider>
+            <UserLocationProvider>
+              <QueryClientProvider client={queryClient}>
+                <AuthProvider>
+                  <Layout>
+                    <AppRoutes />
+                  </Layout>
+                </AuthProvider>
+              </QueryClientProvider>
+            </UserLocationProvider>
+          </FilterProvider>
+        </TerraceProvider>
+      </UserProvider>
+    </ReviewProvider>
   );
 }
 

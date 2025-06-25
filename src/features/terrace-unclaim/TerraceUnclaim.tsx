@@ -122,7 +122,7 @@ if (!userId) return null;
         onClick={(e) => e.stopPropagation()}
       >
         <h3 className="text-lg font-semibold text-gray-900 mb-4">
-          Segur que vols cancel·lar la propietat d'aqeusta terrassa?
+          Segur que vols cancel·lar la propietat d'aquesta terrassa?
         </h3>
         <p className="text-sm mb-4">
           - Recorda que no podràs modificar dades de la teva terrassa ni
