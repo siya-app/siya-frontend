@@ -20,8 +20,8 @@ const ProfileReviewCard: React.FC<ReviewCardProps> = ({ restaurantName, rating, 
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-4 mb-4 w-80 border border-gray-200">
-      <h3 className="text-lg font-semibold text-gray-800 mb-2"><Link to={`/terrassa/${terraceId}`} className="hover:underline text-blue-600">
+    <div className="bg-white shadow-md rounded-lg p-4 mb-4 w-full max-w-xs border border-gray-200">
+      <h3 className="text-lg font-semibold text-gray-800 mb-2"><Link to={`/terrassa/${terraceId}`} className="hover:underline">
           {restaurantName}
         </Link></h3>
       <div className="mb-2 text-xl">{renderStars(rating)}</div>

@@ -64,7 +64,7 @@ export default function Profile() {
       >
         Reservar taula
       </Button>
-
+      <UserReviews></UserReviews>
       <TerraceSlider list={terraceList} orderBy={"nearby"} />
       <OwnerActions />
 
