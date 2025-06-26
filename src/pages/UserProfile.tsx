@@ -83,13 +83,18 @@ export default function Profile() {
       ) : (
         <p className="text-center mt-10 text-gray-500">Encara no tens terrasses preferides. Descobreix-les a Siya!</p>
       )}
-  <div className="mt-10 ms-4 mb-6">
-        <h3 className="text-xl">Les teves ressenyes <HiArrowSmRight className="inline-icon"/></h3>
+      <div className="mt-10 ms-4 mb-6">
+        <h3 className="text-xl">Les teves ressenyes <HiArrowSmRight className="inline-icon" /></h3>
 
         <ReviewSlider
           refresh={false}
           userId={user?.id}
         />
+      </div>
+
+      <div className="m-4">
+      <h3 className="text-xl">Les teves reserves <HiArrowSmRight className="inline-icon" /></h3>
+      <p>Encara no tens reserves, busca-les a la pàgina de filtres!</p>
       </div>
 
       <OwnerActions />
