@@ -97,7 +97,7 @@ export default function Profile() {
       <p>Encara no tens reserves, busca-les a la pàgina de filtres!</p>
       </div>
 
-      <OwnerActions />
+      <OwnerActions user={user}/>
 
       <div className="m-auto w-fit mb-4">
         <Button
