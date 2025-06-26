@@ -22,11 +22,7 @@ const MyBookings: React.FC = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get(import.meta.env.VITE_API_USER_BOOKINGS, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(import.meta.env.VITE_API_USER_BOOKINGS);
         setBookings(response.data);
       } catch (err) {
         setError("Error carregant les reserves.");
@@ -40,20 +36,20 @@ const MyBookings: React.FC = () => {
   }, []);
 
   if (loading) return <p className="text-gray-500">Carregant reserves...</p>;
-  if (error) return <p className="text-red-500">{error}</p>;
+  //if (error) return console.log(error);
 
   return (
-    <div className="max-w-3xl mx-auto p-4 mt-4">
+    <div className="max-w-3xl mx-auto  mt-4">
       <h2
                 className="montserrat-siya text-xl
                   m-2 ms-3 siyaDark-text"
               >
-                Les meves ressenyes
+                Les meves reserves
                 <span className="inline-icon">
                   <HiArrowSmRight />
                 </span>
               </h2>
-      {bookings.length === 0 ? (
+      {/* {bookings.length === 0 ? (
         <p className="">Encara no has fet cap reserva.</p>
       ) : (
         bookings.map((booking) => (
@@ -65,7 +61,8 @@ const MyBookings: React.FC = () => {
             time={booking.booking_time}
           />
         ))
-      )}
+      )} */}
+      <p className="m-auto text-center">Encara no has fet cap reserva</p>
     </div>
   );
 };
