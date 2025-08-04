@@ -80,9 +80,14 @@ const TerraceDetailsView = () => {
       id_terrace: user.id_terrace ?? '',
       restaurantId: user.restaurantId ?? '',
       terraceId: id ?? ''
-    });
+    },);
 
-    window.location.href = `http://localhost:4200/calendar?${params.toString()}`;
+    navigate(`/reservar/${id}`, {
+  state: {
+    userData: params.toString(),
+    restaurantName: terrace?.business_name // 👈 añade esto
+  }
+});
   };
 
   console.log(`terrace rating: ${terrace?.average_rating}`)
