@@ -87,11 +87,11 @@ function CalendarBooking() {
 }
 
 function getWeatherIcon(cloudCover: number | null) {
-  if (cloudCover === null) return <Cloud className="w-5 h-5" style={{ color: "#ff1818" }} />; // Icono por defecto
-  if (cloudCover < 20) return <Sun className="w-5 h-5" style={{ color: "#ff1818" }} />;
-  if (cloudCover < 50) return <CloudSun className="w-5 h-5" style={{ color: "#ff1818" }} />;
-  if (cloudCover < 80) return <Cloud className="w-5 h-5" style={{ color: "#ff1818" }} />;
-  return <CloudRain className="w-5 h-5" style={{ color: "#ff1818" }} />;
+  if (cloudCover === null) return <Cloud className="w-5 h-5 siyaRed-text " />; 
+  if (cloudCover < 20) return <Sun className="w-5 h-5 siyaRed-text" />;
+  if (cloudCover < 50) return <CloudSun className="w-5 h-5 siyaRed-text" />;
+  if (cloudCover < 80) return <Cloud className="w-5 h-5 siyaRed-text"  />;
+  return <CloudRain className="w-5 h-5 siyaRed-text"  />;
 }
 
 function getAverageCloudCoverForDate(weather: any, date: string): number | null {
@@ -99,7 +99,7 @@ function getAverageCloudCoverForDate(weather: any, date: string): number | null 
 
   const cloudCovers: number[] = [];
   const timeArray = weather.hourly.time;
-  const cloudCoverArray = weather.hourly.cloud_cover; // 👈 Usa cloud_cover (no cloudcover)
+  const cloudCoverArray = weather.hourly.cloud_cover; 
 
   for (let i = 0; i < timeArray.length; i++) {
     if (timeArray[i].startsWith(date)) {
