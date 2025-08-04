@@ -2,11 +2,23 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import caLocale from '@fullcalendar/core/locales/ca';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchTerraceById } from '../services/fetchTerraceById';
 import type { Terrace } from '../types/TerraceType';
 import { FaMapMarkerAlt } from 'react-icons/fa';
+import { fetchWeather } from '../services/fetchWeather';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import {
+  Sun,
+  Cloud,
+  CloudSun,
+  CloudRain
+} from "lucide-react";
+
+
+
 
 
 function CalendarBooking() {
@@ -20,6 +32,11 @@ function CalendarBooking() {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
 
+  const [weather, setWeather] = useState<any | null>(null);
+  // console.log(terrace);
+
+  
+
   useEffect(() => {
     if (!restaurantId) return;
     fetchTerraceById(restaurantId)
@@ -28,10 +45,74 @@ function CalendarBooking() {
       .finally(() => setLoading(false));
   }, [restaurantId]);
 
-  const handleDateClick = (arg:any) => {
+  const handleDateClick = async (arg:any) => {
     setSelectedDate(arg.dateStr);
     setShowModal(true);
+
+
+
+    if(terrace?.latitude && terrace?.longitude) {
+      try {
+      const weatherData= await fetchWeather({
+        latitude: terrace.latitude,
+      longitude: terrace.longitude
+    }, arg.dateStr
+  )
+      setWeather(weatherData);
+//       console.log("Fechas de la API:", weatherData.hourly.time.slice(0, 24));
+// console.log("Fecha seleccionada:", arg.dateStr);
+    } catch (error){
+      console.error("No s'ha pogut obtenir el temps", error)
+    }
+  }
   };
+
+  function getAverageTemperatureForDate(weather: any, date: string): number | null {
+  if (!weather?.hourly) return null;
+
+  const temps: number[] = [];
+  const timeArray = weather.hourly.time;
+  const tempArray = weather.hourly.temperature_2m;
+
+  for (let i = 0; i < timeArray.length; i++) {
+    if (timeArray[i].startsWith(date)) {
+      temps.push(tempArray[i]);
+    }
+  }
+
+  if (temps.length === 0) return null;
+
+  const sum = temps.reduce((acc, val) => acc + val, 0);
+  return parseFloat((sum / temps.length).toFixed(1));
+}
+
+function getWeatherIcon(cloudCover: number | null) {
+  if (cloudCover === null) return <Cloud className="w-5 h-5" style={{ color: "#ff1818" }} />; // Icono por defecto
+  if (cloudCover < 20) return <Sun className="w-5 h-5" style={{ color: "#ff1818" }} />;
+  if (cloudCover < 50) return <CloudSun className="w-5 h-5" style={{ color: "#ff1818" }} />;
+  if (cloudCover < 80) return <Cloud className="w-5 h-5" style={{ color: "#ff1818" }} />;
+  return <CloudRain className="w-5 h-5" style={{ color: "#ff1818" }} />;
+}
+
+function getAverageCloudCoverForDate(weather: any, date: string): number | null {
+  if (!weather?.hourly) return null;
+
+  const cloudCovers: number[] = [];
+  const timeArray = weather.hourly.time;
+  const cloudCoverArray = weather.hourly.cloud_cover; // 👈 Usa cloud_cover (no cloudcover)
+
+  for (let i = 0; i < timeArray.length; i++) {
+    if (timeArray[i].startsWith(date)) {
+      cloudCovers.push(cloudCoverArray[i]);
+    }
+  }
+
+  if (cloudCovers.length === 0) return null;
+
+  const sum = cloudCovers.reduce((acc, val) => acc + val, 0);
+  return Math.round(sum / cloudCovers.length);
+}
+
 
   function generateHourOptions() {
     const hours = [];
@@ -91,6 +172,14 @@ function CalendarBooking() {
           <div className="fixed inset-0 bg-transparent bg-opacity-40 flex items-center justify-center z-50 backdrop-blur-sm">
             <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-xl">
               <h2 className="text-xl font-semibold mb-4">Confirmar Reserva</h2>
+
+             {weather?.hourly && selectedDate &&  (
+ <div className="mb-4 text-sm bg-gray-50 p-3 rounded">
+
+    <p className="flex items-center whitespace-nowrap"><strong>Previsió pel dia {selectedDate}{" "}</strong>  <FontAwesomeIcon icon={faArrowRight} className="mx-2"/> <span style={{color:"#ff1818"}} className="flex items-center gap-1 "><strong>{getAverageTemperatureForDate(weather, selectedDate)}°C</strong>{weather.hourly.cloud_cover && getWeatherIcon(getAverageCloudCoverForDate(weather, selectedDate))}</span></p>
+    
+  </div>
+)}
 
               <form
                 onSubmit={(e) => {
