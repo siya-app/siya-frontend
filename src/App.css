@@ -218,3 +218,17 @@
   overflow: hidden;
   transition: max-height 0.4s ease;
 }
+
+.confirm-btn{
+  background-color: rgba(56, 88, 82, 0.7);
+  cursor: pointer;
+}
+.confirm-btn:hover{
+  background-color: #385852;
+}
+
+.cancel-btn:hover{
+background-color: #ff1818;
+color:white;
+cursor: pointer;
+}

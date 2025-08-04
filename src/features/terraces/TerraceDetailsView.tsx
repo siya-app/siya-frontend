@@ -81,7 +81,7 @@ const TerraceDetailsView = () => {
       restaurantId: user.restaurantId ?? '',
       terraceId: id ?? ''
     },);
-
+// window.location.href = `http://localhost:4200/calendar?${params.toString()}`;
     navigate(`/reservar/${id}`, {
   state: {
     userData: params.toString(),
