@@ -1,11 +1,11 @@
-import type { Booking } from '../../interfaces/booking-interface/bookingInterface';
+import type { BackendBooking, BookingCreateDTO } from '../../interfaces/booking-interface/bookingInterface';
 
 const API_BASE_URL = 'http://localhost:8080';
 
 export const createBooking = async (
-  bookingData: Booking,
+  bookingData: BackendBooking,
   token: string
-): Promise<any> => {
+): Promise<BackendBooking> => {
   const response = await fetch(`${API_BASE_URL}/booking`, {
     method: 'POST',
     headers: {
@@ -17,8 +17,9 @@ export const createBooking = async (
 
   if (!response.ok) {
     const errorData = await response.json();
+    console.error('Backend error data:', errorData);
     throw new Error(errorData.message || 'Error al crear la reserva');
   }
 
-  return response.json();
+  return await response.json();
 };

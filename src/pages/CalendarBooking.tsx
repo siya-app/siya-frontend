@@ -16,6 +16,9 @@ import {
   CloudSun,
   CloudRain
 } from "lucide-react";
+import { createBooking } from '../services/booking-service/booking.service';
+import type { BackendBooking, BookingCreateDTO } from '../interfaces/booking-interface/bookingInterface';
+
 
 
 
@@ -35,7 +38,10 @@ function CalendarBooking() {
   const [weather, setWeather] = useState<any | null>(null);
   // console.log(terrace);
 
-  
+  const token = localStorage.getItem('token') || '';
+const userId = localStorage.getItem('user_id') || '';
+console.log(userId);
+
 
   useEffect(() => {
     if (!restaurantId) return;
@@ -188,29 +194,54 @@ function getAverageCloudCoverForDate(weather: any, date: string): number | null 
 )}
 
               <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const form = e.target as HTMLFormElement;
-                  const hour = form['hour'].value;
-                  const people = form['people'].value;
-                  const accepted = form['terms'].checked;
+                 onSubmit={async (e) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const hour = form['hour'].value;
+    const people = parseInt(form['people'].value, 10);
+    const accepted = form['terms'].checked;
 
-                  if (!accepted) {
-                    alert("Has d'acceptar els termes.");
-                    return;
-                  }
+    if (!accepted) {
+      alert("Has d'acceptar els termes.");
+      return;
+    }
 
-                  const title = `${people} persona(es) a les ${hour}`;
-                  setEvents((prev) => [
-                    ...prev,
-                    {
-                      title,
-                      start: `${selectedDate}T${hour}`,
-                      allDay: false,
-                    },
-                  ]);
-                  setShowModal(false);
-                }}
+    if (!terrace || !selectedDate) {
+      alert("Falten dades per a la reserva.");
+      return;
+    }
+
+    try {
+      const bookingData:BookingCreateDTO = {
+        booking_date: selectedDate,          // "2025-08-08"
+  booking_time: hour,          // "15:00"
+  is_paid: false,                       // obligatorio
+  party_length: Number(people),         // obligatorio
+  booking_price: Number(people) * 1,    // opcional (el backend lo calcula igual)
+  user_id: userId,                      // UUID válido del usuario
+  terrace_id: terrace.id    
+      };
+
+      const newBooking = await createBooking(bookingData as BackendBooking, token);
+
+      // Añadir visualmente al calendario
+      setEvents((prev) => [
+        ...prev,
+        {
+          title: `${people} persona(es) a les ${hour}`,
+          start: `${selectedDate}T${hour}`,
+          allDay: false,
+        },
+      ]);
+
+      alert("Reserva creada correctament!");
+      setShowModal(false);
+
+    } catch (error: any) {
+      console.error('Error backend:', error);
+      alert(error.message || "Error al crear la reserva");
+    }
+  }}
               >
                 <label className="block text-sm mb-1">Fecha:</label>
                 <input
