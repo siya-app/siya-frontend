@@ -166,6 +166,12 @@ function getAverageCloudCoverForDate(weather: any, date: string): number | null 
           locale="ca"
           dateClick={handleDateClick}
           events={events}
+           validRange={{
+    start: new Date().toISOString().split("T")[0],
+    end: new Date(Date.now() + 16 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split("T")[0]
+  }}
         />
 
         {showModal && (
