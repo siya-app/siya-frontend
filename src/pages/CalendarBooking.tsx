@@ -31,6 +31,8 @@ function CalendarBooking() {
 
   const token = localStorage.getItem('token') || '';
   const userId = localStorage.getItem('user_id') || '';
+  console.log(userId);
+  
 
   useEffect(() => {
     if (!restaurantId) return;
