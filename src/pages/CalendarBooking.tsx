@@ -2,7 +2,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import caLocale from '@fullcalendar/core/locales/ca';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchTerraceById } from '../services/fetchTerraceById';
 import type { Terrace } from '../types/TerraceType';
@@ -19,119 +19,110 @@ import {
 import { createBooking } from '../services/booking-service/booking.service';
 import type { BackendBooking, BookingCreateDTO } from '../interfaces/booking-interface/bookingInterface';
 
-
-
-
-
-
 function CalendarBooking() {
   const { restaurantId } = useParams();
-  // const location = useLocation();
-  // const userData = location.state?.userData;
 
   const [terrace, setTerrace] = useState<Terrace | null>(null);
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState<any[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
-
   const [weather, setWeather] = useState<any | null>(null);
-  // console.log(terrace);
 
   const token = localStorage.getItem('token') || '';
-const userId = localStorage.getItem('user_id') || '';
-console.log(userId);
-
+  const userId = localStorage.getItem('user_id') || '';
 
   useEffect(() => {
     if (!restaurantId) return;
     fetchTerraceById(restaurantId)
-      .then((data) => setTerrace(data))
+      .then((data) => {
+        setTerrace(data);
+        // Opcional: si data tiene reservas, aquí podrías setearlas a events:
+        // setEvents(data.bookings || []);
+      })
       .catch((err) => console.error("Error al cargar la terraza:", err))
       .finally(() => setLoading(false));
   }, [restaurantId]);
 
-  const handleDateClick = async (arg:any) => {
+  const handleDateClick = async (arg: any) => {
     setSelectedDate(arg.dateStr);
     setShowModal(true);
 
-
-
-    if(terrace?.latitude && terrace?.longitude) {
+    if (terrace?.latitude && terrace?.longitude) {
       try {
-      const weatherData= await fetchWeather({
-        latitude: terrace.latitude,
-      longitude: terrace.longitude
-    }, arg.dateStr
-  )
-      setWeather(weatherData);
-//       console.log("Fechas de la API:", weatherData.hourly.time.slice(0, 24));
-// console.log("Fecha seleccionada:", arg.dateStr);
-    } catch (error){
-      console.error("No s'ha pogut obtenir el temps", error)
+        const weatherData = await fetchWeather(
+          {
+            latitude: terrace.latitude,
+            longitude: terrace.longitude
+          },
+          arg.dateStr
+        );
+        setWeather(weatherData);
+      } catch (error) {
+        console.error("No s'ha pogut obtenir el temps", error);
+      }
     }
-  }
   };
 
   function getAverageTemperatureForDate(weather: any, date: string): number | null {
-  if (!weather?.hourly) return null;
+    if (!weather?.hourly) return null;
 
-  const temps: number[] = [];
-  const timeArray = weather.hourly.time;
-  const tempArray = weather.hourly.temperature_2m;
+    const temps: number[] = [];
+    const timeArray = weather.hourly.time;
+    const tempArray = weather.hourly.temperature_2m;
 
-  for (let i = 0; i < timeArray.length; i++) {
-    if (timeArray[i].startsWith(date)) {
-      temps.push(tempArray[i]);
+    for (let i = 0; i < timeArray.length; i++) {
+      if (timeArray[i].startsWith(date)) {
+        temps.push(tempArray[i]);
+      }
     }
+
+    if (temps.length === 0) return null;
+
+    const sum = temps.reduce((acc, val) => acc + val, 0);
+    return parseFloat((sum / temps.length).toFixed(1));
   }
 
-  if (temps.length === 0) return null;
-
-  const sum = temps.reduce((acc, val) => acc + val, 0);
-  return parseFloat((sum / temps.length).toFixed(1));
-}
-
-function getWeatherIcon(cloudCover: number | null) {
-  if (cloudCover === null) return <Cloud className="w-5 h-5 siyaRed-text " />; 
-  if (cloudCover < 20) return <Sun className="w-5 h-5 siyaRed-text" />;
-  if (cloudCover < 50) return <CloudSun className="w-5 h-5 siyaRed-text" />;
-  if (cloudCover < 80) return <Cloud className="w-5 h-5 siyaRed-text"  />;
-  return <CloudRain className="w-5 h-5 siyaRed-text"  />;
-}
-
-function getAverageCloudCoverForDate(weather: any, date: string): number | null {
-  if (!weather?.hourly) return null;
-
-  const cloudCovers: number[] = [];
-  const timeArray = weather.hourly.time;
-  const cloudCoverArray = weather.hourly.cloud_cover; 
-
-  for (let i = 0; i < timeArray.length; i++) {
-    if (timeArray[i].startsWith(date)) {
-      cloudCovers.push(cloudCoverArray[i]);
-    }
+  function getWeatherIcon(cloudCover: number | null) {
+    if (cloudCover === null) return <Cloud className="w-5 h-5 siyaRed-text " />;
+    if (cloudCover < 20) return <Sun className="w-5 h-5 siyaRed-text" />;
+    if (cloudCover < 50) return <CloudSun className="w-5 h-5 siyaRed-text" />;
+    if (cloudCover < 80) return <Cloud className="w-5 h-5 siyaRed-text" />;
+    return <CloudRain className="w-5 h-5 siyaRed-text" />;
   }
 
-  if (cloudCovers.length === 0) return null;
+  function getAverageCloudCoverForDate(weather: any, date: string): number | null {
+    if (!weather?.hourly) return null;
 
-  const sum = cloudCovers.reduce((acc, val) => acc + val, 0);
-  return Math.round(sum / cloudCovers.length);
-}
+    const cloudCovers: number[] = [];
+    const timeArray = weather.hourly.time;
+    const cloudCoverArray = weather.hourly.cloud_cover;
 
+    for (let i = 0; i < timeArray.length; i++) {
+      if (timeArray[i].startsWith(date)) {
+        cloudCovers.push(cloudCoverArray[i]);
+      }
+    }
 
-  function generateHourOptions() {
+    if (cloudCovers.length === 0) return null;
+
+    const sum = cloudCovers.reduce((acc, val) => acc + val, 0);
+    return Math.round(sum / cloudCovers.length);
+  }
+
+  // Genera las horas en formato "HH:00"
+  function generateHourStrings() {
     const hours = [];
     for (let h = 9; h <= 22; h++) {
-      const hourStr = h.toString().padStart(2, '0');
-      hours.push(`${hourStr}:00`);
-      // hours.push(`${hourStr}:30`);
+      const hourStr = h.toString().padStart(2, '0') + ':00';
+      hours.push(hourStr);
     }
-    return hours.map((time) => (
-      <option key={time} value={time}>
-        {time}
-      </option>
-    ));
+    return hours;
+  }
+
+  // Cuenta cuántas reservas hay para una fecha y hora
+  function countBookingsAtHour(date: string, hour: string) {
+    return events.filter(event => event.start === `${date}T${hour}`).length;
   }
 
   if (loading) return <p>Carregant dades del restaurant...</p>;
@@ -145,12 +136,13 @@ function getAverageCloudCoverForDate(weather: any, date: string): number | null 
           alt="terrace"
           className="w-full h-48 object-cover bg-gray-100 p-2 rounded"
         />
-        <button
+        {/* <button
           className="absolute bottom-7 left-5 bg-white text-sm px-3 py-1 rounded-full shadow"
           style={{ color: '#ff1818' }}
         >
           Veure concurrència
-        </button>
+        </button> */}  {/* <--------para futuro */}
+         
       </div>
 
       <div className="p-4 bg-gray-100 rounded">
@@ -172,12 +164,12 @@ function getAverageCloudCoverForDate(weather: any, date: string): number | null 
           locale="ca"
           dateClick={handleDateClick}
           events={events}
-           validRange={{
-    start: new Date().toISOString().split("T")[0],
-    end: new Date(Date.now() + 16 * 24 * 60 * 60 * 1000)
-      .toISOString()
-      .split("T")[0]
-  }}
+          validRange={{
+            start: new Date().toISOString().split("T")[0],
+            end: new Date(Date.now() + 16 * 24 * 60 * 60 * 1000)
+              .toISOString()
+              .split("T")[0]
+          }}
         />
 
         {showModal && (
@@ -185,63 +177,75 @@ function getAverageCloudCoverForDate(weather: any, date: string): number | null 
             <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-xl">
               <h2 className="text-xl font-semibold mb-4">Confirmar Reserva</h2>
 
-             {weather?.hourly && selectedDate &&  (
- <div className="mb-4 text-sm bg-gray-50 p-3 rounded">
-
-    <p className="flex items-center whitespace-nowrap"><strong>Previsió pel dia {selectedDate}{" "}</strong>  <FontAwesomeIcon icon={faArrowRight} className="mx-2"/> <span style={{color:"#ff1818"}} className="flex items-center gap-1 "><strong>{getAverageTemperatureForDate(weather, selectedDate)}°C</strong>{weather.hourly.cloud_cover && getWeatherIcon(getAverageCloudCoverForDate(weather, selectedDate))}</span></p>
-    
-  </div>
-)}
+              {weather?.hourly && selectedDate && (
+                <div className="mb-4 text-sm bg-gray-50 p-3 rounded">
+                  <p className="flex items-center whitespace-nowrap">
+                    <strong>Previsió pel dia {selectedDate}{" "}</strong>{" "}
+                    <FontAwesomeIcon icon={faArrowRight} className="mx-2" />{" "}
+                    <span style={{ color: "#ff1818" }} className="flex items-center gap-1 ">
+                      <strong>{getAverageTemperatureForDate(weather, selectedDate)}°C</strong>
+                      {weather.hourly.cloud_cover && getWeatherIcon(getAverageCloudCoverForDate(weather, selectedDate))}
+                    </span>
+                  </p>
+                </div>
+              )}
 
               <form
-                 onSubmit={async (e) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const hour = form['hour'].value;
-    const people = parseInt(form['people'].value, 10);
-    const accepted = form['terms'].checked;
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const form = e.target as HTMLFormElement;
+                  const hour = form['hour'].value;
+                  const people = parseInt(form['people'].value, 10);
+                  const accepted = form['terms'].checked;
 
-    if (!accepted) {
-      alert("Has d'acceptar els termes.");
-      return;
-    }
+                  if (!accepted) {
+                    alert("Has d'acceptar els termes.");
+                    return;
+                  }
 
-    if (!terrace || !selectedDate) {
-      alert("Falten dades per a la reserva.");
-      return;
-    }
+                  if (!terrace || !selectedDate) {
+                    alert("Falten dades per a la reserva.");
+                    return;
+                  }
 
-    try {
-      const bookingData:BookingCreateDTO = {
-        booking_date: selectedDate,          // "2025-08-08"
-  booking_time: hour,          // "15:00"
-  is_paid: false,                       // obligatorio
-  party_length: Number(people),         // obligatorio
-  booking_price: Number(people) * 1,    // opcional (el backend lo calcula igual)
-  user_id: userId,                      // UUID válido del usuario
-  terrace_id: terrace.id    
-      };
+                  // Validar que no se pase el límite de mesas
+                  const bookingsAtHour = countBookingsAtHour(selectedDate, hour);
+                  if (bookingsAtHour >= terrace.tables) {
+                    alert(`No hi ha taules disponibles a les ${hour}.`);
+                    return;
+                  }
 
-      const newBooking = await createBooking(bookingData as BackendBooking, token);
+                  try {
+                    const bookingData: BookingCreateDTO = {
+                      booking_date: selectedDate,          // "2025-08-08"
+                      booking_time: hour,          // "15:00"
+                      is_paid: false,
+                      party_length: Number(people),
+                      booking_price: Number(people) * 1,    // opcional
+                      user_id: userId,
+                      terrace_id: terrace.id
+                    };
 
-      // Añadir visualmente al calendario
-      setEvents((prev) => [
-        ...prev,
-        {
-          title: `${people} persona(es) a les ${hour}`,
-          start: `${selectedDate}T${hour}`,
-          allDay: false,
-        },
-      ]);
+                    const newBooking = await createBooking(bookingData as BackendBooking, token);
 
-      alert("Reserva creada correctament!");
-      setShowModal(false);
+                    // Añadir visualmente al calendario
+                    setEvents((prev) => [
+                      ...prev,
+                      {
+                        title: `${people} persona(es) a les ${hour}`,
+                        start: `${selectedDate}T${hour}`,
+                        allDay: false,
+                      },
+                    ]);
 
-    } catch (error: any) {
-      console.error('Error backend:', error);
-      alert(error.message || "Error al crear la reserva");
-    }
-  }}
+                    alert("Reserva creada correctament!");
+                    setShowModal(false);
+
+                  } catch (error: any) {
+                    console.error('Error backend:', error);
+                    alert(error.message || "Error al crear la reserva");
+                  }
+                }}
               >
                 <label className="block text-sm mb-1">Fecha:</label>
                 <input
@@ -252,8 +256,26 @@ function getAverageCloudCoverForDate(weather: any, date: string): number | null 
                 />
 
                 <label className="block text-sm mb-">Hora:</label>
-                <select name="hour" className="w-full border rounded px-3 py-2 mb-3"   required>
-                  {generateHourOptions()}
+                <select
+                  name="hour"
+                  className="w-full border rounded px-3 py-2 mb-3"
+                  required
+                >
+                  {generateHourStrings().map((hour) => {
+                    const bookingsCount = countBookingsAtHour(selectedDate!, hour);
+                    const isFull = bookingsCount >= terrace!.tables;
+
+                    return (
+                      <option
+                        key={hour}
+                        value={hour}
+                        disabled={isFull}
+                        title={isFull ? "No hi ha taules disponibles a aquesta hora" : undefined}
+                      >
+                        {hour} {isFull && "(No disponible)"}
+                      </option>
+                    );
+                  })}
                 </select>
 
                 <label className="block text-sm mb-1">Quantes persones?</label>
@@ -267,7 +289,7 @@ function getAverageCloudCoverForDate(weather: any, date: string): number | null 
                 />
 
                 <label className="inline-flex items-center mb-4">
-                  <input type="checkbox" name="terms" className="mr-2" style={{accentColor:"#385852"}}/>
+                  <input type="checkbox" name="terms" className="mr-2" style={{ accentColor: "#385852" }} />
                   Accepto els termes i condicions
                 </label>
 
@@ -275,12 +297,14 @@ function getAverageCloudCoverForDate(weather: any, date: string): number | null 
                   <button
                     type="button"
                     onClick={() => setShowModal(false)}
-                    className="cancel-btn bg-gray-200 px-4 py-2 rounded-3xl "
-                    
+                    className="cancel-btn bg-gray-200 px-4 py-2 rounded-3xl"
                   >
                     Cancelar
                   </button>
-                  <button type="submit" className="confirm-btn text-white px-4 py-2 rounded-3xl" >
+                  <button
+                    type="submit"
+                    className="confirm-btn text-white px-4 py-2 rounded-3xl"
+                  >
                     Confirmar
                   </button>
                 </div>
