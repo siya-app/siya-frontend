@@ -131,7 +131,7 @@ function CalendarBooking() {
   if (!terrace) return <p className="text-red-500">No s'ha trobat la terrassa.</p>;
 
   return (
-    <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden mt-8">
+    <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden mt-8" style={{margin:"15px"}}>
       <div className="relative">
         <img
           src={terrace.profile_pic}

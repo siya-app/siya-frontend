@@ -155,7 +155,7 @@ function OwnRestaurant() {
   return (
     <div style={{margin:"20px"}}>
          <h1 style={{ marginBottom: "15px", color: "#333" }}><strong> El meu Restaurant </strong></h1>
-     <div
+     <div className="border-l- border-r-4 border-t- border-b-4  siyaDark-text m-2 mt-3 bg-gray-50"
   style={{
     maxWidth: "400px",
     margin: "20px auto",
@@ -168,6 +168,7 @@ function OwnRestaurant() {
   }}
 >
  
+  {terracePic && (
   <img
     src={terracePic}
     alt="terrace-pic"
@@ -178,6 +179,7 @@ function OwnRestaurant() {
       margin: "0 auto 15px auto",
     }}
   />
+)}
   <p><strong>Nom de la terrassa:</strong> {terraceName}</p>
   <p><strong>ID terrassa:</strong> {user.id_terrace}</p>
   <p><strong>Email:</strong> {user.email}</p>
@@ -192,33 +194,42 @@ function OwnRestaurant() {
         sortedDates.map((date) => (
           <div key={date} style={{ marginBottom: "20px", marginTop:"20px"}}>
             <h4>{new Date(date).toLocaleDateString("ca-ES", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</h4>
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+            <div  style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               {bookingsPerDate[date]
                 .toSorted((a, b) => a.booking_time.localeCompare(b.booking_time))
                 .map((b) => (
-                  <div
-                    key={b.id}
-                    style={{
-                      border: "1px solid #ccc",
-                      padding: "10px",
-                      borderRadius: "8px",
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      background: "#f9f9f9",
-                    }}
-                  >
-                    <div>
-                      <p><strong>Hora:</strong> {b.booking_time}</p>
-                      <p><strong>Persones:</strong> {b.party_length}</p>
-                    </div>
-                    <button
-                      style={{ background: "red", color: "white", padding: "6px 12px", border: "none", borderRadius: "4px" }}
-                      onClick={() => handleDeleteBooking(b.id)}
-                    >
-                      Eliminar
-                    </button>
-                  </div>
+                  <div className="shadow-md border-l- border-r-4 border-t- border-b-4 border-siya-dark-green siyaDark-text m-2 mt-3 bg-gray-50"
+  key={b.id}
+  style={{
+    // border: "1px solid #ccc",
+    padding: "10px",
+    borderRadius: "8px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    // background: "#f9f9f9",
+    // boxShadow:  "0 4px 12px #385852, 0 2px 4px #385852", // Sombra verde
+    // transition: "box-shadow 0.3s ease", // Opcional: para efecto hover
+  }}
+>
+  <div >
+    <p><strong>Hora:</strong> {b.booking_time}</p>
+    <p><strong>Persones:</strong> {b.party_length}</p>
+  </div>
+  <button
+    style={{ 
+      background: "#ff1818", 
+      color: "white", 
+      padding: "6px 12px", 
+      border: "none", 
+      borderRadius: "10px",
+      cursor: "pointer", // Mejora la usabilidad
+    }}
+    onClick={() => handleDeleteBooking(b.id)}
+  >
+    Eliminar
+  </button>
+</div>
                 ))}
             </div>
           </div>
