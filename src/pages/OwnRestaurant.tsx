@@ -187,13 +187,13 @@ function OwnRestaurant() {
 
 
 
-      <h2> <strong>Reserves de la terrassa</strong></h2>
+      <h2 style={{color:"#ff1818"}}> <strong>Reserves de la terrassa</strong></h2>
       {bookings.length === 0 ? (
         <p>No hi ha reserves</p>
       ) : (
         sortedDates.map((date) => (
           <div key={date} style={{ marginBottom: "20px", marginTop:"20px"}}>
-            <h4>{new Date(date).toLocaleDateString("ca-ES", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</h4>
+            <h4> <strong>{new Date(date).toLocaleDateString("ca-ES", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} </strong> </h4>
             <div  style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               {bookingsPerDate[date]
                 .toSorted((a, b) => a.booking_time.localeCompare(b.booking_time))
