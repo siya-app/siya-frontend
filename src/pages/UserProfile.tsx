@@ -11,8 +11,7 @@ import DeleteAccount from "../features/delete-account/DeleteAccount";
 import UpdateAccount from "../features/update-account/UpdateAccount";
 import AuthContext from "../context/AuthContext";
 import OwnerActions from "../features/owner-actions/OwnerActions";
-
-
+import useFavorites from "../hooks/useFavorites";
 
 export default function Profile() {
   const { user, logout } = useContext(AuthContext)!;
@@ -23,11 +22,14 @@ export default function Profile() {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
+  const { isFavorite } = useFavorites();
+  console.log( isFavorite)
+
   useEffect(() => {
     if (!user) {
       navigate("/login");
     }
-  }, [user]);
+  }, [user, navigate]);
 
   if (!user) return <p>Carregant dades de l'usuari...</p>;
 
@@ -50,7 +52,9 @@ export default function Profile() {
       >
         Reservar taula
       </Button>
-
+      <TerraceSlider
+        list={terraceList}
+      />
       <TerraceSlider list={terraceList} orderBy={"nearby"} />
       <OwnerActions />
 
