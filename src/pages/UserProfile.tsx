@@ -8,6 +8,7 @@ import DeleteAccount from "../features/delete-account/DeleteAccount";
 import UpdateAccount from "../features/update-account/UpdateAccount";
 import OwnerActions from "../features/owner-actions/OwnerActions";
 import UserReviews from "../features/user-reviews/UserReviews";
+import UserBookings from '../features/user-bookings/UserBookings'
 import useFavorites from "../hooks/useFavorites";
 
 export default function Profile() {
@@ -59,16 +60,14 @@ export default function Profile() {
           </p>
         </div>
       </div>
-      
+      <UserBookings/>
       <Button
         onClick={() => navigate("/buscar-terrassa")}
         className="text-primary-content px-4 py-2 mt-8 m-4 bg-siya-principal text-white rounded-full flex justify-between items-center toggle-height mx-auto"
       >
         Reservar taula
       </Button>
-      <TerraceSlider
-        list={terraceList}
-      />
+      <UserReviews></UserReviews>
       <TerraceSlider list={terraceList} orderBy={"nearby"} />
       <OwnerActions />
 
@@ -96,7 +95,7 @@ export default function Profile() {
           Log out
         </Button>
       </div>
-      <div className="m-auto w-fit">
+      <div className="m-auto w-fit mb-6">
         <Button
           onClick={() => setShowModal(true)}
           className="border-2 border-siya-principal rounded-xl p-2 bg-siya-principal text-white"
