@@ -12,6 +12,8 @@ import SignUp from '../pages/SignUp'
 import PartnerPage from "../pages/PartnerPage";
 import ContactUsPage from "../pages/ContactUsPage";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
+import CalendarBooking from "../pages/CalendarBooking";
+import OwnRestaurant from "../pages/OwnRestaurant";
 
 const AppRoutes = () => {
   return (
@@ -19,7 +21,8 @@ const AppRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/perfil" element={<Profile />} />
       <Route path="/buscar-terrassa" element={<FilterPage />} />
-      <Route path="/reservar" element={<BookingPage />} />
+      <Route path="/reservar/:restaurantId" element={<CalendarBooking />} />
+      <Route path="/meva-terrassa/:id" element={<OwnRestaurant />} />
       <Route path="/nosaltres" element={<AboutUs />} />
       <Route path="/login" element={<LogIn/>}/>
       <Route path="/sign-up" element={<SignUp/>}/>

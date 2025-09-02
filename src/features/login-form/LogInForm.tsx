@@ -3,9 +3,12 @@ import API from "../../services/apiUser";
 import Button from "../../components/Button";
 import { useNavigate, Link } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import React from "react";
 
-export default function Login() {
+export default function Login({
+  onLoginSuccess,
+}: {
+  onLoginSuccess?: (user: any) => void;
+}) {
   const [email, setEmail] = useState("");
   const [password_hash, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -20,9 +23,12 @@ export default function Login() {
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
+      //  localStorage.setItem("user_id", res.data.user.id);
       console.log("Login amb èxit", res.data.user);
+      if (onLoginSuccess) {
+        onLoginSuccess(res.data.user);
+      }
       navigate("/perfil");
-
     } catch (err) {
       setError(err.response?.data?.error || "No s'ha pogut iniciar sessió");
     }
@@ -30,7 +36,10 @@ export default function Login() {
 
   return (
     <>
-      <form onSubmit={login} className="flex flex-col w-4/5 m-auto shadow-lg p-4 mb-4">
+      <form
+        onSubmit={login}
+        className="flex flex-col w-4/5 m-auto shadow-lg p-4 mb-4"
+      >
         <h3>Accedir →</h3>
         <label htmlFor="email" className="mt-4">
           Email

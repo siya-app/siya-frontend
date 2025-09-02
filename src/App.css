@@ -221,4 +221,16 @@
 
 .animate-once {
   animation-iteration-count: initial;
+.confirm-btn{
+  background-color: rgba(56, 88, 82, 0.7);
+  cursor: pointer;
+}
+.confirm-btn:hover{
+  background-color: #385852;
+}
+
+.cancel-btn:hover{
+background-color: #ff1818;
+color:white;
+cursor: pointer;
 }

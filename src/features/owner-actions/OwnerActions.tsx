@@ -1,17 +1,36 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import TerraceClaim from "../terrace-claim/TerraceClaim";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { TerraceContext } from "../../context/filteredTerraces.context";
+import { UserContext } from "../../context/filteredUsers.context";
+import type { User } from "../../types/User";
+import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
+import { HiArrowSmRight } from "react-icons/hi";
+import BlobCard from "../../components/slider/BlobCard";
+import redBlob from '../../assets/blobs/red-blob.png';
+import UpdateTerrace from "../update-terrace/UpdateTerrace";
+import type { TerraceUpdatePayload } from "../../types/TerraceUpdatePayload";
+import TerraceUnclaim from "../terrace-unclaim/TerraceUnclaim";
 
 function OwnerActions() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [openSection, setOpenSection] = useState(false);
+  const [isEditTerraceOpen, setIsEditTerraceOpen] = useState(false);
+  const [isUnclaimModalOpen, setIsUnclaimModalOpen] = useState(false);
+  const [ownedTerrace, setOwnedTerrace] = useState<CustomTerraceType| null>(null)
   const navigate = useNavigate();
+
+  const {allTerraces, error, getTerraces, claimedTerraces} = useContext(TerraceContext)!
+  const {getUsers, allUsers, owners, userError} = useContext(UserContext)!
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("token");
+
+    getTerraces();
+    getUsers();
 
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -19,18 +38,78 @@ function OwnerActions() {
       navigate("/login");
     }
   }, []);
+ 
+  useEffect(() => {
+    if (user) {
+      const owner = owners.find(owner => owner.id === user.id);
+      
+      
+      if (owner) {
+        const foundTerrace = claimedTerraces.find(terrace => terrace.id === owner.id_terrace);
+        setOwnedTerrace(foundTerrace)
+      }
+    }
+      
+  }, [user, owners, claimedTerraces, ownedTerrace]);
 
+  
+  
   const goToOwnedTerrace = () => {
     if (!user || !user.id) return;
+
+    // navigate("/meva-terrassa")
+    navigate(`/meva-terrassa/${user.id}`)
     //ruta a angular
-    window.location.href = `http://localhost:4200/profile/${user.id}`;
+    // window.location.href = `http://localhost:4200/profile/${user.id}`;
   };
 
-  if (!user) return <p>Carregant dades d'usuari...</p>;
+  const handleUpdateTerrace = async (formData: TerraceUpdatePayload) => {
+  try {
+    const token = localStorage.getItem("token");
+    const updateURL = `${import.meta.env.VITE_API_ALL_TERRACES}/${ownedTerrace.id}`;
+
+    const response = await fetch(updateURL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.error("Error updating terrace:", result.error || result.message);
+      return;
+    }
+
+
+  } catch (err) {
+    console.error("Network/server error while updating terrace:", err);
+  }
+};
+
+
+  if (!user) return <p>Carregant dades de l'usuari...</p>;
   return (
     <>
-      {user.role === "owner" && (
-        <div className="flex flex-col md:flex-row gap-4">
+      {user.role === "owner" &&  ownedTerrace && ( <>
+        <div className="mt-5">
+          <h2 className="montserrat-siya text-xl
+            m-2 ms-3 siyaDark-text">La meva terrassa <span className="inline-icon"><HiArrowSmRight /></span></h2>
+            <BlobCard
+                                        key={ownedTerrace.cadastro_ref}
+                                        className="snap-start shrink-0 w-[60%] sm:w-[35%] m-auto"
+                                        picture={ownedTerrace.profile_pic ?? ""}
+                                        businessName={ownedTerrace.business_name}
+                                        rating={ownedTerrace.average_rating ?? 0}
+                                        blob={redBlob}
+                                        id={ownedTerrace.id}
+                                    />
+            </div>
+            <div className="flex flex-col md:flex-row items-center gap-4 mx-auto my-4 text-center justify-center md:px-8 md:w-4/5">
+
           <Button
             onClick={goToOwnedTerrace}
             className="bg-siya-dark-green
@@ -39,13 +118,47 @@ function OwnerActions() {
         py-2
         px-4
         rounded
-        cursor-pointer"
+        cursor-pointer w-fit"
           >
-            Veure la meva terrassa
+            Reserves a la meva terrassa
           </Button>
-          {/* Aquí van otros dos botones de editar y darse de baja */}
+          
+          <Button
+          onClick={() => setIsEditTerraceOpen(true)}
+          className="bg-siya-dark-green
+        text-siya-lemon-cream
+        font-bold
+        py-2
+        px-4
+        rounded
+        cursor-pointer w-fit"
+          >
+            Editar terrassa
+          </Button>
+          <Button
+          onClick={() => setIsUnclaimModalOpen(true)}
+          className="bg-siya-dark-green
+        text-siya-lemon-cream
+        font-bold
+        py-2
+        px-4
+        rounded
+        cursor-pointer w-fit"
+          >
+            Ja no soc propietari/ària
+          </Button>
         </div>
-      )}
+      <UpdateTerrace terrace={ownedTerrace} isOpen={isEditTerraceOpen} onClose={() => setIsEditTerraceOpen(false)} onSubmit={handleUpdateTerrace}/>
+<TerraceUnclaim
+  isOpen={isUnclaimModalOpen}
+  onClose={() => setIsUnclaimModalOpen(false)}
+  onUnclaimSuccess={() => {
+  window.location.reload();
+  }}
+/>
+
+      </>)}
+
       {user.role === "client" &&( <>
         <div
                 onClick={() => setOpenSection((prev) => !prev)}
