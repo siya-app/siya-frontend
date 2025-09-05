@@ -5,7 +5,9 @@ import { useUserLocation } from "../../hooks/useUserLocation";
 
 type WeatherData = {
   current: { cloud_cover: number };
-  hourly: { temperature_2m: number[]; time: string[] };
+  hourly: {
+    cloud_cover: any; temperature_2m: number[]; time: string[] 
+};
 };
 
 const WeatherFeature = () => {
@@ -20,8 +22,10 @@ const WeatherFeature = () => {
       if (!location) return;
 
       try {
-        const data = await fetchWeather(location);
-        if ("current" in data && "hourly" in data) {
+        const today = new Date().toISOString().split("T")[0];
+        const data = await fetchWeather(location, today);
+
+        if ("hourly" in data) {
           setWeather(data as WeatherData);
         } else {
           setError("No s'han trobat dades de temps.");
@@ -43,20 +47,22 @@ const WeatherFeature = () => {
   if (locationLoading || loading) return <p>Carregant el temps...</p>;
   if (locationError || error) return <p>{locationError || error}</p>;
   if (!weather) return null;
+    // Buscar l’hora més propera a l’actual
+  const now = new Date();
+  const nowHour = now.toISOString().slice(0, 13); // ex: "2025-09-05T14"
 
-  const cloudCover = weather.current.cloud_cover;
-  const temperature = weather.hourly.temperature_2m[0];
+  const index = weather.hourly.time.findIndex((t) => t.startsWith(nowHour));
 
+  const temperature = index !== -1 ? weather.hourly.temperature_2m[index] : weather.hourly.temperature_2m[0];
+  const cloudCover = index !== -1 ? weather.hourly.cloud_cover[index] : weather.hourly.cloud_cover[0];
+
+  // Icona segons núvols
   let icon = <Sun className="w-12 h-12 text-yellow-400" />;
 
   if (cloudCover > 30 && cloudCover <= 70) {
     icon = <CloudSun className="w-12 h-12 text-yellow-300" />;
-
   } else if (cloudCover > 70) {
     icon = <Cloud className="w-12 h-12 text-gray-500" />;
-
-  } else {
-    icon;
   }
 
   return (
