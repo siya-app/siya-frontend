@@ -8,8 +8,10 @@ import DeleteAccount from "../features/delete-account/DeleteAccount";
 import UpdateAccount from "../features/update-account/UpdateAccount";
 import OwnerActions from "../features/owner-actions/OwnerActions";
 import UserReviews from "../features/user-reviews/UserReviews";
+import { ReviewSlider } from "../features/reviews/ReviewSlider";
 import UserBookings from '../features/user-bookings/UserBookings'
 import useFavorites from "../hooks/useFavorites";
+import { HiArrowSmRight } from "react-icons/hi";
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -60,6 +62,7 @@ export default function Profile() {
           </p>
         </div>
       </div>
+      
       <UserBookings/>
       <Button
         onClick={() => navigate("/buscar-terrassa")}
@@ -67,7 +70,13 @@ export default function Profile() {
       >
         Reservar taula
       </Button>
-     
+      <h2 className="montserrat-siya text-xl m-2 mt-8 ms-3 siyaDark-text">
+          Les meves ressenyes
+            <span className="inline-icon">
+              <HiArrowSmRight />{" "}
+            </span>
+          </h2>
+      <ReviewSlider userId={user.id} refresh={true}/>
       <TerraceSlider list={terraceList} orderBy={"nearby"} />
       <OwnerActions />
 
