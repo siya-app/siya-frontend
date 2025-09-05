@@ -88,8 +88,6 @@ const TerraceDetailsView = () => {
 });
   };
 
-  console.log(`terrace rating: ${terrace?.average_rating}`)
-
   if (loadingTerrace) return <p className="p-4">Carregant terrassa...</p>;
   if (!terrace)
     return <p className="p-4 text-red-500">No s'ha trobat la terrassa.</p>;

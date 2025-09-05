@@ -41,6 +41,7 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
                 return terraces.sort((a, b) => (a.average_rating ?? 0) - (b.average_rating ?? 0));
 
             case 'nearby':
+                if (!location) return [];
                 const nearbyTerraces = filterByProximity({
                     maxDistance: 1, // you can change this to 2 or 3
                     terraces: terraces,
