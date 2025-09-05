@@ -1,5 +1,4 @@
 import { useEffect, useState} from "react";
-import API from "../services/apiUser";
 import { useNavigate } from "react-router-dom";
 import TerraceSlider from "../components/slider/TerraceSlider";
 import { useTerraceList } from "../hooks/useTerraceList";
@@ -7,7 +6,6 @@ import Button from "../components/Button";
 import DeleteAccount from "../features/delete-account/DeleteAccount";
 import UpdateAccount from "../features/update-account/UpdateAccount";
 import OwnerActions from "../features/owner-actions/OwnerActions";
-import UserReviews from "../features/user-reviews/UserReviews";
 import { ReviewSlider } from "../features/reviews/ReviewSlider";
 import UserBookings from '../features/user-bookings/UserBookings'
 import useFavorites from "../hooks/useFavorites";
@@ -39,6 +37,7 @@ export default function Profile() {
         navigate("/login");
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const logout = () => {
