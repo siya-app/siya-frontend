@@ -2,20 +2,24 @@
 import ScrollSnap from "../../components/slider/ScrollSnap";
 import ReviewCard from "./ReviewCard";
 import { useQuery } from "@tanstack/react-query";
-import { fetchReviewsByTerraceId } from "../../features/reviews/fetchReviewsByTerraceId";
+import { fetchReviewsByField } from "../../features/reviews/fetchReviewsByField";
 import { type Review } from "../../types/types";
 import { useEffect } from "react";
 
 type Props = {
-  terraceId: string;
-  refresh: boolean;
-  // setRefreshReviews:  React.Dispatch<React.SetStateAction<boolean>>;
+  terraceId?: string;
+  userId?: string;
+  refresh?: boolean;
 };
 
-export function ReviewSlider({ terraceId, refresh }: Props) {
+export function ReviewSlider({ terraceId, userId, refresh }: Props) {
+    const field = terraceId ? "terraceId" : "userId";
+    const value = terraceId ?? userId;
+
   const { data: reviews, isLoading, error, refetch } = useQuery({
     queryKey: ['reviews', terraceId],
-    queryFn: () => fetchReviewsByTerraceId(terraceId),
+    queryFn: () => fetchReviewsByField(field as "terraceId" | "userId", value!),
+    enabled: Boolean(value), // no fa fetch si no hi ha id
   });
 
   useEffect(() => {
@@ -26,8 +30,7 @@ export function ReviewSlider({ terraceId, refresh }: Props) {
 
   if (isLoading) return <p>Carregant reviews...</p>;
   if (error) return <p className="text-red-500">Error carregant les reviews.</p>;
-
-  if (!reviews?.length) return <p>Sigues el primer en valorar aquesta terrassa!</p>;
+  if (!reviews?.length) return <p>No hi ha ressenyes encara!</p>;
 
   return (
     <ScrollSnap>
