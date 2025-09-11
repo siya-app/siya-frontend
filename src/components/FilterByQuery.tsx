@@ -1,13 +1,13 @@
-import { useState } from "react"
+// import { useState } from "react"
 
-type FilterByQueryProps = {
-    onChange: (filters: Tag)
-}
+// type FilterByQueryProps = {
+//     onChange: (filters: Tag)
+// }
 
-function FilterByQuery() {
-    return (
-        <div>FilterByQuery</div>
-    )
-}
+// function FilterByQuery() {
+//     return (
+//         <div>FilterByQuery</div>
+//     )
+// }
 
-export default FilterByQuery
+// export default FilterByQuery
