@@ -7,9 +7,10 @@ import Button from "../components/Button";
 import DeleteAccount from "../features/delete-account/DeleteAccount";
 import UpdateAccount from "../features/update-account/UpdateAccount";
 import OwnerActions from "../features/owner-actions/OwnerActions";
-import UserReviews from "../features/user-reviews/UserReviews";
-
-
+import { ReviewSlider } from "../features/reviews/ReviewSlider";
+import UserBookings from '../features/user-bookings/UserBookings'
+import useFavorites from "../hooks/useFavorites";
+import { HiArrowSmRight } from "react-icons/hi";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -18,6 +19,9 @@ export default function Profile() {
   const [user, setUser] = useState<any | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+
+  const { isFavorite } = useFavorites();
+  console.log( isFavorite)
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -34,6 +38,7 @@ export default function Profile() {
         navigate("/login");
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const logout = () => {
@@ -57,14 +62,21 @@ export default function Profile() {
           </p>
         </div>
       </div>
-      <UserReviews />
+      
+      <UserBookings/>
       <Button
         onClick={() => navigate("/buscar-terrassa")}
         className="text-primary-content px-4 py-2 mt-8 m-4 bg-siya-principal text-white rounded-full flex justify-between items-center toggle-height mx-auto"
       >
         Reservar taula
       </Button>
-
+      <h2 className="montserrat-siya text-xl m-2 mt-8 ms-3 siyaDark-text">
+          Les meves ressenyes
+            <span className="inline-icon">
+              <HiArrowSmRight />{" "}
+            </span>
+          </h2>
+      <ReviewSlider userId={user.id} refresh={true}/>
       <TerraceSlider list={terraceList} orderBy={"nearby"} />
       <OwnerActions />
 
@@ -76,6 +88,7 @@ export default function Profile() {
           Editar perfil
         </Button>
       </div>
+
 
       <UpdateAccount
         isOpen={showEditModal}
@@ -91,11 +104,10 @@ export default function Profile() {
           Log out
         </Button>
       </div>
-
-      <div className="m-auto w-fit mb-10">
+      <div className="m-auto w-fit mb-6">
         <Button
           onClick={() => setShowModal(true)}
-          className="border-2 rounded-xl p-2 siyaDark-bg text-white"
+          className="border-2 border-siya-principal rounded-xl p-2 bg-siya-principal text-white"
         >
           Eliminar compte
         </Button>
