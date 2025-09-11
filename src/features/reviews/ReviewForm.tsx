@@ -42,13 +42,13 @@ export function ReviewForm({ userId, terraceId, onSuccess }: {
 
   return (
     <form onSubmit={handleSubmit} className="p-4 rounded shadow bg-white">
-    
+
       <RatingStarsInput
-      terraceId={terraceId}
-      initialRating={0}
-      onChange={(newRating) => setRating(newRating)}/>
+        terraceId={terraceId}
+        initialRating={0}
+        onChange={(newRating) => setRating(newRating)} />
       <label className="block mb-2">
-      <p className='pb-4'>Explica'ns la teva experiència:</p>
+        <p className='pb-4'>Explica'ns la teva experiència:</p>
         <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
@@ -60,14 +60,15 @@ export function ReviewForm({ userId, terraceId, onSuccess }: {
 
       {error && <p className="text-red-500 mt-2">{error}</p>}
       {successMessage && <p className="text-green-600 mt-2">{successMessage}</p>}
-
-      <button
-        type="submit"
-        disabled={loading}
-        className="mt-2 px-4 py-2 bg-siya-dark-green text-white rounded"
-      >
-        {loading ? 'Enviant...' : 'Enviar Review'}
-      </button>
+      <div className='flex justify-end'>
+        <button
+          type="submit"
+          disabled={loading}
+          className="mt-2 px-4 py-2 bg-siya-dark-green text-white rounded"
+        >
+          {loading ? 'Enviant...' : 'Enviar Review'}
+        </button>
+      </div>
     </form>
   );
 }

@@ -218,3 +218,7 @@
   overflow: hidden;
   transition: max-height 0.4s ease;
 }
+
+.animate-twice {
+  animation-iteration-count: 2; /* Animates exactly twice */
+}

@@ -13,11 +13,12 @@ import { HiArrowSmRight } from "react-icons/hi";
 
 interface TerraceSliderProps {
     orderBy?: OrderByOption;
+    title?: string;
     list: CustomTerraceType[];
 }
 
 
-function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
+function TerraceSlider({ orderBy = 'default', list, title }: TerraceSliderProps) {
 
     const { location } = useUserLocation();
 
@@ -69,6 +70,8 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
                 return 'Et recomanem';
             case 'nearby':
                 return 'A prop teu';
+                case 'favs':
+                    return 'Les teves preferides';
             default:
                 return 'Descobrir';
         }
@@ -78,7 +81,7 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
     return (
         <div className="mt-5">
             <h2 className="montserrat-siya text-xl
-            m-2 ms-3 siyaDark-text">{titleByOrder}
+            m-2 ms-3 siyaDark-text">{titleByOrder ? titleByOrder : titleByOrder && title ? title : ''}
                 <span className="inline-icon"><HiArrowSmRight /></span>
                 </h2>
             <ScrollSnap>

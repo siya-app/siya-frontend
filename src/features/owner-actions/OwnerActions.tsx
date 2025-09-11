@@ -14,8 +14,10 @@ import UpdateTerrace from "../update-terrace/UpdateTerrace";
 import type { TerraceUpdatePayload } from "../../types/TerraceUpdatePayload";
 import TerraceUnclaim from "../terrace-unclaim/TerraceUnclaim";
 
-function OwnerActions() {
-  const [user, setUser] = useState<User | null>(null);
+
+
+function OwnerActions({ user }: {user: User}) {
+  // const [user, setUser] = useState<User | null>(null);
   const [openSection, setOpenSection] = useState(false);
   const [isEditTerraceOpen, setIsEditTerraceOpen] = useState(false);
   const [isUnclaimModalOpen, setIsUnclaimModalOpen] = useState(false);
@@ -25,20 +27,20 @@ function OwnerActions() {
   const {allTerraces, error, getTerraces, claimedTerraces} = useContext(TerraceContext)!
   const {getUsers, allUsers, owners, userError} = useContext(UserContext)!
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    const storedToken = localStorage.getItem("token");
+  // useEffect(() => {
+  //   const storedUser = localStorage.getItem("user");
+  //   const storedToken = localStorage.getItem("token");
 
-    getTerraces();
-    getUsers();
+  //   getTerraces();
+  //   getUsers();
 
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    } else {
-      navigate("/login");
-    }
-  }, []);
- 
+  //   if (storedUser) {
+  //     setUser(JSON.parse(storedUser));
+  //   } else {
+  //     navigate("/login");
+  //   }
+  // }, []);
+
   useEffect(() => {
     if (user) {
       const owner = owners.find(owner => owner.id === user.id);
@@ -96,16 +98,17 @@ function OwnerActions() {
           <h2 className="montserrat-siya text-xl
             m-2 ms-3 siyaDark-text">La meva terrassa <span className="inline-icon"><HiArrowSmRight /></span></h2>
             <BlobCard
-                                        key={ownedTerrace.cadastro_ref}
-                                        className="snap-start shrink-0 w-[60%] sm:w-[35%] m-auto"
-                                        picture={ownedTerrace.profile_pic ?? ""}
-                                        businessName={ownedTerrace.business_name}
-                                        rating={ownedTerrace.average_rating ?? 0}
-                                        blob={redBlob}
-                                        id={ownedTerrace.id}
-                                    />
+              key={ownedTerrace.cadastro_ref}
+              className="snap-start shrink-0 w-[60%] sm:w-[35%] m-auto"
+              picture={ownedTerrace.profile_pic ?? ""}
+              businessName={ownedTerrace.business_name}
+              rating={ownedTerrace.average_rating ?? 0}
+              blob={redBlob}
+              id={ownedTerrace.id}
+          />
             </div>
-            <div className="flex flex-col md:flex-row items-center gap-4 mx-auto my-4 text-center justify-center md:px-8 md:w-4/5">
+            <div className="flex flex-col md:flex-row items-center gap-4
+            mx-auto my-4 text-center justify-center md:px-8 md:w-4/5">
 
           <Button
             onClick={goToOwnedTerrace}

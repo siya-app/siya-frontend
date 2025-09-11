@@ -1,11 +1,10 @@
 
 import SearchBar from "../components/SearchBar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Map from "../features/map/MapFeature";
 import { BlobCarousel } from "../components/BlobList";
 import TerraceSlider from "../components/slider/TerraceSlider";
 import { useTerraceList } from "../hooks/useTerraceList";
-import type { CustomTerraceType } from "../types/zod/customTerrace-schema";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { BLOB_TRANSLATIONS } from "../services/blobList.service";
 import SliderButton from "../components/slider/SliderButton";
@@ -38,7 +37,8 @@ const FilterPage = () => {
     resetFilters,
   } = useFilterContext();
 
-  const categoryTitle = (type: keyof typeof BLOB_TRANSLATIONS.categories) => BLOB_TRANSLATIONS.categories[type];
+  const categoryTitle = (type: keyof typeof BLOB_TRANSLATIONS.categories) =>
+    BLOB_TRANSLATIONS.categories[type];
 
   const toggleSelection = (id: string) => {
     setSelectedTags((prev) => {
