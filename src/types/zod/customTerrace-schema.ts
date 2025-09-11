@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { TagsSchema, type TagsType } from "./tag-schema";
+import { TagsSchema } from "./tag-schema";
 
 export const DietaryRestrictionSchema = z.enum([
     'Vegetarian', 'Vegan', 'NonVegetarian', 'GlutenFree'
@@ -109,7 +109,8 @@ export const BusinessSchema = z.object({
 });
 
 export const CustomTerraceSchema = z.object({
-    // id: z.string().uuid().optional(),
+    // he descomentado el id para poder hacer el build, si hay que llenar la bbdd no va a funcionar asi
+    id: z.string().uuid().optional(),
     business_name: z.string(),
     cadastro_ref: z.string(),
     address: z.string(),

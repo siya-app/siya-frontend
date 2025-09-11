@@ -1,12 +1,10 @@
-import { useMemo, useState, useContext } from "react";
-// import { uselist } from "../../hooks/uselist";
+import { useMemo } from "react";
 import ScrollSnap from "../../components/slider/ScrollSnap";
 import type { CustomTerraceType, TerraceWithDistance } from "../../types/zod/customTerrace-schema";
 import BlobCard from "./BlobCard";
 import redBlob from '../../assets/blobs/red-blob.png';
 import type { OrderByOption } from "../../types/types";
 import { filterByProximity } from "../../utils/filterByProximity";
-// import { UserLocationContext } from "../../context/UserLocationContext";
 import { useUserLocation } from "../../hooks/useUserLocation";
 import { calculateDistance } from "../../utils/calculateDistance";
 import { HiArrowSmRight } from "react-icons/hi";
