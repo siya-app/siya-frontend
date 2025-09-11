@@ -79,7 +79,7 @@ function TerraceSlider({ orderBy = 'default', list, title }: TerraceSliderProps)
 
 
     return (
-        <div className="mt-5">
+        <div className="mt-5 mb-5">
             <h2 className="montserrat-siya text-xl
             m-2 ms-3 siyaDark-text">{titleByOrder ? titleByOrder : titleByOrder && title ? title : ''}
                 <span className="inline-icon"><HiArrowSmRight /></span>

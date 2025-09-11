@@ -94,10 +94,10 @@ export default function Profile() {
 
       <div className="m-4">
       <h3 className="text-xl">Les teves reserves <HiArrowSmRight className="inline-icon" /></h3>
-      <p>Encara no tens reserves, busca-les a la pàgina de filtres!</p>
+      <p>Encara no tens reserves.</p>
       </div>
 
-      <OwnerActions user={user}/>
+      <OwnerActions/>
 
       <div className="m-auto w-fit mb-4">
         <Button
@@ -108,14 +108,6 @@ export default function Profile() {
         </Button>
       </div>
 
-      <div className="m-auto w-fit">
-        <Button
-          onClick={() => setShowModal(true)}
-          className="border-2 border-siya-principal rounded-xl p-2 bg-siya-principal text-white"
-        >
-          Eliminar compte
-        </Button>
-      </div>
 
       <UpdateAccount
         isOpen={showEditModal}
@@ -135,7 +127,7 @@ export default function Profile() {
       <div className="m-auto w-fit mb-10">
         <Button
           onClick={() => setShowModal(true)}
-          className="border-2 rounded-xl p-2 siyaDark-bg text-white"
+          className="border-2 rounded-xl p-2 siyaRed-bg ps-3 pe-3 text-white"
         >
           Eliminar compte
         </Button>

@@ -16,8 +16,8 @@ import TerraceUnclaim from "../terrace-unclaim/TerraceUnclaim";
 
 
 
-function OwnerActions({ user }: {user: User}) {
-  // const [user, setUser] = useState<User | null>(null);
+function OwnerActions() {
+  const [user, setUser] = useState<User | null>(null);
   const [openSection, setOpenSection] = useState(false);
   const [isEditTerraceOpen, setIsEditTerraceOpen] = useState(false);
   const [isUnclaimModalOpen, setIsUnclaimModalOpen] = useState(false);
@@ -27,19 +27,19 @@ function OwnerActions({ user }: {user: User}) {
   const {allTerraces, error, getTerraces, claimedTerraces} = useContext(TerraceContext)!
   const {getUsers, allUsers, owners, userError} = useContext(UserContext)!
 
-  // useEffect(() => {
-  //   const storedUser = localStorage.getItem("user");
-  //   const storedToken = localStorage.getItem("token");
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    const storedToken = localStorage.getItem("token");
 
-  //   getTerraces();
-  //   getUsers();
+    getTerraces();
+    getUsers();
 
-  //   if (storedUser) {
-  //     setUser(JSON.parse(storedUser));
-  //   } else {
-  //     navigate("/login");
-  //   }
-  // }, []);
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    } else {
+      navigate("/login");
+    }
+  }, []);
 
   useEffect(() => {
     if (user) {
