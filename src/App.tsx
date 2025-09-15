@@ -1,26 +1,37 @@
-import './App.css'
-import Layout from './layout/Layout'
-import {Routes, Route} from 'react-router-dom'
-import Home from './pages/Home'
-import Profile from './pages/UserProfile'
-import FilterPage from './pages/FilterPage'
-import BookingPage from './pages/BookingPage'
+import "./App.css";
+import "./index.css";
+import Layout from "./layout/Layout";
+import { UserLocationProvider } from "./context/UserLocationProvider";
+import AppRoutes from "./routes/AppRoutes";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AuthProvider } from "./context/AuthContext";
+import { TerraceProvider } from "./context/filteredTerraces.context";
+import { UserProvider } from "./context/filteredUsers.context";
+import { FilterProvider } from "./context/FilterContext";
+import { ReviewProvider } from "./context/reviews.context";
+
+const queryClient = new QueryClient();
 
 function App() {
-
   return (
-    <Layout>
-      <Routes>
-
-        <Route path="/" element={<Home />} />
-        <Route path="/perfil" element={<Profile />} />
-        <Route path="/buscar-terraza" element={<FilterPage />} />
-        <Route path="/reservar" element={<BookingPage />} />
-        <Route path="*" element={<h1>404 - Not Found</h1>} />
-        
-      </Routes>
-    </Layout>
-  )
+    <ReviewProvider>
+      <UserProvider>
+        <TerraceProvider>
+          <FilterProvider>
+            <UserLocationProvider>
+              <QueryClientProvider client={queryClient}>
+                <AuthProvider>
+                  <Layout>
+                    <AppRoutes />
+                  </Layout>
+                </AuthProvider>
+              </QueryClientProvider>
+            </UserLocationProvider>
+          </FilterProvider>
+        </TerraceProvider>
+      </UserProvider>
+    </ReviewProvider>
+  );
 }
 
-export default App
+export default App;
