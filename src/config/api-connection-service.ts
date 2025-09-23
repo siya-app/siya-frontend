@@ -32,7 +32,7 @@ export const axiosRequest = async (
 ) => {
 
     // let apiResponse: JSON | object[] | null = null;
-    let apiError: {} | null = null;
+    // let apiError: {} | null = null;
 
 
     try {
@@ -41,16 +41,16 @@ export const axiosRequest = async (
         });
         return response.data;
 
-    } catch (error) {
+    } catch (error: any) {
 
         if (axios.isAxiosError(error)) {
-            return apiError = {
+            return {
                 name: error.name || "Axios Error",
                 message: error.message,
                 status: error.response?.status
             };
         } else {
-            return apiError = {
+            return {
                 name: "Unknown Error",
                 message: "An unknown error occurred",
                 status: undefined

@@ -4,7 +4,6 @@ import { Heart, Share2 } from "lucide-react";
 import { fetchTerraceById } from "../../services/fetchTerraceById";
 import { ReviewSlider } from "../reviews/ReviewSlider";
 import { ReviewForm } from "../reviews/ReviewForm";
-import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../../context/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useFavorites } from "../../hooks/useFavorites";
@@ -223,7 +222,7 @@ const TerraceDetailsView = () => {
         <h2 className="text-xl font-medium">Ressenyes</h2>
       </div>
       <ReviewSlider
-        terraceId={terrace.id}
+        terraceId={terrace.id || ""}
         refresh={refreshReviews}
       />
       <div className="pt-6">
@@ -231,9 +230,9 @@ const TerraceDetailsView = () => {
       </div>
       <ReviewForm
         userId={user?.id || ""}
-        terraceId={terrace.id}
+        terraceId={terrace?.id || ""}
         onSuccess={async () => {
-          const updatedTerrace = await fetchTerraceById(terrace.id);
+          const updatedTerrace = await fetchTerraceById(terrace.id ?? "");
           setTerrace(updatedTerrace);
           setRefreshReviews(prev => !prev);
 

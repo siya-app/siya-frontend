@@ -108,7 +108,7 @@ function OwnerActions() {
             businessName={ownedTerrace.business_name}
             rating={ownedTerrace.average_rating ?? 0}
             blob={redBlob}
-            id={ownedTerrace.id}
+            id={ownedTerrace.id ?? ""}
           />
         </div>
         <div className="flex flex-col md:flex-row items-center gap-4 mx-auto my-4 text-center justify-center md:px-8 md:w-4/5">

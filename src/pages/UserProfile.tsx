@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import API from "../services/apiUser";
 import { useNavigate } from "react-router-dom";
 import TerraceSlider from "../components/slider/TerraceSlider";
 import { useTerraceList } from "../hooks/useTerraceList";

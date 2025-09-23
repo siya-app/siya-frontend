@@ -1,5 +1,4 @@
 import api from "./apiTerraces";
-import { type Terrace } from "../types/TerraceType";
 import type { CustomTerraceType } from "../types/zod/customTerrace-schema";
 
 export async function fetchTerraceById(id: string): Promise<CustomTerraceType> {

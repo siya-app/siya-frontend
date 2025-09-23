@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import API from "../../services/apiUser";
 import { useNavigate, Link } from "react-router-dom";
 import Button from "../../components/Button";
@@ -18,14 +18,14 @@ function SignUpForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleTermsChange = (event) => {
+  const handleTermsChange = (event: any) => {
     setAgreedToTerms(event.target.checked);
     if (event.target.checked) {
       setTermsError('');
     }
   };
 
-  const handleSignUp = async (e) => {
+  const handleSignUp = async (e: any) => {
     e.preventDefault();
     setError("");
     setSuccessMessage("");
@@ -57,7 +57,7 @@ function SignUpForm() {
       setTimeout(() => {
         navigate("/login");
       }, 2000);
-    } catch (err) {
+    } catch (err: any) {
       console.error("Error de registre:", err.response?.data || err);
 
       if (
@@ -65,7 +65,7 @@ function SignUpForm() {
         Array.isArray(err.response.data.details)
       ) {
         const zodErrors = err.response.data.details
-          .map((detail) => detail.message)
+          .map((detail: any) => detail.message)
           .join("; ");
         setError(`Dades invàlides: ${zodErrors}`);
       } else {
@@ -73,7 +73,7 @@ function SignUpForm() {
       }
     }
   };
-  const openModal = (e) => {
+  const openModal = (e: any) => {
     e.preventDefault();
     setIsModalOpen(true);
   };

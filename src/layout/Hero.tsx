@@ -1,4 +1,3 @@
-import WeatherFeature from "../features/weather/WeatherFeature";
 import {useState, useEffect} from 'react'
 import siyaTitle from '../assets/bg-transparent-title-600x300.png'
 
