@@ -22,12 +22,12 @@ function OwnerActions() {
   const [ownedTerrace, setOwnedTerrace] = useState<CustomTerraceType | null>(null)
   const navigate = useNavigate();
 
-  const { allTerraces, error, getTerraces, claimedTerraces } = useContext(TerraceContext)!
-  const { getUsers, allUsers, owners, userError } = useContext(UserContext)!
+  const { getTerraces, claimedTerraces } = useContext(TerraceContext)!
+  const { getUsers, owners } = useContext(UserContext)!
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    const storedToken = localStorage.getItem("token");
+    // const storedToken = localStorage.getItem("token");
 
     getTerraces();
     getUsers();
@@ -45,8 +45,11 @@ function OwnerActions() {
 
 
       if (owner) {
-        const foundTerrace = claimedTerraces.find(terrace => terrace.id === owner.id_terrace);
-        setOwnedTerrace(foundTerrace)
+        const foundTerrace = claimedTerraces.find(terrace => terrace.id === owner.id_terrace) as CustomTerraceType | undefined;
+        if (foundTerrace) {
+          setOwnedTerrace(foundTerrace);
+        }
+        // setOwnedTerrace(foundTerrace)
       }
     }
 
@@ -66,7 +69,7 @@ function OwnerActions() {
   const handleUpdateTerrace = async (formData: TerraceUpdatePayload) => {
     try {
       const token = localStorage.getItem("token");
-      const updateURL = `${import.meta.env.VITE_API_ALL_TERRACES}/${ownedTerrace.id}`;
+      const updateURL = `${import.meta.env.VITE_API_ALL_TERRACES}/${ownedTerrace?.id || ''}`;
 
       const response = await fetch(updateURL, {
         method: "PUT",

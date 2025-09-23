@@ -44,21 +44,19 @@ export const axiosRequest = async (
     } catch (error) {
 
         if (axios.isAxiosError(error)) {
-            apiError = {
-                name: error.name || "AxiosError",
+            return apiError = {
+                name: error.name || "Axios Error",
                 message: error.message,
                 status: error.response?.status
             };
         } else {
             return apiError = {
-                name: "UnknownError",
+                name: "Unknown Error",
                 message: "An unknown error occurred",
                 status: undefined
             };
         }
     }
-
-    return null;
 }
 
 // UPDATE (PUT)
