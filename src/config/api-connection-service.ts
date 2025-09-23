@@ -31,7 +31,7 @@ export const axiosRequest = async (
     queryParams?: object | number
 ) => {
 
-    let apiResponse: JSON | object[] | null = null;
+    // let apiResponse: JSON | object[] | null = null;
     let apiError: {} | null = null;
 
 
@@ -39,7 +39,7 @@ export const axiosRequest = async (
         const response = await api.get(url, {
             params: queryParams
         });
-        return apiResponse = response.data;
+        return response.data;
 
     } catch (error) {
 

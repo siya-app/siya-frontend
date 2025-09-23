@@ -5,7 +5,8 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { useUserLocation } from "../../hooks/useUserLocation";
 import { fetchTerraces } from "../../services/fetchTerraces";
 import { useTerraceClusters } from "../../hooks/useTerraceClusters";
-import type { Terrace } from "../../types/TerraceType";
+// import type { Terrace } from "../../types/TerraceType";
+import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
 import useFavorites from "../../hooks/useFavorites";
 import TerraceMarker from "./TerraceMarker";
 
@@ -13,7 +14,7 @@ const ClusteredMap = () => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const { location, loading, error } = useUserLocation();
-  const [terraces, setTerraces] = useState<Terrace[]>([]);
+  const [terraces, setTerraces] = useState<CustomTerraceType[]>([]);
   const [bounds, setBounds] = useState<mapboxgl.LngLatBoundsLike | null>(null);
   const [zoom, setZoom] = useState(16);
   const { isFavorite } = useFavorites();
@@ -46,12 +47,21 @@ const ClusteredMap = () => {
       .addTo(map);
 
     map.on("moveend", () => {
-      setBounds(map.getBounds().toArray());
+      const bounds = map.getBounds();
+      // this is necessary because it could be null
+      if (bounds) {
+        setBounds(bounds.toArray());
+      }
       setZoom(map.getZoom());
     });
 
     // Inicialitzem bounds
-    setBounds(map.getBounds().toArray());
+    const bounds = map.getBounds();
+    // same here, 
+    // this is necessary because it could be null
+    if (bounds) {
+      setBounds(bounds.toArray());
+    }
     setZoom(map.getZoom());
 
     return () => map.remove();

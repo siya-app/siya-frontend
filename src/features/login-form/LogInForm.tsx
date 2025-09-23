@@ -15,7 +15,7 @@ export default function Login({
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
-  const login = async (e) => {
+  const login = async (e: any) => {
     e.preventDefault();
     setError("");
     try {
@@ -29,7 +29,7 @@ export default function Login({
         onLoginSuccess(res.data.user);
       }
       navigate("/perfil");
-    } catch (err) {
+    } catch (err: any) {
       setError(err.response?.data?.error || "No s'ha pogut iniciar sessió");
     }
   };

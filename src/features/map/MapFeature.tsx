@@ -1,8 +1,8 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import { useUserLocation } from "../../hooks/useUserLocation";
 import { fetchTerraces } from "../../services/fetchTerraces";
-import type { Terrace } from "../../types/TerraceType";
+// import type { Terrace } from "../../types/TerraceType";
 import TerraceMarker from "./TerraceMarker";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";

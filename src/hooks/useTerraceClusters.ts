@@ -1,27 +1,27 @@
 import Supercluster from "supercluster";
 import { useMemo } from "react";
 import type { LngLatBoundsLike } from "mapbox-gl";
-import type { Terrace } from "../types/TerraceType";
+import type { CustomTerraceType } from "../types/zod/customTerrace-schema";
 import useFavorites from "./useFavorites";
 
-type ClusterPoint = {
-  type: "Feature";
-  properties: {
-    cluster: true;
-    cluster_id: number;
-    point_count: number;
-    point_count_abbreviated: string | number;
-  };
-  geometry: {
-    type: "Point";
-    coordinates: [number, number];
-  };
-};
+// type ClusterPoint = {
+//   type: "Feature";
+//   properties: {
+//     cluster: true;
+//     cluster_id: number;
+//     point_count: number;
+//     point_count_abbreviated: string | number;
+//   };
+//   geometry: {
+//     type: "Point";
+//     coordinates: [number, number];
+//   };
+// };
 
 type IndividualPoint = {
   type: "Feature";
   properties: {
-    id: string;
+    id: string | undefined;
     business_name: string;
     address: string;
     isFavorite: boolean;
@@ -32,14 +32,14 @@ type IndividualPoint = {
   };
 };
 
-type ClusterOrPoint = ClusterPoint | IndividualPoint;
+// type ClusterOrPoint = ClusterPoint | IndividualPoint;
 
 export function useTerraceClusters({
   terraces,
   bounds,
   zoom,
 }: {
-  terraces: Terrace[];
+  terraces: CustomTerraceType[];
   bounds: LngLatBoundsLike | null;
   zoom: number;
 }) {
@@ -53,7 +53,7 @@ export function useTerraceClusters({
           id: terrace.id,
           business_name: terrace.business_name,
           address: terrace.address,
-          isFavorite: isFavorite(terrace.id)
+          isFavorite: terrace.id ? isFavorite(terrace.id) : false
         },
         geometry: {
           type: "Point",
@@ -69,7 +69,7 @@ export function useTerraceClusters({
     }).load(geoJsonPoints);
   }, [geoJsonPoints]);
 
-  const clusters: ClusterOrPoint[] = useMemo(() => {
+  const clusters = useMemo(() => {
     if (!bounds) return [];
     // Convert bounds to array if necessary
     let boundsArray: [number, number, number, number];
