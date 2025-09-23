@@ -14,7 +14,7 @@ function SliderButton({
     customClass
 }: SliderButtonProps) {
 
-    const isSelected = selectedTags.includes(id);
+    const isSelected = id ? selectedTags.includes(id) : false;
 
     return (
         <button

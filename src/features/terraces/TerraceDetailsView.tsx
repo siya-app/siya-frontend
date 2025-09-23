@@ -29,7 +29,7 @@ const TerraceDetailsView = () => {
   const [showTagsModal, setShowTagsModal] = useState(false);
   const navigate = useNavigate();
 
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const { user } = useAuth();
 
   const { isFavorite, addFavorite, removeFavorite, loading } = useFavorites();
@@ -83,7 +83,7 @@ const TerraceDetailsView = () => {
     navigate(`/reservar/${id}`, {
   state: {
     userData: params.toString(),
-    restaurantName: terrace?.business_name // 👈 añade esto
+    restaurantName: terrace?.business_name
   }
 });
   };
@@ -102,7 +102,7 @@ const TerraceDetailsView = () => {
           className="rounded-lg w-full object-cover h-50"
         />
       </div>
-      {/* Visualise tags */}
+      {/* Visualise tags button */}
       <div className="absolute top-19 right-2 z-1 rotate-16 animate-pulse animate-once">
         <Button
           onClick={() => setShowTagsModal(true)}

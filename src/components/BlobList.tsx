@@ -1,8 +1,6 @@
 import ScrollSnap from "./slider/ScrollSnap";
 import { getBlobs } from "../services/blobList.service";
 import { BLOB_TRANSLATIONS } from "../services/blobList.service";
-import type { CustomTerraceType } from "../types/zod/customTerrace-schema";
-import { useState } from "react";
 import SliderButton from "./slider/SliderButton";
 
 type BlobType = 'cover' | 'dietary' | 'emotional' | 'food' | 'placement';
