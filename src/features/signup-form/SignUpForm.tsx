@@ -1,7 +1,6 @@
 import { useState } from "react";
 import API from "../../services/apiUser";
 import { useNavigate, Link } from "react-router-dom";
-import Button from "../../components/Button";
 import TermsModal from "../../components/TermsModal";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
@@ -164,13 +163,13 @@ function SignUpForm() {
         {termsError && (
           <p className="text-siya-principal">{termsError}</p>
         )}
-        <Button
+        <button
           type="submit"
           className="w-full md:w-fit bg-siya-dark-green text-siya-lemon-cream font-bold py-2 px-4 mt-4 rounded"
           disabled={!agreedToTerms}
         >
           Registra't
-        </Button>
+        </button>
         {successMessage && <p className="text-green-700 mt-4 text-center">{successMessage}</p>}
         <p className="mt-4 text-center md:text-left"><Link to='/login' className="text-siya-dark-green underline cursor-pointer">Ja tens un compte?</Link></p>
       </form>
