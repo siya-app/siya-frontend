@@ -52,9 +52,9 @@ function UserReviews() {
   if (!user) return <div>Carregant dades...</div>;
   if (!user || !Array.isArray(allReviews)) return <div>Carregant dades...</div>;
   
-  const personalReviews = allReviews.filter(
-    (review: Review) => review.userId === user.id
-  );
+  const personalReviews = (allReviews as unknown as Review[]).filter(
+  (review) => review.userId === user.id
+);
   
   console.log(personalReviews);
   console.log(allReviews);
@@ -74,17 +74,19 @@ function UserReviews() {
         <div className="flex flex-col md:flex-row flex-wrap gap-4 justify-center items-center">
           {personalReviews.length > 0 ? (
             personalReviews.map((review: Review) => 
-            { const currentTerrace = allTerraces.find((terrace : CustomTerraceType ) => terrace.id === review.terraceId);
+            { const currentTerrace = (allTerraces as CustomTerraceType[]).find(
+  (terrace) => terrace.id === review.terraceId
+);
               const terraceName = currentTerrace && currentTerrace.business_name ;
-            
+             if (!currentTerrace) return null;
               return (
               
               <ProfileReviewCard
                 key={review.id}
-                restaurantName={terraceName}
+                restaurantName={terraceName ?? "Desconegut"}
                 rating={review.rating}
                 comment={review.comment}
-                terraceId={currentTerrace.id}
+                terraceId={currentTerrace.id ?? "unknown-id"}
               ></ProfileReviewCard>
             )})
           ) : (

@@ -24,7 +24,7 @@ const MyBookings: React.FC = () => {
         setBookings(response.data);
       } catch (err) {
         setError("Error carregant les reserves.");
-        console.error(err);
+        console.error(err, bookings);
       } finally {
         setLoading(false);
       }
