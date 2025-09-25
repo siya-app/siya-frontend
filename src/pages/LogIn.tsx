@@ -1,4 +1,3 @@
-import React from 'react'
 import LogInForm from '../features/login-form/LogInForm'
 
 function LogIn() {
@@ -9,4 +8,4 @@ function LogIn() {
   )
 }
 
-export default LogIn
+export default LogIn;

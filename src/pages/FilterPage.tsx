@@ -10,7 +10,6 @@ import { BLOB_TRANSLATIONS } from "../services/blobList.service";
 import SliderButton from "../components/slider/SliderButton";
 import { useFilterContext } from "../context/FilterContext";
 
-
 //restaurants with inserted tags:
 // china garden - url: 0032e31f-f65f-459d-bfad-ab5b38fd3164/tags
 // can lampazas - url: 003e3afe-ebe0-400f-9c93-9cadec1633d2/tags
@@ -20,8 +19,6 @@ import { useFilterContext } from "../context/FilterContext";
 // xix kebab - url: 8f87f1e9-85fc-4b85-b408-25dbbe92aac2/tags
 // la terraza miro - url: a93749f0-7efe-4266-ab43-9e80234cb701/tags
 // nori sushi&cocktails - url: abc19588-83cd-4053-8d13-5f75de5e54f3/tags
-
-
 
 const FilterPage = () => {
 
@@ -122,7 +119,7 @@ const FilterPage = () => {
       )}
       <div className="flex justify-center">
         <SliderButton
-          onClick={() => resetFilters([])}
+          onClick={() => resetFilters()}
           selectedTags={selectedTags}
           tagName="Reset"
           customClass="ps-4 pe-4 border-2"

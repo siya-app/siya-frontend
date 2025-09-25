@@ -37,7 +37,7 @@ function CalendarBooking() {
   useEffect(() => {
     if (!restaurantId) return;
     fetchTerraceById(restaurantId)
-      .then((data) => {
+      .then((data: any) => {
         setTerrace(data);
         // Opcional: si data tiene reservas, aquí podrías setearlas a events:
         // setEvents(data.bookings || []);
@@ -144,7 +144,6 @@ function CalendarBooking() {
         >
           Veure concurrència
         </button> */}  {/* <--------para futuro */}
-         
       </div>
 
       <div className="p-4 bg-gray-100 rounded">
@@ -219,16 +218,17 @@ function CalendarBooking() {
 
                   try {
                     const bookingData: BookingCreateDTO = {
-                      booking_date: selectedDate,          // "2025-08-08"
-                      booking_time: hour,          // "15:00"
+                      booking_date: selectedDate,// "2025-08-08"
+                      booking_time: hour,// "15:00"
                       is_paid: false,
                       party_length: Number(people),
-                      booking_price: Number(people) * 1,    // opcional
+                      booking_price: Number(people) * 1,// opcional
                       user_id: userId,
                       terrace_id: terrace.id
                     };
 
-                    const newBooking = await createBooking(bookingData as BackendBooking, token);
+                    // aqui iba const newBooking = await createBooking(bookingData as BackendBooking, token);
+                    await createBooking(bookingData as BackendBooking, token);
 
                     // Añadir visualmente al calendario
                     setEvents((prev) => [

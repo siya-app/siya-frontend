@@ -1,9 +1,6 @@
 import { PiInstagramLogoBold } from "react-icons/pi";
 import { AiFillMail } from "react-icons/ai";
-import calling from '../assets/calling.png';
 import agreement from '../assets/agreement.png'
-
-
 
 function contactUsPage() {
     return (
@@ -39,4 +36,4 @@ function contactUsPage() {
     )
 }
 
-export default contactUsPage
+export default contactUsPage;

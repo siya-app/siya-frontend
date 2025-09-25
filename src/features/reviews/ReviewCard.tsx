@@ -1,5 +1,3 @@
-import { Star } from "lucide-react";
-import { FaStar, FaRegStar } from "react-icons/fa";
 import type { ReviewCardProps } from "../../types/types";
 import RatingStars from "../../components/RatingStars";
 

@@ -4,7 +4,6 @@ import { Heart, Share2 } from "lucide-react";
 import { fetchTerraceById } from "../../services/fetchTerraceById";
 import { ReviewSlider } from "../reviews/ReviewSlider";
 import { ReviewForm } from "../reviews/ReviewForm";
-import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../../context/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useFavorites } from "../../hooks/useFavorites";
@@ -29,7 +28,7 @@ const TerraceDetailsView = () => {
   const [showTagsModal, setShowTagsModal] = useState(false);
   const navigate = useNavigate();
 
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const { user } = useAuth();
 
   const { isFavorite, addFavorite, removeFavorite, loading } = useFavorites();
@@ -83,7 +82,7 @@ const TerraceDetailsView = () => {
     navigate(`/reservar/${id}`, {
   state: {
     userData: params.toString(),
-    restaurantName: terrace?.business_name // 👈 añade esto
+    restaurantName: terrace?.business_name
   }
 });
   };
@@ -102,7 +101,7 @@ const TerraceDetailsView = () => {
           className="rounded-lg w-full object-cover h-50"
         />
       </div>
-      {/* Visualise tags */}
+      {/* Visualise tags button */}
       <div className="absolute top-19 right-2 z-1 rotate-16 animate-pulse animate-once">
         <Button
           onClick={() => setShowTagsModal(true)}
@@ -223,7 +222,7 @@ const TerraceDetailsView = () => {
         <h2 className="text-xl font-medium">Ressenyes</h2>
       </div>
       <ReviewSlider
-        terraceId={terrace.id}
+        terraceId={terrace.id || ""}
         refresh={refreshReviews}
       />
       <div className="pt-6">
@@ -231,9 +230,9 @@ const TerraceDetailsView = () => {
       </div>
       <ReviewForm
         userId={user?.id || ""}
-        terraceId={terrace.id}
+        terraceId={terrace?.id || ""}
         onSuccess={async () => {
-          const updatedTerrace = await fetchTerraceById(terrace.id);
+          const updatedTerrace = await fetchTerraceById(terrace.id ?? "");
           setTerrace(updatedTerrace);
           setRefreshReviews(prev => !prev);
 

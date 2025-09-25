@@ -1,9 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-
 import Home from "../pages/Home";
 import Profile from "../pages/UserProfile";
 import FilterPage from "../pages/FilterPage";
-import BookingPage from "../pages/BookingPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import TerraceDetailsView from "../features/terraces/TerraceDetailsView";
 import AboutUs from "../pages/AboutUsPage";
@@ -28,10 +26,7 @@ const AppRoutes = () => {
       <Route path="/sign-up" element={<SignUp/>}/>
       <Route path="/partners" element={<PartnerPage/>}/>
       <Route path="/contacte" element={<ContactUsPage/>}/>
-      <Route
-        path="/terrassa/:id"
-        element={<TerraceDetailsView />}
-      />
+      <Route path="/terrassa/:id" element={<TerraceDetailsView />} />
       <Route path="/politica-privacitat" element={<PrivacyPolicy/>} />
       <Route path="*" element={<NotFoundPage />} />  {/* Catch-all 404 route */}
     </Routes>

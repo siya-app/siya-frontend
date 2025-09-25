@@ -14,10 +14,10 @@ function SliderButton({
     customClass
 }: SliderButtonProps) {
 
-    const isSelected = selectedTags.includes(id);
+    const isSelected = id ? selectedTags.includes(id) : false;
 
     return (
-        <button
+        <a
             onClick={onClick}
             className={`
                 ${customClass}
@@ -26,7 +26,7 @@ function SliderButton({
                 p-1.5 shadow-md shadow-gray-600 m-3
                 ${isSelected ? 'siya3-bg text-white' : 'siya2-bg siya3-text'}
                 `}>
-            {tagName}</button>
+            {tagName}</a>
     )
 }
 

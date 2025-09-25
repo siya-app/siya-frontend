@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { TagsSchema, type TagsType } from "./tag-schema";
+import { TagsSchema } from "./tag-schema";
 
 export const DietaryRestrictionSchema = z.enum([
     'Vegetarian', 'Vegan', 'NonVegetarian', 'GlutenFree'

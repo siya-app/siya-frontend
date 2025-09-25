@@ -1,8 +1,6 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import { useUserLocation } from "../../hooks/useUserLocation";
-import { fetchTerraces } from "../../services/fetchTerraces";
-import type { Terrace } from "../../types/TerraceType";
 import TerraceMarker from "./TerraceMarker";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
@@ -11,13 +9,11 @@ interface MapProps {
   terraces: CustomTerraceType[];
 }
 
-const Map = ({terraces}: MapProps) => {
+const Map = ({ terraces }: MapProps) => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const { location, loading, error } = useUserLocation();
-  // const [terraces, setTerraces] = useState<Terrace[]>([]);
 
-  // for location-changing
   useEffect(() => {
     if (!mapContainerRef.current || loading || !location) return;
 
@@ -38,31 +34,26 @@ const Map = ({terraces}: MapProps) => {
       .setPopup(new mapboxgl.Popup().setHTML("<h3>La teva ubicació</h3>"))
       .setLngLat([location.longitude, location.latitude])
       .addTo(map);
-    
-      // Carreguem les terrasses i afegim marcadors
-  fetchTerraces().then((data) => {
-    setTerraces(data);
 
-    data.forEach((terrace) => {
+    const loadedTerraces: CustomTerraceType[] = terraces;
+    loadedTerraces.forEach((terrace) => {
       if (terrace.latitude && terrace.longitude) {
         TerraceMarker({ terrace, map });
       }
     });
-  });
 
     return () => {
       map?.remove();
     };
-  }, [location, loading]);
+  }, [location, loading, terraces]);
 
-  // for filter-changing
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
 
     const previousMarkers = document.querySelectorAll('.terrace-marker');
     previousMarkers.forEach((el) => el.remove());
-  
+
     terraces.forEach((terrace) => {
       if (terrace.latitude && terrace.longitude) {
         TerraceMarker({ terrace, map });
@@ -70,15 +61,11 @@ const Map = ({terraces}: MapProps) => {
     });
   }, [terraces]);
 
-  //this lines have to be after useEffects(), as hooks
-  // can not be conditionally called
-  //! do not move them ♥︎
   if (loading) return <p>Carregant mapa…</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <>
-      {/* <div className="bg-[rgba(47,68,90,0.34)] text-white px-2 relative top-0 left-0 m-3 rounded">un div dins el map(hauria de ser transparent no lo consigo)</div> */}
       <div ref={mapContainerRef} className="h-80" />
     </>
   );

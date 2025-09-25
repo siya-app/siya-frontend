@@ -4,7 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import AuthContext from "../../context/AuthContext";
 
-export default function UpdateAccount({ isOpen, onClose }) {
+interface UpdateAccountProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
 
@@ -64,7 +69,7 @@ export default function UpdateAccount({ isOpen, onClose }) {
       const { id, name: updatedName, email } = res.data.user;
       const newUser = { id, name: updatedName, email };
 
-     
+
       localStorage.setItem("user", JSON.stringify(newUser));
       setUser(newUser);
 
@@ -122,8 +127,8 @@ export default function UpdateAccount({ isOpen, onClose }) {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-600"
                 aria-label={
-              showPassword ? "Amaga la contrasenya" : "Mostra la contrasenya"
-            }
+                  showPassword ? "Amaga la contrasenya" : "Mostra la contrasenya"
+                }
               >
                 {showPassword ? <FiEyeOff /> : <FiEye />}
               </button>
@@ -146,8 +151,8 @@ export default function UpdateAccount({ isOpen, onClose }) {
                 onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-600"
                 aria-label={
-              showCurrentPassword ? "Amaga la contrasenya" : "Mostra la contrasenya"
-            }
+                  showCurrentPassword ? "Amaga la contrasenya" : "Mostra la contrasenya"
+                }
               >
                 {showCurrentPassword ? <FiEyeOff /> : <FiEye />}
               </button>

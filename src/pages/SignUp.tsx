@@ -1,4 +1,3 @@
-import React from 'react'
 import SignUpForm from '../features/signup-form/SignUpForm'
 
 function SignUp() {

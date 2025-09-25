@@ -1,7 +1,5 @@
 import type { BlobCardProps } from "../../types/types";
-import { FaStar, FaRegStar } from "react-icons/fa";
-import Button from "../Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import RatingStars from "../RatingStars";
 
 const BlobCard = ({ className = "",
@@ -10,7 +8,6 @@ const BlobCard = ({ className = "",
     rating,
     blob,
     id,
-    distance
 }: BlobCardProps) => {
 
     return (

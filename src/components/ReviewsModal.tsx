@@ -41,7 +41,7 @@ const ReviewsModal: React.FC<ReviewsModalProps> = ({ isOpen, onClose, reviews, a
                 restaurantName={currentTerrace.business_name}
                 rating={review.rating}
                 comment={review.comment}
-                terraceId={currentTerrace.id}
+                terraceId={currentTerrace.id || ''}
               />
             );
           })}

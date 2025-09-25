@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import BookingCard from "../../components/BookingCard"
 import { HiArrowSmRight } from "react-icons/hi";
-
 
 interface Booking {
   id: number;
@@ -26,7 +24,7 @@ const MyBookings: React.FC = () => {
         setBookings(response.data);
       } catch (err) {
         setError("Error carregant les reserves.");
-        console.error(err);
+        console.error(err, bookings);
       } finally {
         setLoading(false);
       }
@@ -36,7 +34,7 @@ const MyBookings: React.FC = () => {
   }, []);
 
   if (loading) return <p className="text-gray-500">Carregant reserves...</p>;
-  //if (error) return console.log(error);
+  if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <div className="max-w-3xl mx-auto  mt-4">

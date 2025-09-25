@@ -1,11 +1,19 @@
 import { CgClose } from "react-icons/cg";
 import { getBlobs, BLOB_TRANSLATIONS } from "../services/blobList.service";
+import type { BlobCollection } from "../services/blobList.service";
 
 type TagsModalProps = {
     isOpen: boolean;
     onClose: () => void;
-    tags: Record<string, string[]>;
+    tags: TagsData;
 };
+
+type ValidTagCategories = keyof BlobCollection;
+
+type TagsData = {
+    [Key in ValidTagCategories]?: string[];
+};
+
 
 export const TagsModal = ({ isOpen, onClose, tags }: TagsModalProps) => {
     if (!isOpen) return null;
@@ -23,14 +31,14 @@ export const TagsModal = ({ isOpen, onClose, tags }: TagsModalProps) => {
 
                 <h2 className="text-xl font-bold">Etiquetes</h2>
                 <div className="grid grid-cols-3 gap-2">
-                    {Object.entries(tags).map(([category, values]) =>
-                        values.map((tag) => {
+                    {(Object.entries(tags) as [ValidTagCategories, string[]][]).map(([categoryKey, values]) =>
+                        values?.map((tag) => {
                             const blobs = getBlobs();
-                            const blob = blobs[category as keyof BlobCollection]?.[tag];
-                            const label =BLOB_TRANSLATIONS[category as keyof typeof BLOB_TRANSLATIONS]?.[tag] || tag;
+                            const blob = blobs[categoryKey]?.[tag as keyof BlobCollection[ValidTagCategories]];
+                            const label = BLOB_TRANSLATIONS[categoryKey]?.[tag as keyof typeof BLOB_TRANSLATIONS[ValidTagCategories]] || tag;
 
                             return (
-                                <div key={`${category}-${tag}`} className="flex flex-col items-center">
+                                <div key={`${categoryKey}-${tag}`} className="flex flex-col items-center">
                                     <img src={blob} alt={label} className="w-20 h-20 object-contain" />
                                     <span className="text-sm text-center mt-2">{label}</span>
                                 </div>
@@ -42,3 +50,6 @@ export const TagsModal = ({ isOpen, onClose, tags }: TagsModalProps) => {
         </div>
     );
 };
+
+
+// {"food": ["asian", "chinese"], "cover": ["umbrella"]}
