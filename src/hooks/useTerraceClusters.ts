@@ -64,8 +64,8 @@ export function useTerraceClusters({
 
   const supercluster = useMemo(() => {
     return new Supercluster({
-      radius: 60,
-      maxZoom: 20,
+      radius: 20,
+      maxZoom: 15,
     }).load(geoJsonPoints);
   }, [geoJsonPoints]);
 
