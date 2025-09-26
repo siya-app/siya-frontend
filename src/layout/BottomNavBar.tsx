@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaMapMarkerAlt, FaFilter, FaUser } from 'react-icons/fa'; // Importing icons
-import { HiOutlineTicket } from "react-icons/hi";
-import { ImCalendar } from "react-icons/im";
+import { FaUser } from 'react-icons/fa';
 import { RiCalendarCheckFill } from "react-icons/ri";
 import { HiHome } from "react-icons/hi";
 

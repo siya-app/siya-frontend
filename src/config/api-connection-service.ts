@@ -31,34 +31,32 @@ export const axiosRequest = async (
     queryParams?: object | number
 ) => {
 
-    let apiResponse: JSON | object[] | null = null;
-    let apiError: {} | null = null;
+    // let apiResponse: JSON | object[] | null = null;
+    // let apiError: {} | null = null;
 
 
     try {
         const response = await api.get(url, {
             params: queryParams
         });
-        return apiResponse = response.data;
+        return response.data;
 
-    } catch (error) {
+    } catch (error: any) {
 
         if (axios.isAxiosError(error)) {
-            apiError = {
-                name: error.name || "AxiosError",
+            return {
+                name: error.name || "Axios Error",
                 message: error.message,
                 status: error.response?.status
             };
         } else {
-            return apiError = {
-                name: "UnknownError",
+            return {
+                name: "Unknown Error",
                 message: "An unknown error occurred",
                 status: undefined
             };
         }
     }
-
-    return null;
 }
 
 // UPDATE (PUT)

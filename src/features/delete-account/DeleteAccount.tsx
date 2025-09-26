@@ -3,7 +3,12 @@ import API from "../../services/apiUser";
 import { useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
-export default function DeleteAccount({ isOpen, onClose }) {
+interface DeleteAccountProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function DeleteAccount({ isOpen, onClose }: DeleteAccountProps) {
   const [password_hash, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -12,7 +17,7 @@ export default function DeleteAccount({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  const handleDelete = async (e) => {
+  const handleDelete = async (e: any) => {
     e.preventDefault();
     setError("");
     setSuccess("");
@@ -37,7 +42,7 @@ export default function DeleteAccount({ isOpen, onClose }) {
       setSuccess("El teu compte s'ha eliminat correctament. Esperem tornar-te a veure aviat!");
       setTimeout(() => navigate("/"), 2000);
     } catch (err) {
-      setError(err.response?.data?.error || "Error a l'eliminar compte");
+      setError((err as any).response?.data?.error || "Error a l'eliminar compte");
     }
   };
 

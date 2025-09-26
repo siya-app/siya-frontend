@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import API from "../../services/apiUser";
 import { useNavigate, Link } from "react-router-dom";
-import Button from "../../components/Button";
 import TermsModal from "../../components/TermsModal";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
@@ -18,14 +17,14 @@ function SignUpForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleTermsChange = (event) => {
+  const handleTermsChange = (event: any) => {
     setAgreedToTerms(event.target.checked);
     if (event.target.checked) {
       setTermsError('');
     }
   };
 
-  const handleSignUp = async (e) => {
+  const handleSignUp = async (e: any) => {
     e.preventDefault();
     setError("");
     setSuccessMessage("");
@@ -57,7 +56,7 @@ function SignUpForm() {
       setTimeout(() => {
         navigate("/login");
       }, 2000);
-    } catch (err) {
+    } catch (err: any) {
       console.error("Error de registre:", err.response?.data || err);
 
       if (
@@ -65,7 +64,7 @@ function SignUpForm() {
         Array.isArray(err.response.data.details)
       ) {
         const zodErrors = err.response.data.details
-          .map((detail) => detail.message)
+          .map((detail: any) => detail.message)
           .join("; ");
         setError(`Dades invàlides: ${zodErrors}`);
       } else {
@@ -73,7 +72,7 @@ function SignUpForm() {
       }
     }
   };
-  const openModal = (e) => {
+  const openModal = (e: any) => {
     e.preventDefault();
     setIsModalOpen(true);
   };
@@ -164,13 +163,13 @@ function SignUpForm() {
         {termsError && (
           <p className="text-siya-principal">{termsError}</p>
         )}
-        <Button
+        <button
           type="submit"
           className="w-full md:w-fit bg-siya-dark-green text-siya-lemon-cream font-bold py-2 px-4 mt-4 rounded"
           disabled={!agreedToTerms}
         >
           Registra't
-        </Button>
+        </button>
         {successMessage && <p className="text-green-700 mt-4 text-center">{successMessage}</p>}
         <p className="mt-4 text-center md:text-left"><Link to='/login' className="text-siya-dark-green underline cursor-pointer">Ja tens un compte?</Link></p>
       </form>

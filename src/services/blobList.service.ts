@@ -112,7 +112,6 @@ export const getBlobs = () => ({
 });
 
 
-// src/utils/blobTranslations.ts
 export const BLOB_TRANSLATIONS = {
     categories: {
         cover: "Tipus de coberta",

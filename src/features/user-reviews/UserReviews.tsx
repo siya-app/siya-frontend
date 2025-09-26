@@ -5,7 +5,7 @@ import { ReviewContext } from "../../context/reviews.context";
 import { useNavigate } from "react-router-dom";
 import { HiArrowSmRight } from "react-icons/hi";
 import { TerraceContext } from "../../context/filteredTerraces.context";
-import type {CustomTerraceSchema} from "../../types/zod/customTerrace-schema"
+import type {CustomTerraceType} from "../../types/zod/customTerrace-schema"
 
 interface Review {
   id: number;
@@ -25,7 +25,7 @@ function UserReviews() {
     throw new Error("ReviewContext is undefined");
   }
 
-  const { allReviews, reviewError, getReviews } = reviewContext;
+  const { allReviews, getReviews } = reviewContext;
 
   const terraceContext = useContext(TerraceContext);
 
@@ -33,13 +33,14 @@ function UserReviews() {
     throw new Error("TerraceContext is undefined");
   }
 
-  const { allTerraces, getTerraces } = terraceContext;
+  const { allTerraces } = terraceContext;
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    const storedToken = localStorage.getItem("token");
+    // const storedToken = localStorage.getItem("token");
+
     getReviews();
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -51,9 +52,9 @@ function UserReviews() {
   if (!user) return <div>Carregant dades...</div>;
   if (!user || !Array.isArray(allReviews)) return <div>Carregant dades...</div>;
   
-  const personalReviews = allReviews.filter(
-    (review: Review) => review.userId === user.id
-  );
+  const personalReviews = (allReviews as unknown as Review[]).filter(
+  (review) => review.userId === user.id
+);
   
   console.log(personalReviews);
   console.log(allReviews);
@@ -73,17 +74,19 @@ function UserReviews() {
         <div className="flex flex-col md:flex-row flex-wrap gap-4 justify-center items-center">
           {personalReviews.length > 0 ? (
             personalReviews.map((review: Review) => 
-            { const currentTerrace = allTerraces.find((terrace : CustomTerraceSchema ) => terrace.id === review.terraceId);
+            { const currentTerrace = (allTerraces as CustomTerraceType[]).find(
+  (terrace) => terrace.id === review.terraceId
+);
               const terraceName = currentTerrace && currentTerrace.business_name ;
-            
+             if (!currentTerrace) return null;
               return (
               
               <ProfileReviewCard
                 key={review.id}
-                restaurantName={terraceName}
+                restaurantName={terraceName ?? "Desconegut"}
                 rating={review.rating}
                 comment={review.comment}
-                terraceId={currentTerrace.id}
+                terraceId={currentTerrace.id ?? "unknown-id"}
               ></ProfileReviewCard>
             )})
           ) : (

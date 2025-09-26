@@ -12,7 +12,7 @@ export type BlobCardProps = {
     businessName: string;
     rating: number;
     blob: string;
-    id: string;
+    id?: string;
     distance?: number
 };
 
@@ -37,21 +37,21 @@ export type OrderByOption =
     | 'nearby'
     | 'default';
 
-    export type Review = {
-  id: string;
-  terraceId: string;
-  userId: string;
-  rating: number;
-  comment: string;
-  createdAt: string;
-  userName?: string; // opcional si ve del join o inclòs al JSON
-  
+export type Review = {
+    id: string;
+    terraceId: string;
+    userId: string;
+    rating: number;
+    comment: string;
+    createdAt: string;
+    userName?: string; // opcional si ve del join o inclòs al JSON
+
 };
 
 export type ReviewCardProps = {
-  rating: number;
-  comment: string;
-  userName: string; // suposem que ve de Supabase amb join o inclòs al JSON
+    rating: number;
+    comment: string;
+    userName: string; // suposem que ve de Supabase amb join o inclòs al JSON
 };
 
 export type Favorite = {

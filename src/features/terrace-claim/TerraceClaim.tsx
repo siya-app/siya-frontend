@@ -1,12 +1,14 @@
 import React from "react";
-import Button from "../../components/Button";
 import { useState, useEffect } from "react";
 import { api } from "../../services/apiCatastro";
+import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
 
 function TerraceClaim() {
   const [catastro, setCatastro] = useState("");
   const [error, setError] = useState("");
-  const [foundTerrace, setFoundTerrace] = useState(null);
+  const [foundTerrace, setFoundTerrace] = useState<CustomTerraceType | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
   const [confirmationMessage, setConfirmationMessage] = useState("");
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
@@ -34,16 +36,17 @@ function TerraceClaim() {
     }
   }, []); // El array vacío asegura que esto solo se ejecute una vez al montar
 
-
   const claimTerrace = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setFoundTerrace(null);
-    setConfirmationMessage('');
+    setConfirmationMessage("");
     setLoading(true);
 
     if (!currentUserId) {
-      setError("No s'ha pogut obtenir l'ID de l'usuari actual. Si us plau, assegura't d'iniciar sessió.");
+      setError(
+        "No s'ha pogut obtenir l'ID de l'usuari actual. Si us plau, assegura't d'iniciar sessió."
+      );
       setLoading(false);
       return;
     }
@@ -58,7 +61,9 @@ function TerraceClaim() {
       }
     } catch (err) {
       console.error("Error al buscar la terrassa:", err);
-      setError("Hi ha hagut un error al buscar la terrassa. Torna a intentar-ho més tard.");
+      setError(
+        "Hi ha hagut un error al buscar la terrassa. Torna a intentar-ho més tard."
+      );
     } finally {
       setLoading(false);
     }
@@ -66,11 +71,13 @@ function TerraceClaim() {
 
   const confirmTerraceOwnership = async () => {
     setLoading(true);
-    setError('');
-    setConfirmationMessage('');
+    setError("");
+    setConfirmationMessage("");
 
     if (!currentUserId) {
-      setError("No s'ha pogut obtenir l'ID de l'usuari actual. Si us plau, inicia sessió de nou.");
+      setError(
+        "No s'ha pogut obtenir l'ID de l'usuari actual. Si us plau, inicia sessió de nou."
+      );
       setLoading(false);
       return;
     }
@@ -82,48 +89,50 @@ function TerraceClaim() {
     }
 
     try {
-      const response = await api.updateUserRoleAndTerrace(currentUserId, foundTerrace.id);
+      const response = await api.updateUserRoleAndTerrace(
+        currentUserId,
+        foundTerrace.id!
+      );
 
       if (response.success) {
         setConfirmationMessage(response.message);
         setFoundTerrace(null);
-        setCatastro('');
+        setCatastro("");
 
-        const userString = localStorage.getItem('user');
+        const userString = localStorage.getItem("user");
         if (userString) {
           try {
-
             const currentUserData = JSON.parse(userString);
-
 
             const updatedUserData = {
               ...currentUserData,
-              role: 'owner',
-              id_terrace: foundTerrace.id
+              role: "owner",
+              id_terrace: foundTerrace.id,
             };
-            localStorage.setItem('user', JSON.stringify(updatedUserData));
+            localStorage.setItem("user", JSON.stringify(updatedUserData));
 
             // Opcional: Actualizar el estado local del ID del usuario si el rol es importante para otros cheques
             // (aunque currentUserId es solo el ID, no el objeto completo)
             // if (updatedUserData.id) {
             //   setCurrentUserId(updatedUserData.id);
             // }
-
           } catch (e) {
-            console.error("Error al actualitzar les dades de l'usuari en localStorage:", e);
-
+            console.error(
+              "Error al actualitzar les dades de l'usuari en localStorage:",
+              e
+            );
           }
         } else {
           console.warn("No s'ha trobat l'objecte usuari en localStorage.");
-
         }
-
       } else {
         setError(response.message);
       }
     } catch (err) {
       console.error("Error al confirmar la propietat de la terrassa:", err);
-      setError("Hi ha hagut un error al confirmar la propietat. Torna a intentar-ho més tard.");
+      setError(
+        "Hi ha hagut un error al confirmar la propietat. Torna a intentar-ho més tard."
+      );
     } finally {
       setLoading(false);
     }
@@ -131,8 +140,10 @@ function TerraceClaim() {
 
   return (
     <>
-
-      <form onSubmit={claimTerrace} className="flex flex-col w-4/5 items-center  m-auto">
+      <form
+        onSubmit={claimTerrace}
+        className="flex flex-col w-4/5 items-center  m-auto"
+      >
         <h4 className="text-center mb-4">
           Per reclamar-la, introdueix la referència catastral del teu
           establiment a la casella següent:
@@ -146,7 +157,7 @@ function TerraceClaim() {
           className="w-3/4 mt-2 border-1 border-siya-dark-green p-2 rounded m-2 ms-0"
           disabled={loading || !currentUserId} // Deshabilitar si carga o no hay usuario
         />
-        <Button
+        <button
           type="submit"
           className="w-3/4
           bg-siya-dark-green
@@ -158,27 +169,32 @@ function TerraceClaim() {
                 cursor-pointer"
           disabled={loading || !currentUserId} // Deshabilitar si carga o no hay usuario
         >
-          {loading ? 'Cercant...' : 'Cercar terrassa'}
-        </Button>
-
+          {loading ? "Cercant..." : "Cercar terrassa"}
+        </button>
 
         {error && (
           <>
             <p className="text-siya-principal mt-4">{error}</p>
             {error && (
-              <p className="text-siya-secundario">Si no trobes la teva terrassa, contacta'ns perquè la registrem a la nostra base de dades</p>
+              <p className="text-siya-secundario">
+                Si no trobes la teva terrassa, contacta'ns perquè la registrem a
+                la nostra base de dades
+              </p>
             )}
           </>
         )}
 
-
         {foundTerrace && (
           <div className="mt-6 p-4 border border-gray-300 rounded">
             <h4 className="font-bold">Terrassa Trobada:</h4>
-            <p><strong>Nom:</strong> {foundTerrace.business_name}</p>
-            <p><strong>Adreça:</strong> {foundTerrace.address}</p>
+            <p>
+              <strong>Nom:</strong> {foundTerrace.business_name}
+            </p>
+            <p>
+              <strong>Adreça:</strong> {foundTerrace.address}
+            </p>
             <p className="mt-2">És aquesta la teva terrassa?</p>
-            <Button
+            <button
               type="button"
               onClick={confirmTerraceOwnership}
               className="w-fit 
@@ -193,11 +209,10 @@ function TerraceClaim() {
                 "
               disabled={loading}
             >
-              {loading ? 'Confirmant...' : 'Aquesta mateixa :)'}
-            </Button>
+              {loading ? "Confirmant..." : "Aquesta mateixa :)"}
+            </button>
           </div>
         )}
-
 
         {confirmationMessage && (
           <p className="text-green-600 mt-4 font-bold">{confirmationMessage}</p>

@@ -138,7 +138,7 @@ function OwnRestaurant() {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
   if (!user) return <p>Carregant usuari...</p>;
 
-  
+
   const bookingsPerDate: Record<string, BookingType[]> = {};
   bookings.forEach((b) => {
     if (!bookingsPerDate[b.booking_date]) {
@@ -149,87 +149,87 @@ function OwnRestaurant() {
 
   // Ordenar las fechas
   const sortedDates = Object.keys(bookingsPerDate).sort((a, b) => a.localeCompare(b));
-  
-  
+
+
 
   return (
-    <div style={{margin:"20px"}}>
-         <h1 style={{ marginBottom: "15px", color: "#333" }}><strong> El meu Restaurant </strong></h1>
-     <div className="border-l- border-r-4 border-t- border-b-4  siyaDark-text m-2 mt-3 bg-gray-50"
-  style={{
-    maxWidth: "400px",
-    margin: "20px auto",
-    padding: "20px",
-    borderRadius: "12px",
-    backgroundColor: "#f5f5f5",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-    textAlign: "center",
-    fontFamily: "Arial, sans-serif",
-  }}
->
- 
-  {terracePic && (
-  <img
-    src={terracePic}
-    alt="terrace-pic"
-    style={{
-      width: "200px",
-      borderRadius: "8px",
-      display: "block",
-      margin: "0 auto 15px auto",
-    }}
-  />
-)}
-  <p><strong>Nom de la terrassa:</strong> {terraceName}</p>
-  <p><strong>ID terrassa:</strong> {user.id_terrace}</p>
-  <p><strong>Email:</strong> {user.email}</p>
-</div>
+    <div style={{ margin: "20px" }}>
+      <h1 style={{ marginBottom: "15px", color: "#333" }}><strong> El meu Restaurant </strong></h1>
+      <div className="border-l- border-r-4 border-t- border-b-4  siyaDark-text m-2 mt-3 bg-gray-50"
+        style={{
+          maxWidth: "400px",
+          margin: "20px auto",
+          padding: "20px",
+          borderRadius: "12px",
+          backgroundColor: "#f5f5f5",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+          textAlign: "center",
+          fontFamily: "Arial, sans-serif",
+        }}
+      >
+
+        {terracePic && (
+          <img
+            src={terracePic}
+            alt="terrace-pic"
+            style={{
+              width: "200px",
+              borderRadius: "8px",
+              display: "block",
+              margin: "0 auto 15px auto",
+            }}
+          />
+        )}
+        <p><strong>Nom de la terrassa:</strong> {terraceName}</p>
+        <p><strong>ID terrassa:</strong> {user.id_terrace}</p>
+        <p><strong>Email:</strong> {user.email}</p>
+      </div>
 
 
 
-      <h2 style={{color:"#ff1818"}}> <strong>Reserves de la terrassa</strong></h2>
+      <h2 style={{ color: "#ff1818" }}> <strong>Reserves de la terrassa</strong></h2>
       {bookings.length === 0 ? (
         <p>No hi ha reserves</p>
       ) : (
         sortedDates.map((date) => (
-          <div key={date} style={{ marginBottom: "20px", marginTop:"20px"}}>
+          <div key={date} style={{ marginBottom: "20px", marginTop: "20px" }}>
             <h4> <strong>{new Date(date).toLocaleDateString("ca-ES", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} </strong> </h4>
-            <div  style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               {bookingsPerDate[date]
-                .toSorted((a, b) => a.booking_time.localeCompare(b.booking_time))
-                .map((b) => (
+                .sort((a: any, b: any) => a.booking_time.localeCompare(b.booking_time))
+                .map((b: any) => (
                   <div className="shadow-md border-l- border-r-4 border-t- border-b-4 border-siya-dark-green siyaDark-text m-2 mt-3 bg-gray-50"
-  key={b.id}
-  style={{
-    // border: "1px solid #ccc",
-    padding: "10px",
-    borderRadius: "8px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    // background: "#f9f9f9",
-    // boxShadow:  "0 4px 12px #385852, 0 2px 4px #385852", // Sombra verde
-    // transition: "box-shadow 0.3s ease", // Opcional: para efecto hover
-  }}
->
-  <div >
-    <p><strong>Hora:</strong> {b.booking_time}</p>
-    <p><strong>Persones:</strong> {b.party_length}</p>
-  </div>
-  <button
-    style={{ 
-      background: "#ff1818", 
-      color: "white", 
-      padding: "6px 12px", 
-      border: "none", 
-      borderRadius: "10px",
-      cursor: "pointer", // Mejora la usabilidad
-    }}
-    onClick={() => handleDeleteBooking(b.id)}
-  >
-    Eliminar
-  </button>
-</div>
+                    key={b.id}
+                    style={{
+                      // border: "1px solid #ccc",
+                      padding: "10px",
+                      borderRadius: "8px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      // background: "#f9f9f9",
+                      // boxShadow:  "0 4px 12px #385852, 0 2px 4px #385852", // Sombra verde
+                      // transition: "box-shadow 0.3s ease", // Opcional: para efecto hover
+                    }}
+                  >
+                    <div >
+                      <p><strong>Hora:</strong> {b.booking_time}</p>
+                      <p><strong>Persones:</strong> {b.party_length}</p>
+                    </div>
+                    <button
+                      style={{
+                        background: "#ff1818",
+                        color: "white",
+                        padding: "6px 12px",
+                        border: "none",
+                        borderRadius: "10px",
+                        cursor: "pointer", // Mejora la usabilidad
+                      }}
+                      onClick={() => handleDeleteBooking(b.id)}
+                    >
+                      Eliminar
+                    </button>
+                  </div>
                 ))}
             </div>
           </div>

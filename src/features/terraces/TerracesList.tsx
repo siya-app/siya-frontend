@@ -11,7 +11,7 @@ const TerraceList = () => {
     const getTerraces = async () => {
       try {
         const data = await fetchTerraces();
-        setTerraces(data);
+        setTerraces(data.filter((terrace) => terrace.id !== undefined) as Terrace[]);
       } catch (err) {
         setError(err instanceof Error ? err.message : String(err));
       } finally {

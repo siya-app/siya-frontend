@@ -1,8 +1,6 @@
 import ScrollSnap from "./slider/ScrollSnap";
 import { getBlobs } from "../services/blobList.service";
 import { BLOB_TRANSLATIONS } from "../services/blobList.service";
-import type { CustomTerraceType } from "../types/zod/customTerrace-schema";
-import { useState } from "react";
 import SliderButton from "./slider/SliderButton";
 
 type BlobType = 'cover' | 'dietary' | 'emotional' | 'food' | 'placement';
@@ -39,9 +37,9 @@ export function BlobCarousel({
             {/* <h2 className="text-lg text-siya-dark-green font-semibold ms-3 mb-2 mt-2 system-sans">{categoryTitle}</h2> */}
             <ScrollSnap>
                 {Object.entries(blobs[type]).map(([id, src]) => (
-                    <button onClick={() => onToggleTag(id)}>
-                    <div key={id} className="snap-start shrink-0 w-[5em] mx-1">
-                        <div className={"flex flex-col justify-start items-center pb-2"}>
+                    <button key={id} onClick={() => onToggleTag(id)}>
+                    <div className="snap-start shrink-0 w-[5em] mx-1">
+                        <div  className={"flex flex-col justify-start items-center pb-2"}>
                             <img
                                 src={src}
                                 alt={translations[id as keyof typeof translations]}
@@ -62,4 +60,29 @@ export function BlobCarousel({
 
         </div>
     );
+
+    // return (
+    //     <div className="shadow-siya-terciario flex flex-col justify-start">
+    //         <ScrollSnap>
+    //             {Object.entries(blobs[type]).map(([id, src]) => (
+    //                 <div key={id} className="snap-start shrink-0 w-[5em] mx-1">
+    //                     <div className="flex flex-col justify-start items-center pb-2">
+    //                         <img
+    //                             src={src}
+    //                             alt={translations[id as keyof typeof translations]}
+    //                             className="w-20 h-15 object-contain"
+    //                         />
+    //                         <SliderButton
+    //                             key={`button-${id}`}
+    //                             onClick={() => onToggleTag(id)}
+    //                             tagName={translations[id as keyof typeof translations]}
+    //                             id={id}
+    //                             selectedTags={selectedTags}
+    //                         />
+    //                     </div>
+    //                 </div>
+    //             ))}
+    //         </ScrollSnap>
+    //     </div>
+    // );
 }
