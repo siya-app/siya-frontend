@@ -7,9 +7,14 @@ import AuthContext from "../../context/AuthContext";
 interface UpdateAccountProps {
   isOpen: boolean;
   onClose: () => void;
+  onUserUpdate: (user: any) => void;
 }
 
-export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
+export default function UpdateAccount({
+  isOpen,
+  onClose,
+  onUserUpdate,
+}: UpdateAccountProps) {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
 
@@ -71,6 +76,7 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
 
       localStorage.setItem("user", JSON.stringify(newUser));
       setUser(newUser);
+      onUserUpdate(newUser);
 
       setSuccess("Perfil actualitzat correctament.");
       setName("");
@@ -86,10 +92,21 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
     }
   };
 
+  const handleClose = () => {
+    setName("");
+    setNewPassword("");
+    setCurrentPassword("");
+    setError("");
+    setSuccess("");
+    setShowPassword(false);
+    setShowCurrentPassword(false);
+    onClose();
+  };
+
   return (
     <div
       className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50"
-      onClick={onClose}
+      onClick={handleClose}
     >
       <div
         className="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md relative"
@@ -97,7 +114,7 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
       >
         <button
           className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-          onClick={onClose}
+          onClick={handleClose}
         >
           ✕
         </button>

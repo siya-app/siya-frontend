@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TerraceSlider from "../components/slider/TerraceSlider";
 import { useTerraceList } from "../hooks/useTerraceList";
@@ -7,23 +7,20 @@ import DeleteAccount from "../features/delete-account/DeleteAccount";
 import UpdateAccount from "../features/update-account/UpdateAccount";
 import OwnerActions from "../features/owner-actions/OwnerActions";
 import { ReviewSlider } from "../features/reviews/ReviewSlider";
-import UserBookings from "../features/user-bookings/UserBookings";
+import UserBookings from '../features/user-bookings/UserBookings'
 import useFavorites from "../hooks/useFavorites";
 import { HiArrowSmRight } from "react-icons/hi";
-import AuthContext from "../context/AuthContext";
 
 export default function Profile() {
   const navigate = useNavigate();
   const { terraceList } = useTerraceList();
 
-  //const [user, setUser] = useState<any | null>(null);
-  const auth = useContext(AuthContext);
-  const user = auth?.user;
+  const [user, setUser] = useState<any | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
   const { isFavorite } = useFavorites();
-  console.log(isFavorite);
+  console.log( isFavorite)
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -34,13 +31,13 @@ export default function Profile() {
     } else {
       try {
         const parsedUser = JSON.parse(storedUser);
-        //setUser(parsedUser);
+        setUser(parsedUser);
       } catch (error) {
         console.error("Error al parsear el usuario del localStorage", error);
         navigate("/login");
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const logout = () => {
@@ -48,6 +45,7 @@ export default function Profile() {
     localStorage.removeItem("token");
     navigate("/");
   };
+
 
   if (!user) return <p>Carregant dades de l'usuari...</p>;
 
@@ -59,13 +57,12 @@ export default function Profile() {
         </h2>
         <div className="space-y-3 text-gray-700">
           <p className="text-lg">
-            <span className="font-semibold siyaDark-text">Email:</span>{" "}
-            {user.email}
+            <span className="font-semibold siyaDark-text">Email:</span> {user.email}
           </p>
         </div>
       </div>
-
-      <UserBookings />
+      
+      <UserBookings/>
       <Button
         onClick={() => navigate("/buscar-terrassa")}
         className="text-primary-content px-4 py-2 mt-8 m-4 bg-siya-principal text-white rounded-full flex justify-between items-center toggle-height mx-auto"
@@ -73,12 +70,12 @@ export default function Profile() {
         Reservar taula
       </Button>
       <h2 className="montserrat-siya text-xl m-2 mt-8 ms-3 siyaDark-text">
-        Les meves ressenyes
-        <span className="inline-icon">
-          <HiArrowSmRight />{" "}
-        </span>
-      </h2>
-      <ReviewSlider userId={user.id} refresh={true} />
+          Les meves ressenyes
+            <span className="inline-icon">
+              <HiArrowSmRight />{" "}
+            </span>
+          </h2>
+      <ReviewSlider userId={user.id} refresh={true}/>
       <TerraceSlider list={terraceList} orderBy={"nearby"} />
       <OwnerActions />
 
@@ -91,9 +88,11 @@ export default function Profile() {
         </Button>
       </div>
 
+
       <UpdateAccount
         isOpen={showEditModal}
         onClose={() => setShowEditModal(false)}
+        onUserUpdate={(updatedUser) => setUser(updatedUser)}
       />
       <DeleteAccount isOpen={showModal} onClose={() => setShowModal(false)} />
 
