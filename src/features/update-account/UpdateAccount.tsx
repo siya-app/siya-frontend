@@ -76,6 +76,7 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
       setName("");
       setNewPassword("");
       setCurrentPassword("");
+      setError("");
       setTimeout(() => {
         setSuccess("");
         onClose();
