@@ -69,11 +69,13 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
       const { id, name: updatedName, email } = res.data.user;
       const newUser = { id, name: updatedName, email };
 
-
       localStorage.setItem("user", JSON.stringify(newUser));
       setUser(newUser);
 
       setSuccess("Perfil actualitzat correctament.");
+      setName("");
+      setNewPassword("");
+      setCurrentPassword("");
       setTimeout(() => {
         setSuccess("");
         onClose();
@@ -113,7 +115,9 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
           </div>
 
           <div>
-            <label className="block mb-1">Canvia la contrasenya (opcional):</label>
+            <label className="block mb-1">
+              Canvia la contrasenya (opcional):
+            </label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -127,7 +131,9 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-600"
                 aria-label={
-                  showPassword ? "Amaga la contrasenya" : "Mostra la contrasenya"
+                  showPassword
+                    ? "Amaga la contrasenya"
+                    : "Mostra la contrasenya"
                 }
               >
                 {showPassword ? <FiEyeOff /> : <FiEye />}
@@ -136,7 +142,9 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
           </div>
 
           <div>
-            <label className="block mb-1">Contrasenya actual (obligatòria):</label>
+            <label className="block mb-1">
+              Contrasenya actual (obligatòria):
+            </label>
             <div className="relative">
               <input
                 type={showCurrentPassword ? "text" : "password"}
@@ -151,7 +159,9 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
                 onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-600"
                 aria-label={
-                  showCurrentPassword ? "Amaga la contrasenya" : "Mostra la contrasenya"
+                  showCurrentPassword
+                    ? "Amaga la contrasenya"
+                    : "Mostra la contrasenya"
                 }
               >
                 {showCurrentPassword ? <FiEyeOff /> : <FiEye />}
