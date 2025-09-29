@@ -22,8 +22,10 @@ function OwnerActions() {
   const [ownedTerrace, setOwnedTerrace] = useState<CustomTerraceType | null>(null)
   const navigate = useNavigate();
 
-  const { getTerraces, claimedTerraces } = useContext(TerraceContext)!
-  const { getUsers, owners } = useContext(UserContext)!
+  const { getTerraces, allTerraces } = useContext(TerraceContext)!
+  const { getUsers,  allUsers } = useContext(UserContext)!
+
+
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -37,23 +39,21 @@ function OwnerActions() {
     } else {
       navigate("/login");
     }
-  }, [getTerraces, getUsers, navigate]);
+    //newFunction()
+  }, []);
 
-  useEffect(() => {
-    if (user) {
-      const owner = owners.find(owner => owner.id === user.id);
-
-
-      if (owner) {
-        const foundTerrace = claimedTerraces.find(terrace => terrace.id === owner.id_terrace) as CustomTerraceType | undefined;
-        if (foundTerrace) {
-          setOwnedTerrace(foundTerrace);
-        }
-        // setOwnedTerrace(foundTerrace)
-      }
+useEffect(() => {
+  if (user && allUsers.length > 0 && allTerraces.length > 0) {
+    const currentUser = allUsers.find(u => u.id === user.id);
+    if (currentUser) {
+      const claimedTerrace = allTerraces.find(t => t.id === currentUser.id_terrace) as CustomTerraceType | undefined;
+      setOwnedTerrace(claimedTerrace || null);
     }
+  }
+}, [user, allUsers, allTerraces]);
 
-  }, [user, owners, claimedTerraces, ownedTerrace]);
+
+
 
 
 
@@ -95,7 +95,7 @@ function OwnerActions() {
 
 
   if (!user) return <p>Carregant dades de l'usuari...</p>;
-  console.log(user.role, claimedTerraces)
+
   return (
     <>
       {user.role === "owner" && ownedTerrace && (<>
