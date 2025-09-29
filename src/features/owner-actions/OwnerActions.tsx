@@ -37,7 +37,7 @@ function OwnerActions() {
     } else {
       navigate("/login");
     }
-  }, []);
+  }, [getTerraces, getUsers, navigate]);
 
   useEffect(() => {
     if (user) {
@@ -95,6 +95,7 @@ function OwnerActions() {
 
 
   if (!user) return <p>Carregant dades de l'usuari...</p>;
+  console.log(user.role, claimedTerraces)
   return (
     <>
       {user.role === "owner" && ownedTerrace && (<>
