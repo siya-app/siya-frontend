@@ -92,6 +92,7 @@ export default function Profile() {
       <UpdateAccount
         isOpen={showEditModal}
         onClose={() => setShowEditModal(false)}
+        onUserUpdate={(updatedUser) => setUser(updatedUser)}
       />
       <DeleteAccount isOpen={showModal} onClose={() => setShowModal(false)} />
 
