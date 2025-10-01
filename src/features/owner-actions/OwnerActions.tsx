@@ -156,9 +156,9 @@ useEffect(() => {
         <TerraceUnclaim
           isOpen={isUnclaimModalOpen}
           onClose={() => setIsUnclaimModalOpen(false)}
-          onUnclaimSuccess={() => {
-            window.location.reload();
-          }}
+          onUnclaimSuccess={(updatedUser) => {
+    setUser(updatedUser); 
+  }}
         />
 
       </>)}
