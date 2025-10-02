@@ -14,7 +14,6 @@ interface UpdateTerraceProps {
 function UpdateTerrace({
   isOpen,
   onClose,
-  onSubmit,
   terrace,
 }: UpdateTerraceProps) {
   const [currentPassword, setCurrentPassword] = useState("");
