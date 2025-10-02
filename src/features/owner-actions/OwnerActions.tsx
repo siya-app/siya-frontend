@@ -56,11 +56,7 @@ function OwnerActions() {
 
   const goToOwnedTerrace = () => {
     if (!user || !user.id) return;
-
-    // navigate("/meva-terrassa")
     navigate(`/meva-terrassa/${user.id}`);
-    //ruta a angular
-    // window.location.href = `http://localhost:4200/profile/${user.id}`;
   };
 
   const handleUpdateTerrace = async (formData: TerraceUpdatePayload) => {
