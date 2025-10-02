@@ -3,7 +3,11 @@ import { useState, useEffect } from "react";
 import { api } from "../../services/apiCatastro";
 import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
 
-function TerraceClaim() {
+type TerraceClaimProps = {
+  onClaimSuccess?: (user: any) => void; // puedes tipar bien con tu User
+};
+
+function TerraceClaim({ onClaimSuccess }: TerraceClaimProps) {
   const [catastro, setCatastro] = useState("");
   const [error, setError] = useState("");
   const [foundTerrace, setFoundTerrace] = useState<CustomTerraceType | null>(
@@ -88,6 +92,7 @@ function TerraceClaim() {
       return;
     }
 
+  
     try {
       const response = await api.updateUserRoleAndTerrace(
         currentUserId,
@@ -100,30 +105,33 @@ function TerraceClaim() {
         setCatastro("");
 
         const userString = localStorage.getItem("user");
+        let updatedUserData;
+
         if (userString) {
           try {
             const currentUserData = JSON.parse(userString);
-
-            const updatedUserData = {
+            updatedUserData = {
               ...currentUserData,
               role: "owner",
               id_terrace: foundTerrace.id,
             };
             localStorage.setItem("user", JSON.stringify(updatedUserData));
-
           } catch (e) {
-            console.error(
-              "Error al actualitzar les dades de l'usuari en localStorage:",
-              e
-            );
+            console.error("Error al actualitzar usuari:", e);
           }
-        } else {
-          console.warn("No s'ha trobat l'objecte usuari en localStorage.");
+        }
+
+        // 🔑 Avisamos al padre que hay un nuevo user
+        if (onClaimSuccess && updatedUserData) {
+          onClaimSuccess(updatedUserData);
         }
       } else {
         setError(response.message);
       }
-    } catch (err) {
+    }
+    
+    
+    catch (err) {
       console.error("Error al confirmar la propietat de la terrassa:", err);
       setError(
         "Hi ha hagut un error al confirmar la propietat. Torna a intentar-ho més tard."
