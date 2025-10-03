@@ -10,12 +10,13 @@ export function useFavorites() {
   const { user } = useAuth();
   const queryClient = useQueryClient();
   const userId = user?.id;
+  const API_FAVS = import.meta.env.VITE_API_FAVS;
 
   const { data: favorites = [], isLoading } = useQuery<Favorite[]>({
     queryKey: ['favorites', userId],
     queryFn: async () => {
       if (!userId) return [];
-      const res = await fetch(`http://localhost:8080/favorites?userId=${userId}`, {
+      const res = await fetch(`${API_FAVS}?userId=${userId}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       });
@@ -28,7 +29,7 @@ export function useFavorites() {
   const addMutation = useMutation({
     mutationFn: async (terraceId: string) => {
       if (!userId) throw new Error("User not authenticated");
-      const res = await fetch('http://localhost:8080/favorites', {
+      const res = await fetch(API_FAVS, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, terraceId })
@@ -44,7 +45,7 @@ export function useFavorites() {
   const removeMutation = useMutation({
     mutationFn: async (terraceId: string) => {
       if (!userId) throw new Error("User not authenticated");
-      const res = await fetch(`http://localhost:8080/favorites`, {
+      const res = await fetch(API_FAVS, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, terraceId })
