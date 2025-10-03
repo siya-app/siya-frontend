@@ -4,7 +4,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 interface TerraceUnclaimProps {
   isOpen: boolean;
   onClose: () => void;
-  onUnclaimSuccess: () => void;
+  onUnclaimSuccess: (updatedUser: any) => void;
 }
 
 function TerraceUnclaim({
@@ -21,7 +21,6 @@ function TerraceUnclaim({
 
   useEffect(() => {
     const userString = localStorage.getItem("user");
-
     if (userString) {
       try {
         const user = JSON.parse(userString);
@@ -57,13 +56,12 @@ function TerraceUnclaim({
 
     try {
       const token = localStorage.getItem("token");
-      const verifyURL = import.meta.env.VITE_VERIFY_PASSWORD_URL;
       const unclaimURL = `${
         import.meta.env.VITE_API_ALL_USERS
       }/${userId}/unclaim-terrace`;
-
-      const verifyRes = await fetch(verifyURL, {
-        method: "POST",
+      console.log(unclaimURL);
+      const res = await fetch(unclaimURL, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -71,26 +69,10 @@ function TerraceUnclaim({
         body: JSON.stringify({ password }),
       });
 
-      const verifyData = await verifyRes.json();
+      const data = await res.json();
 
-      if (!verifyRes.ok || !verifyData.success) {
-        setError(verifyData.error || "Verificació fallida.");
-        setIsProcessing(false);
-        return;
-      }
-
-      const unclaimRes = await fetch(unclaimURL, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const unclaimData = await unclaimRes.json();
-
-      if (!unclaimRes.ok) {
-        setError(unclaimData.error || "No s'ha pogut desfer la propietat.");
+      if (!res.ok) {
+        setError(data.error || "No s'ha pogut desfer la propietat.");
         setIsProcessing(false);
         return;
       }
@@ -98,20 +80,24 @@ function TerraceUnclaim({
       setSuccessMessage(
         "Has deixat de ser propietari/ària d’aquesta terrassa."
       );
+      if (data.updatedUser) {
+        localStorage.setItem("user", JSON.stringify(data.updatedUser));
+      }
+
       setTimeout(() => {
-        onUnclaimSuccess();
+        onUnclaimSuccess(data.updatedUser);
         setSuccessMessage("");
         onClose();
       }, 1800);
     } catch (err) {
-      setError(`Error inesperat al comunicar amb el servidor: ${err}`);
+      setError("Error inesperat al comunicar amb el servidor.");
     } finally {
       setIsProcessing(false);
     }
   };
 
-  if (!isOpen) return null;
-if (!userId) return null;
+  if (!isOpen || !userId) return null;
+
   return (
     <div
       className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50"
@@ -142,11 +128,13 @@ if (!userId) return null;
           Introdueix la teva contrasenya per confirmar que vols deixar de ser
           propietari/ària d’aquesta terrassa.
         </p>
+
         {successMessage && (
           <div className="bg-green-100 text-green-800 text-sm px-4 py-2 rounded mb-4 border border-green-300">
             {successMessage}
           </div>
         )}
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <div className="relative">
