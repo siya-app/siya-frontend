@@ -6,6 +6,11 @@ export const UserLocationProvider = ({ children }: { children: React.ReactNode }
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
+    const defaultLocation: Location = {
+    latitude: 41.3856,
+    longitude: 2.1706,
+  };
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -14,10 +19,11 @@ export const UserLocationProvider = ({ children }: { children: React.ReactNode }
           longitude: position.coords.longitude,
         });
         setLoading(false);
+        setError(null); 
       },
       (err) => {
-        console.error("Error getting location:", err);
-        setError("Could not fetch location.");
+        console.warn("Error getting location; using default location", err);
+        setLocation(defaultLocation)
         setLoading(false);
       }
     );
