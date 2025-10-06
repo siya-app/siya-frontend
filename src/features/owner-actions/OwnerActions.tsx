@@ -29,7 +29,6 @@ function OwnerActions() {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    // const storedToken = localStorage.getItem("token");
 
     getTerraces();
     getUsers();
@@ -39,7 +38,6 @@ function OwnerActions() {
     } else {
       navigate("/login");
     }
-    //newFunction()
   }, []);
 
   useEffect(() => {
