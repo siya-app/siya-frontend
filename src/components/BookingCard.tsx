@@ -9,7 +9,7 @@ interface BookingCardProps {
 
 const BookingCard: React.FC<BookingCardProps> = ({ terraceName, terraceAddress, date, time }) => {
   return (
-    <div className="bg-white shadow-md rounded-lg p-4 mb-4 border border-gray-200">
+    <div className="bg-white shadow-md rounded-lg p-4 mb-4 border border-gray-200 text-center">
       <h3 className="text-xl font-semibold text-siya-principal mb-2">
         {terraceName}
       </h3>

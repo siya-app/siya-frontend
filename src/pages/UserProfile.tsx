@@ -61,8 +61,13 @@ export default function Profile() {
           </p>
         </div>
       </div>
-      
-      <UserBookings/>
+      <h2 className="montserrat-siya text-xl m-2 mt-8 ms-3 siyaDark-text">
+          Les meves rserves
+            <span className="inline-icon">
+              <HiArrowSmRight />{" "}
+            </span>
+          </h2>
+      <UserBookings userId={user.id}/>
       <Button
         onClick={() => navigate("/buscar-terrassa")}
         className="text-primary-content px-4 py-2 mt-8 m-4 bg-siya-principal text-white rounded-full flex justify-between items-center toggle-height mx-auto"
