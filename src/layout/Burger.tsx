@@ -80,7 +80,7 @@ const BurgerMenu = () => {
             </button>
         ) : (
             <Link
-                to="/#loginForm"
+                to="/login"
                 className="hover:text-white w-fit  hover:bg-red-500 rounded-md"
                 onClick={() => setIsOpen(false)}
             >
