@@ -37,25 +37,27 @@ export const FilterProvider = ({ children }: { children: React.ReactNode }) => {
     //     setFilteredTerraces(filtered);
     // }, [selectedTags, searchQuery, terraceList]);
 
-    useEffect(() => {
-        const filtered = terraceList.filter((terrace) => {
+   useEffect(() => {
+    if (!Array.isArray(terraceList)) return;
 
-            // Tag filtering
-            const tagGroups = Object.values(terrace.tags || {});
-            const allTags = tagGroups.flat();
+    const filtered = terraceList.filter((terrace) => {
+        const tagGroups = Object.values(terrace.tags || {});
+        const allTags = tagGroups.flat();
 
-            const matchesTags = selectedTags.length === 0 ||
-                selectedTags.every(tag => allTags.includes(tag));
+        const matchesTags =
+            selectedTags.length === 0 ||
+            selectedTags.every(tag => allTags.includes(tag));
 
-            // Search filtering
-            const matchesSearch = searchQuery === '' ||
-                terrace.business_name?.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch =
+            searchQuery === '' ||
+            terrace.business_name?.toLowerCase().includes(searchQuery.toLowerCase());
 
-            return matchesTags && matchesSearch;
-        });
+        return matchesTags && matchesSearch;
+    });
 
-        setFilteredTerraces(filtered);
-    }, [selectedTags, searchQuery, terraceList]);
+    setFilteredTerraces(filtered);
+}, [selectedTags, searchQuery, terraceList]);
+
 
     const resetFilters = () => {
         setSelectedTags([]);
