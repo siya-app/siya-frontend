@@ -32,6 +32,7 @@ function TerraceProvider ({ children }: TerraceProviderProps) {
         try{
             const response = await axios.get<Terrace[]>(terraceURL);
             setAllTerraces(response.data);
+            console.log(terraceURL, response.data)
             const newArray = response.data.filter(terrace  => terrace.is_claimed === true)
             setClaimedTerraces(newArray)
             

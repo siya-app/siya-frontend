@@ -1,5 +1,3 @@
-const API_REVIEWS = import.meta.env.VITE_API_ALL_REVIEWS;
-
 export async function createReview({
   rating,
   comment,
@@ -13,6 +11,7 @@ export async function createReview({
   userName?: string;
   terraceId: string;
 }) {
+  const API_REVIEWS = import.meta.env.VITE_API_ALL_REVIEWS;
   const response = await fetch(API_REVIEWS, {
     method: "POST",
     headers: {

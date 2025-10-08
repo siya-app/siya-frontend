@@ -3,7 +3,11 @@ import { useState, useEffect } from "react";
 import { api } from "../../services/apiCatastro";
 import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
 
-function TerraceClaim() {
+type TerraceClaimProps = {
+  onClaimSuccess?: (user: any) => void; // puedes tipar bien con tu User
+};
+
+function TerraceClaim({ onClaimSuccess }: TerraceClaimProps) {
   const [catastro, setCatastro] = useState("");
   const [error, setError] = useState("");
   const [foundTerrace, setFoundTerrace] = useState<CustomTerraceType | null>(
@@ -34,7 +38,7 @@ function TerraceClaim() {
     } else {
       setError("Has d'iniciar sessió per reclamar una terrassa.");
     }
-  }, []); // El array vacío asegura que esto solo se ejecute una vez al montar
+  }, []);
 
   const claimTerrace = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,6 +92,7 @@ function TerraceClaim() {
       return;
     }
 
+  
     try {
       const response = await api.updateUserRoleAndTerrace(
         currentUserId,
@@ -100,35 +105,33 @@ function TerraceClaim() {
         setCatastro("");
 
         const userString = localStorage.getItem("user");
+        let updatedUserData;
+
         if (userString) {
           try {
             const currentUserData = JSON.parse(userString);
-
-            const updatedUserData = {
+            updatedUserData = {
               ...currentUserData,
               role: "owner",
               id_terrace: foundTerrace.id,
             };
             localStorage.setItem("user", JSON.stringify(updatedUserData));
-
-            // Opcional: Actualizar el estado local del ID del usuario si el rol es importante para otros cheques
-            // (aunque currentUserId es solo el ID, no el objeto completo)
-            // if (updatedUserData.id) {
-            //   setCurrentUserId(updatedUserData.id);
-            // }
           } catch (e) {
-            console.error(
-              "Error al actualitzar les dades de l'usuari en localStorage:",
-              e
-            );
+            console.error("Error al actualitzar usuari:", e);
           }
-        } else {
-          console.warn("No s'ha trobat l'objecte usuari en localStorage.");
+        }
+
+        // 🔑 Avisamos al padre que hay un nuevo user
+        if (onClaimSuccess && updatedUserData) {
+          onClaimSuccess(updatedUserData);
         }
       } else {
         setError(response.message);
       }
-    } catch (err) {
+    }
+    
+    
+    catch (err) {
       console.error("Error al confirmar la propietat de la terrassa:", err);
       setError(
         "Hi ha hagut un error al confirmar la propietat. Torna a intentar-ho més tard."
@@ -221,44 +224,5 @@ function TerraceClaim() {
     </>
   );
 }
-//   return (
-//     <>
-//       <form onSubmit={claimTerrace} className="flex flex-col w-4/5 m-auto">
-//         <h3>Ets propietari d'una terrassa?</h3>
-//         <h4>
-//           Per reclamar-la, introdueix la referència catastral del teu
-//           establiment a la casella següent
-//         </h4>
-//         <input
-//           type="text"
-//           placeholder="Número catastral"
-//           value={catastro}
-//           onChange={(e) => setCatastro(e.target.value)}
-//           required
-//           className="w-1/2 mt-2"
-//         />
-//         <Button
-//           type="submit"
-//           className="bg-siya-dark-green
-//                 text-siya-lemon-cream
-//                 font-bold
-//                 py-2
-//                 px-4
-//                 rounded
-//                 cursor-pointer"
-//         >
-//           Inicia sessió
-//         </Button>
-//         {error && <p className="text-siya-principal">{error}</p>}
-//         {error && (
-//           <p className="text-siya-secundario">
-//             Si no trobes la teva terrassa, contacta'ns perquè la registrem a la
-//             nostra base de dades
-//           </p>
-//         )}
-//       </form>
-//     </>
-//   );
-// }
 
 export default TerraceClaim;
