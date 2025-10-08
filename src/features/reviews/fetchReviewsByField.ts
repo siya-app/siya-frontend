@@ -1,10 +1,13 @@
 import type { Review } from "../../types/types";
 
+const API_REVIEWS =
+  import.meta.env.VITE_API_ALL_REVIEWS || "http://localhost:8080/reviews";
+
 export async function fetchReviewsByField(
   field: "terraceId" | "userId",
   value: string
 ): Promise<Review[]> {
-  const res = await fetch("http://localhost:8080/reviews");
+  const res = await fetch(API_REVIEWS);
 
   if (!res.ok) {
     throw new Error("No s’han pogut carregar les reviews");
