@@ -305,7 +305,7 @@ function CalendarBooking() {
                   </button>
                   <button
                     type="submit"
-                    className="confirm-btn text-white bg-green-800 px-4 py-2 rounded-3xl"
+                    className="confirm-btn text-white bg-siya-dark-green px-4 py-2 rounded-3xl"
                   >
                     Confirmar
                   </button>

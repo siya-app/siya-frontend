@@ -62,7 +62,7 @@ export default function Profile() {
         </div>
       </div>
       <h2 className="montserrat-siya text-xl m-2 mt-8 ms-3 siyaDark-text">
-          Les meves rserves
+          Les meves reserves
             <span className="inline-icon">
               <HiArrowSmRight />{" "}
             </span>
