@@ -17,9 +17,11 @@ export function ReviewSlider({ terraceId, userId, refresh }: Props) {
     const value = terraceId ?? userId;
 
   const { data: reviews, isLoading, error, refetch } = useQuery({
-    queryKey: ['reviews', terraceId],
+    queryKey: ['reviews', field, value],
     queryFn: () => fetchReviewsByField(field as "terraceId" | "userId", value!),
     enabled: Boolean(value), // no fa fetch si no hi ha id
+    staleTime: 1000 * 60 * 5, // 5 minuts
+    gcTime: 1000 * 60 * 10,
   });
 
   useEffect(() => {
