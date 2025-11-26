@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import mapboxgl from "mapbox-gl";
 import { useUserLocation } from "../../hooks/useUserLocation";
 import TerraceMarker from "./TerraceMarker";
@@ -12,6 +13,7 @@ interface MapProps {
 const Map = ({ terraces }: MapProps) => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
   const { location, loading, error } = useUserLocation();
 
   useEffect(() => {
@@ -38,14 +40,14 @@ const Map = ({ terraces }: MapProps) => {
     const loadedTerraces: CustomTerraceType[] = terraces;
     loadedTerraces.forEach((terrace) => {
       if (terrace.latitude && terrace.longitude) {
-        TerraceMarker({ terrace, map });
+        TerraceMarker({ terrace, map, navigate });
       }
     });
 
     return () => {
       map?.remove();
     };
-  }, [location, loading, terraces]);
+  }, [location, loading, terraces, navigate]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -56,10 +58,10 @@ const Map = ({ terraces }: MapProps) => {
 
     terraces.forEach((terrace) => {
       if (terrace.latitude && terrace.longitude) {
-        TerraceMarker({ terrace, map });
+        TerraceMarker({ terrace, map, navigate });
       }
     });
-  }, [terraces]);
+  }, [terraces, navigate]);
 
   if (loading) return <p>Carregant mapa…</p>;
   if (error) return <p>Error: {error}</p>;
