@@ -1,6 +1,5 @@
-// components/Map/TerraceMarker.tsx
 import mapboxgl from "mapbox-gl";
-// import { Heart } from "lucide-react";
+import type { NavigateFunction } from "react-router-dom";
 // import type { Terrace } from "../../types/TerraceType";
 import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
 
@@ -8,9 +7,10 @@ type Props = {
   terrace: CustomTerraceType;
   map: mapboxgl.Map;
   isFavorite?: boolean;
+  navigate: NavigateFunction;
 };
 
-const TerraceMarker = ({ terrace, map, isFavorite }: Props) => {
+const TerraceMarker = ({ terrace, map, isFavorite, navigate }: Props) => {
   // Crea el contenidor del marcador
   const el = document.createElement("div");
   el.className = "terrace-marker";
@@ -50,7 +50,7 @@ const TerraceMarker = ({ terrace, map, isFavorite }: Props) => {
     const button = document.getElementById(`view-${terrace.id}`);
     if (button) {
       button.addEventListener("click", () => {
-        window.location.href = `/terrassa/${terrace.id}`;
+        navigate(`/terrassa/${terrace.id}`);
       });
     }
   });

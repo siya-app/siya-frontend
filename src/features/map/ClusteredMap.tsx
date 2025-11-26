@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useUserLocation } from "../../hooks/useUserLocation";
@@ -11,6 +12,7 @@ import TerraceMarker from "./TerraceMarker";
 const ClusteredMap = () => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
   const { location, loading, error } = useUserLocation();
   const [terraces, setTerraces] = useState<CustomTerraceType[]>([]);
   const [bounds, setBounds] = useState<mapboxgl.LngLatBoundsLike | null>(null);
@@ -103,6 +105,7 @@ const ClusteredMap = () => {
             terrace,
             map,
             isFavorite: terrace.id ? isFavorite(terrace.id) : false,
+            navigate,
           });
         }
       }
@@ -111,7 +114,7 @@ const ClusteredMap = () => {
     return () => {
       markerEls.forEach((marker) => marker.remove());
     };
-  }, [clusters, terraces, isFavorite, zoom]);
+  }, [clusters, terraces, isFavorite, zoom, navigate]);
 
   if (loading) return <p>Carregant mapa…</p>;
   if (error) return <p>Error: {error}</p>;
