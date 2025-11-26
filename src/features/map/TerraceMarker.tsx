@@ -27,7 +27,7 @@ const TerraceMarker = ({ terrace, map, isFavorite }: Props) => {
 `; el.appendChild(heartIcon);
   } else {
     const img = document.createElement("img");
-    img.src = "/bg-transp-logo-siya 1.svg";
+    img.src = "/bg-transp-logo-siya.svg";
     img.alt = terrace.business_name;
     img.style.width = "30px";
     img.style.height = "30px";
