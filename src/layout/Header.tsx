@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logoSiya from '../../public/bg-transp-logo-siya 1.svg'
+import logoSiya from '../../public/bg-transp-logo-siya.svg'
 import BurgerMenu from "./Burger";
 
 export default function Header() {
