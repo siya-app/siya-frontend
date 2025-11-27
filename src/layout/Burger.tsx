@@ -112,7 +112,7 @@ const BurgerMenu = () => {
                     <li className='w-fit' key={link.name}>
                         <Link
                             to={link.path}
-                            className="block py-2 text-white hover:bg-gray-100 hover:bg-opacity-20 transition-colors duration-200"
+                            className="block py-2 text-white hover:border-2 hover:border-white hover:rounded-full px-2 transition-colors duration-200"
                             onClick={() => setIsOpen(false)}
                         >
                             {link.name}
@@ -123,14 +123,14 @@ const BurgerMenu = () => {
         {isLoggedIn ? (
             <button
                 onClick={handleLogout}
-                className="w-fit block text-left py-2 text-white hover:bg-gray-100 hover:bg-opacity-20 transition-colors duration-200"
+                className="block py-2 text-white hover:border-2 hover:border-white hover:rounded-full px-2 transition-colors duration-200 mb-3"
             >
                 Log Out
             </button>
         ) : (
             <Link
                 to="/#loginForm"
-                className="block w-fit py-2 text-white hover:bg-gray-100 hover:bg-opacity-20 transition-colors duration-200"
+                className="block py-2 text-white hover:border-2 hover:border-white hover:rounded-full px-2 transition-colors duration-200 mb-3"
                 onClick={() => setIsOpen(false)}
             >
                 Log In
