@@ -10,8 +10,6 @@ import { ReviewSlider } from "../features/reviews/ReviewSlider";
 import UserBookings from '../features/user-bookings/UserBookings'
 import useFavorites from "../hooks/useFavorites";
 import { HiArrowSmRight } from "react-icons/hi";
-import type { Terrace } from "../types/TerraceType";
-import type { Favorite } from "../types/types";
 
 
 export default function Profile() {
