@@ -66,11 +66,11 @@ const FilterPage = () => {
 
       {(['food', 'emotional', 'placement', 'cover', 'dietary'] as const).map((type: keyof typeof BLOB_TRANSLATIONS.categories) => (
         <div key={type}
-          className="shadow-md
+          className="shadow-md mx-auto
           border-l- border-r-4 border-t- border-b-4 border-siya-dark-green
           siyaDark-text m-2 mt-3 bg-gray-50
           shadow-neutral-300 my-2 rounded-2xl overflow-hidden
-          md: w-2/3 md:mx-auto
+          md:w-2/3
           ">
           <div
             onClick={() => setOpenSection(prev => prev === type ? null : type)}
@@ -127,7 +127,7 @@ const FilterPage = () => {
           customClass="ps-4 pe-4 border-2"
         />
       </div>
-      <div className="m-8 md:w-2/3 md:mx-auto">
+      <div className="m-8 md:w-2/3 md:mx-auto md:min-h-96">
         <Map
         terraces={filteredTerraces}
         />

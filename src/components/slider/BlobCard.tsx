@@ -36,9 +36,9 @@ const BlobCard = ({ className = "",
                     rating={rating}
                 />
                 {/* Business name */}
-                <p className={`text-sm w-auto mt-2
+                <p className={`text-sm mx-auto mt-2
                 break-words truncate text-balance
-                montserrat-siya siyaDark-text
+                montserrat-siya siyaDark-text w-2/3
                 bg-transparent`}>
                     {businessName}
                 </p>
