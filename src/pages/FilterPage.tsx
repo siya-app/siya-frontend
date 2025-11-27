@@ -69,7 +69,9 @@ const FilterPage = () => {
           className="shadow-md
           border-l- border-r-4 border-t- border-b-4 border-siya-dark-green
           siyaDark-text m-2 mt-3 bg-gray-50
-          shadow-neutral-300 my-2 rounded-2xl overflow-hidden">
+          shadow-neutral-300 my-2 rounded-2xl overflow-hidden
+          md: w-2/3 md:mx-auto
+          ">
           <div
             onClick={() => setOpenSection(prev => prev === type ? null : type)}
             className="cursor-pointer
@@ -125,7 +127,7 @@ const FilterPage = () => {
           customClass="ps-4 pe-4 border-2"
         />
       </div>
-      <div className="m-8">
+      <div className="m-8 md:w-2/3 md:mx-auto">
         <Map
         terraces={filteredTerraces}
         />
