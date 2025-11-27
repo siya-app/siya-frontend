@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import { RiCalendarCheckFill } from "react-icons/ri";
 import { HiHome } from "react-icons/hi";
+import { FaChair } from "react-icons/fa";
 
 
 export default function Footer() {
@@ -20,8 +21,8 @@ export default function Footer() {
                     to="/buscar-terrassa"
                     className="flex flex-col items-center text-xs hover:text-gray-200 transition-colors"
                 >
-                    <RiCalendarCheckFill className="text-lg mb-1" />
-                    <span>Reservar</span>
+                    <FaChair className="text-lg mb-1" />
+                    <span>Terrasses</span>
                 </Link>
 
                 <Link
