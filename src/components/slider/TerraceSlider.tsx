@@ -89,9 +89,9 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
                 <span className="inline-icon"><HiArrowSmRight /></span>
                 </h2>
                 <ScrollSnap>
-                {isLoading && sortedTerraces.length === 0 ? ( // Show spinner while loading
+                {isLoading && sortedTerraces.length === 0 ? (
                     <div className="flex justify-center items-center text-center p-4">
-                        <FaSpinner className="animate-spin text-center text-siya-principal text-4xl mx-auto" /> {/* Replace with your spinner component */}
+                        <FaSpinner className="animate-spin text-center text-siya-principal text-4xl mx-auto" />
                     </div>
                 ) : Array.isArray(sortedTerraces) && sortedTerraces.length > 0 ? (
                     sortedTerraces.map((terrace: CustomTerraceType) => (

@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchReviewsByField } from "../../features/reviews/fetchReviewsByField";
 import { type Review } from "../../types/types";
 import { useEffect } from "react";
+import { FaSpinner } from "react-icons/fa";
 
 type Props = {
   terraceId?: string;
@@ -13,8 +14,8 @@ type Props = {
 };
 
 export function ReviewSlider({ terraceId, userId, refresh }: Props) {
-    const field = terraceId ? "terraceId" : "userId";
-    const value = terraceId ?? userId;
+  const field = terraceId ? "terraceId" : "userId";
+  const value = terraceId ?? userId;
 
   const { data: reviews, isLoading, error, refetch } = useQuery({
     queryKey: ['reviews', terraceId],
@@ -28,16 +29,19 @@ export function ReviewSlider({ terraceId, userId, refresh }: Props) {
     }
   }, [refresh, refetch]);
 
-  if (isLoading) return <p>Carregant reviews...</p>;
-  if (error) return <p className="text-red-500">Error carregant les reviews.</p>;
-  if (!reviews?.length) return <p>No hi ha ressenyes encara!</p>;
+  if (isLoading) return <div className="flex justify-center items-center text-center p-4">
+    <FaSpinner className="animate-spin text-center text-siya-principal text-4xl mx-auto" /></div>;
+
+  if (error) return <p className="text-red-500 font-bold">Error</p>;
+
+  if (!reviews?.length) return <p className="ms-4">No s'han trobat ressenyes</p>;
 
   return (
     <ScrollSnap>
       {reviews.map((review: Review) => (
         <div
-        key={review.id + 1}
-        className="m-2">
+          key={review.id + 1}
+          className="m-2">
           <ReviewCard
             key={review.id}
             rating={review.rating}
