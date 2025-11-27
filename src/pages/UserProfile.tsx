@@ -10,10 +10,14 @@ import { ReviewSlider } from "../features/reviews/ReviewSlider";
 import UserBookings from '../features/user-bookings/UserBookings'
 import useFavorites from "../hooks/useFavorites";
 import { HiArrowSmRight } from "react-icons/hi";
+import type { Terrace } from "../types/TerraceType";
+import type { Favorite } from "../types/types";
+
 
 export default function Profile() {
   const navigate = useNavigate();
   const { terraceList } = useTerraceList();
+  const {favorites} = useFavorites();
 
   const [user, setUser] = useState<any | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -46,6 +50,17 @@ export default function Profile() {
     navigate("/");
   };
 
+  const foundFavorites = () => {
+    const favs = terraceList.filter((t) => {
+      return favorites.some((f) => t.id && t.id === f.id_terrace);
+    });
+
+    return favs;
+  };
+
+  const userFavs = foundFavorites();
+
+
 
   if (!user) return <p>Carregant dades de l'usuari...</p>;
 
@@ -76,6 +91,10 @@ export default function Profile() {
             </span>
           </h2>
       <ReviewSlider userId={user.id} refresh={true}/>
+      { userFavs && userFavs.length > 0 ? (
+        <TerraceSlider list={userFavs} orderBy={"favs"} />
+      ) : ("Encara no tens favorits")
+      }
       <TerraceSlider list={terraceList} orderBy={"nearby"} />
       <OwnerActions />
 

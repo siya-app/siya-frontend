@@ -35,7 +35,8 @@ export type OrderByOption =
     | 'rating'
     | 'is_claimed'
     | 'nearby'
-    | 'default';
+    | 'default'
+    | 'favs';
 
 export type Review = {
     id: string;

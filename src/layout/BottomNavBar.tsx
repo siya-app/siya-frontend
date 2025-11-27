@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
-import { RiCalendarCheckFill } from "react-icons/ri";
 import { HiHome } from "react-icons/hi";
 import { FaChair } from "react-icons/fa";
 

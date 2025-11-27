@@ -74,6 +74,8 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
                 return 'Et recomanem';
             case 'nearby':
                 return 'A prop teu';
+                case 'favs':
+                    return 'Favorites';
             default:
                 return 'Descobrir';
         }

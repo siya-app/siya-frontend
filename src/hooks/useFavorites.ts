@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '../context/useAuth';
 
-interface Favorite {
+export interface Favorite {
   id: string;
   id_terrace: string;
 }
@@ -24,6 +24,8 @@ export function useFavorites() {
     },
     enabled: !!userId,
   });
+
+  console.log(favorites)
 
   const addMutation = useMutation({
     mutationFn: async (terraceId: string) => {
@@ -64,6 +66,7 @@ export function useFavorites() {
     isFavorite,
     addFavorite: addMutation.mutate,
     removeFavorite: removeMutation.mutate,
+    favorites,
     loading: isLoading || addMutation.isPending || removeMutation.isPending,
   };
 }
