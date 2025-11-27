@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { HiArrowSmRight } from "react-icons/hi";
+import { FaSpinner } from "react-icons/fa";
 
 interface Booking {
   id: number;
@@ -23,7 +24,8 @@ const MyBookings: React.FC = () => {
         const response = await axios.get(import.meta.env.VITE_API_USER_BOOKINGS);
         setBookings(response.data);
       } catch (err) {
-        setError("Error carregant les reserves.");
+        // setError("Error carregant les reserves");
+        setError("reserves - work in progress");
         console.error(err, bookings);
       } finally {
         setLoading(false);
@@ -33,15 +35,15 @@ const MyBookings: React.FC = () => {
     fetchBookings();
   }, []);
 
-  if (loading) return <p className="text-gray-500">Carregant reserves...</p>;
-  if (error) return <p className="text-red-500">{error}</p>;
+if (loading) return <div className="flex justify-center items-center text-center p-4">
+    <FaSpinner className="animate-spin text-center text-siya-principal text-4xl mx-auto" /></div>;
+  if (error) return <p className="text-red-500 text-center">{error}</p>;
 
   return (
     <div className="max-w-3xl mx-auto  mt-4">
       <h2
                 className="montserrat-siya text-xl
-                  m-2 ms-3 siyaDark-text"
-              >
+                  m-2 ms-3 siyaDark-text">
                 Les meves reserves
                 <span className="inline-icon">
                   <HiArrowSmRight />

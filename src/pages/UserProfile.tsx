@@ -17,14 +17,14 @@ import type { Favorite } from "../types/types";
 export default function Profile() {
   const navigate = useNavigate();
   const { terraceList } = useTerraceList();
-  const {favorites} = useFavorites();
+  const { favorites } = useFavorites();
 
   const [user, setUser] = useState<any | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
   const { isFavorite } = useFavorites();
-  console.log( isFavorite)
+  console.log(isFavorite)
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -41,7 +41,7 @@ export default function Profile() {
         navigate("/login");
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const logout = () => {
@@ -66,37 +66,46 @@ export default function Profile() {
 
   return (
     <>
-      <div className="w-fit items-center mx-auto p-6 bg-white shadow-lg rounded-lg mt-5 text-center">
-        <h2 className="text-3xl font-bold text-center mb-6 siyaRed-text">
+      <div className="w-fit items-center mx-auto p-6 bg-white shadow-lg
+      rounded-full mt-5 text-center mb-10">
+        <h2 className="text-3xl font-bold text-center siyaRed-text">
           Hola, {user.name}!
         </h2>
-        <div className="space-y-3 text-gray-700">
+        {/* <div className="space-y-3 text-gray-700">
           <p className="text-lg">
             <span className="font-semibold siyaDark-text">Email:</span> {user.email}
           </p>
-        </div>
+        </div> */}
       </div>
-      
-      <UserBookings/>
+      <div>
+        <UserBookings />
+      </div>
       <Button
         onClick={() => navigate("/buscar-terrassa")}
-        className="text-primary-content px-4 py-2 mt-8 m-4 bg-siya-principal text-white rounded-full flex justify-between items-center toggle-height mx-auto"
+        className="text-primary-content px-4 py-2 mt-8 m-4 bg-siya-principal text-white rounded-full
+        flex justify-between items-center toggle-height mx-auto"
       >
         Reservar taula
       </Button>
-      <h2 className="montserrat-siya text-xl m-2 mt-8 ms-3 siyaDark-text">
-          Les meves ressenyes
-            <span className="inline-icon">
-              <HiArrowSmRight />{" "}
-            </span>
-          </h2>
-      <ReviewSlider userId={user.id} refresh={true}/>
-      { userFavs && userFavs.length > 0 ? (
-        <TerraceSlider list={userFavs} orderBy={"favs"} />
-      ) : ("Encara no tens favorits")
-      }
-      <TerraceSlider list={terraceList} orderBy={"nearby"} />
-      <OwnerActions />
+      <h2 className="montserrat-siya text-xl m-2 mt-15 ms-3 siyaDark-text">
+        Les meves ressenyes
+        <span className="inline-icon">
+          <HiArrowSmRight />{" "}
+        </span>
+      </h2>
+      <div>
+        <ReviewSlider userId={user.id} refresh={true} />
+      </div>
+      <div className="mt-15">
+        {userFavs && userFavs.length > 0 ? (
+          <TerraceSlider list={userFavs} orderBy={"favs"} />
+        ) : ("Encara no tens favorits")
+        }
+        <TerraceSlider list={terraceList} orderBy={"nearby"} />
+      </div>
+      <div className="mt-10">
+        <OwnerActions />
+      </div>
 
       <div className="m-auto w-fit mb-4">
         <Button
