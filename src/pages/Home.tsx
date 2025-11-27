@@ -5,16 +5,24 @@ import { useTerraceList } from "../hooks/useTerraceList";
 import '../App.css';
 import WeatherFeature from "../features/weather/WeatherFeature";
 import { useLocation } from "react-router-dom";
-import { useEffect , useState} from "react";
+import { useEffect, useState } from "react";
 import ClusteredMap from "../features/map/ClusteredMap";
+import { CheckIcon } from "lucide-react";
 
 const Home = () => {
   const { terraceList } = useTerraceList();
   const [user, setUser] = useState(null);
   const isLoggedIn = !!localStorage.getItem('token');
 
+  const siyaDescription: string[] = [
+    "Filtra amb precisió amb un mapa pensat per decidir ràpid.",
+    "Descobreix terrasses per ambient, menjar, coberta i vibes, com a cap altra app.",
+    "Guarda favorits, deixa ressenyes i troba la terrassa perfecta en segons.",
+    "Ets un comerç i vols ser partner? Contacta'ns i destaca entre la multitut amb etiquetes personalitzades."
+  ]
+
   const location = useLocation();
-    useEffect(() => {
+  useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -33,13 +41,27 @@ const Home = () => {
   }, [location, terraceList]);
 
   return (
-    <div className="mb-10">
-      <Hero />
-      <div className="m-8 relative map-container">  {/* Added relative positioning */}
-        <ClusteredMap />
-        <div className="absolute top-1 right-1 z-1">  {/* Weather floating position */}
-          <WeatherFeature />
+    <div className="mb-10 ">
+      <div className="flex flex-col justify-center items-center">
+        <Hero />
+        <div className="m-8 relative map-container w-3/4">  {/* Added relative positioning */}
+          <ClusteredMap />
+          <div className="absolute top-1 right-1 z-1">  {/* Weather floating position */}
+            <WeatherFeature />
+          </div>
         </div>
+      </div>
+      <div className="flex flex-col justify-center">
+        <span className="m-10 text-xl text-siya-principal
+        montserrat-siya text-pretty inline-block border-2 rounded-full p-10 px-20">
+          <h3 className="text-3xl mb-3 text-center">Siya eleva el teu terraceo ;)</h3>
+          {siyaDescription.map((p: string, index) => (
+            <li key={index} className="list-none flex items-start gap-3 mb-2">
+              <CheckIcon className="w-6 h-6 flex-shrink-0 mt-1" />
+              <span className="leading-snug mb-2">{p}</span>
+            </li>
+          ))}
+        </span>
       </div>
       <TerraceSlider
         orderBy="nearby"
@@ -51,7 +73,7 @@ const Home = () => {
       />
       <section id="loginForm">
         {user && isLoggedIn ?
-          <></> : <LogInForm onLoginSuccess={(user) => setUser(user)}/>}
+          <></> : <LogInForm onLoginSuccess={(user) => setUser(user)} />}
       </section>
     </div>
   );
