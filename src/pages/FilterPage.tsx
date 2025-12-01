@@ -99,7 +99,7 @@ const FilterPage = () => {
             </div>
           ))}
         </div>
-        <div className="hidden lg:block lg:w-2/4 lg:h-[600px] lg:sticky lg:top-4 rounded-xl overflow-hidden">
+        <div id="mapFilterPage" className="hidden lg:block lg:w-2/4 lg:h-[600px] lg:sticky lg:top-4 rounded-xl overflow-hidden">
           <Map terraces={filteredTerraces} />
         </div>
       </div>

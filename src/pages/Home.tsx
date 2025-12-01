@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ClusteredMap from "../features/map/ClusteredMap";
 import { CheckIcon } from "lucide-react";
+import InfoDivBullets from "../components/InfoDivBullets";
 
 const Home = () => {
   const { terraceList } = useTerraceList();
@@ -45,11 +46,9 @@ const Home = () => {
       <div className="flex flex-col justify-center items-center">
         <Hero />
         <div className="flex flex-col justify-center items-center
-      m-10 text-lg text-siya-principal montserrat-siya border-2 rounded-xl p-5
-      border-l- border-r-10 border-t- border-b-10 border-siya-dark-green shadow-lg hover:shadow-none
       lg:w-2/3 lg:mx-auto
       ">
-        <div className="">
+        {/* <div className="">
           <h3 className="text-3xl m-2 mb-5 font-bold text-left">Siya eleva el teu terraceo ;)</h3>
           <ul className="flex flex-col w-full text-left text-balance">
             {siyaDescription.map((p: string, index) => (
@@ -60,7 +59,11 @@ const Home = () => {
             ))}
           </ul>
 
-        </div>
+        </div> */}
+        <InfoDivBullets
+        list={siyaDescription}
+        title={"Perquè buscar terrassa no hauria de ser un drama..."}
+        />
       </div>
         <div className="m-8 relative map-container w-3/4 lg:w-1/2">
           <ClusteredMap />
