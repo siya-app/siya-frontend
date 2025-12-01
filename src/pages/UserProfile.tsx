@@ -70,9 +70,9 @@ export default function Profile() {
           Hola, {user.name}!
         </h2>
         <div className="space-y-3 text-gray-700">
-          <p className="text-lg">
+          {/* <p className="text-lg">
             <span className="font-semibold siyaDark-text">Email:</span> {user.email}
-          </p>
+          </p> */}
         </div>
       </div>
       <h2 className="montserrat-siya text-xl m-2 mt-8 ms-3 siyaDark-text">

@@ -39,7 +39,7 @@ const MyBookings: React.FC<MyBookingsProps> = ({ userId }) => {
         setBookings(response.data);
       } catch (err) {
         // setError("Error carregant les reserves");
-        setError("reserves - work in progress");
+        setError("Propera funcionalitat: Reserva amb Siya!");
         console.error(err, bookings);
       } finally {
         setLoading(false);
