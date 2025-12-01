@@ -41,31 +41,13 @@ const Home = () => {
   }, [location, terraceList]);
 
   return (
-    <div className="mb-10 ">
+    <div className="mb-10">
       <div className="flex flex-col justify-center items-center">
         <Hero />
-        <div className="m-8 relative map-container w-3/4">  {/* Added relative positioning */}
-          <ClusteredMap />
-          <div className="absolute -top-7 -right-7 z-1">  {/* Weather floating position */}
-            <WeatherFeature />
-          </div>
-        </div>
-      </div>
-      {/* <div className="flex flex-col justify-center text-center">
-        <span className="m-10 text-lg text-siya-principal
-        montserrat-siya text-pretty inline-block border-2 rounded-full py-10 px-5">
-          <h3 className="text-3xl m-2 text-center">Siya eleva el teu terraceo ;)</h3>
-          {siyaDescription.map((p: string, index) => (
-            <li key={index} className="list-none flex items-start gap-3 mb-2">
-              <CheckIcon className="w-6 h-6 flex-shrink-0 mt-1" />
-              <span className="leading-snug mb-2">{p}</span>
-            </li>
-          ))}
-        </span>
-      </div> */}
-      <div className="flex flex-col justify-center items-center
+        <div className="flex flex-col justify-center items-center
       m-10 text-lg text-siya-principal montserrat-siya border-2 rounded-xl p-5
       border-l- border-r-10 border-t- border-b-10 border-siya-dark-green shadow-lg hover:shadow-none
+      lg:w-2/3 lg:mx-auto
       ">
         <div className="">
 
@@ -81,6 +63,14 @@ const Home = () => {
 
         </div>
       </div>
+        <div className="m-8 relative map-container w-3/4 lg:w-1/2">
+          <ClusteredMap />
+          <div className="absolute -top-7 -right-7 z-1">
+            <WeatherFeature />
+          </div>
+        </div>
+      </div>
+
       <TerraceSlider
         orderBy="nearby"
         list={terraceList}

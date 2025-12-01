@@ -63,40 +63,46 @@ const FilterPage = () => {
         onQueryChange={setSearchQuery}
 
       />
-
-      {(['food', 'emotional', 'placement', 'cover', 'dietary'] as const).map((type: keyof typeof BLOB_TRANSLATIONS.categories) => (
-        <div key={type}
-          className="shadow-md mx-auto
+      <div className="lg:flex lg:flex-row lg:items-start lg:gap-6 lg:px-10 lg:mt-8">
+        <div className="w-full lg:w-2/4">
+          {(['food', 'emotional', 'placement', 'cover', 'dietary'] as const).map((type: keyof typeof BLOB_TRANSLATIONS.categories) => (
+            <div key={type}
+              className="shadow-md mx-auto
           border-l- border-r-4 border-t- border-b-4 border-siya-dark-green
           siyaDark-text m-2 mt-3 bg-gray-50
           shadow-neutral-300 my-2 rounded-2xl overflow-hidden
           md:w-2/3
           ">
-          <div
-            onClick={() => setOpenSection(prev => prev === type ? null : type)}
-            className="cursor-pointer
+              <div
+                onClick={() => setOpenSection(prev => prev === type ? null : type)}
+                className="cursor-pointer
               collapse-title bg-primary
               text-primary-content px-4 py-2 capitalize
               flex justify-between items-center"
-          >
-            {categoryTitle(type)}
-            {openSection === type
-              ? <FaChevronUp className="siyaDark-text" />
-              : <FaChevronDown className="siyaDark-text" />
-            }
-          </div>
+              >
+                {categoryTitle(type)}
+                {openSection === type
+                  ? <FaChevronUp className="siyaDark-text" />
+                  : <FaChevronDown className="siyaDark-text" />
+                }
+              </div>
 
-          {openSection === type && (
-            <div className="collapse-content siya3-text px-4 py-2 ">
-              <BlobCarousel
-                type={type}
-                selectedTags={selectedTags}
-                onToggleTag={toggleSelection}
-              />
+              {openSection === type && (
+                <div className="collapse-content siya3-text px-4 py-2 ">
+                  <BlobCarousel
+                    type={type}
+                    selectedTags={selectedTags}
+                    onToggleTag={toggleSelection}
+                  />
+                </div>
+              )}
             </div>
-          )}
+          ))}
         </div>
-      ))}
+        <div className="hidden lg:block lg:w-2/4 lg:h-[600px] lg:sticky lg:top-4 rounded-xl overflow-hidden">
+          <Map terraces={filteredTerraces} />
+        </div>
+      </div>
       {(selectedTags.length > 0 || searchQuery !== '') ? (
         filteredTerraces.length > 0 ? (
           <>
@@ -127,9 +133,9 @@ const FilterPage = () => {
           customClass="ps-4 pe-4 border-2"
         />
       </div>
-      <div className="m-8 md:w-2/3 md:mx-auto md:min-h-96">
+      <div className="m-8 md:w-2/3 flex flex-col justify-center items-center mx-auto md:min-h-96 lg:hidden">
         <Map
-        terraces={filteredTerraces}
+          terraces={filteredTerraces}
         />
       </div>
     </div>

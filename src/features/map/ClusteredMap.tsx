@@ -116,7 +116,7 @@ const ClusteredMap = () => {
   if (loading) return <p>Carregant mapa…</p>;
   if (error) return <p>Error: {error}</p>;
 
-  return <div ref={mapContainerRef} className="h-80 w-full" />;
+  return <div ref={mapContainerRef} className="w-full h-2/3 aspect-square" />;
 };
 
 export default ClusteredMap;

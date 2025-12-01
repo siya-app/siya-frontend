@@ -4,6 +4,7 @@ import { useUserLocation } from "../../hooks/useUserLocation";
 import TerraceMarker from "./TerraceMarker";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
+import Spinner from "../../components/Spinner";
 
 interface MapProps {
   terraces: CustomTerraceType[];
@@ -61,12 +62,12 @@ const Map = ({ terraces }: MapProps) => {
     });
   }, [terraces]);
 
-  if (loading) return <p>Carregant mapa…</p>;
+  if (loading) return <p><Spinner /></p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <>
-      <div ref={mapContainerRef} className="h-80" />
+      <div ref={mapContainerRef} className="w-3/4 aspect-square" />
     </>
   );
 };
