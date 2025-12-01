@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchReviewsByField } from "../../features/reviews/fetchReviewsByField";
 import { type Review } from "../../types/types";
 import { useEffect } from "react";
-import { FaSpinner } from "react-icons/fa";
+import Spinner from "../../components/Spinner";
 
 type Props = {
   terraceId?: string;
@@ -30,7 +30,7 @@ export function ReviewSlider({ terraceId, userId, refresh }: Props) {
   }, [refresh, refetch]);
 
   if (isLoading) return <div className="flex justify-center items-center text-center p-4">
-    <FaSpinner className="animate-spin text-center text-siya-principal text-4xl mx-auto" /></div>;
+    <Spinner /></div>;
 
   if (error) return <p className="text-red-500 font-bold">Error</p>;
 

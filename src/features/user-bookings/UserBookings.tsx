@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { HiArrowSmRight } from "react-icons/hi";
-import { FaSpinner } from "react-icons/fa";
+import Spinner from "../../components/Spinner";
 
 interface Booking {
   id: number;
@@ -50,7 +50,7 @@ const MyBookings: React.FC<MyBookingsProps> = ({ userId }) => {
   }, []);
 
 if (loading) return <div className="flex justify-center items-center text-center p-4">
-    <FaSpinner className="animate-spin text-center text-siya-principal text-4xl mx-auto" /></div>;
+    <Spinner /></div>;
   if (error) return <p className="text-red-500 text-center">{error}</p>;
 
   return (

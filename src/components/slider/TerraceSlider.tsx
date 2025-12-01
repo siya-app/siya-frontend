@@ -11,7 +11,7 @@ import { filterByProximity } from "../../utils/filterByProximity";
 import { useUserLocation } from "../../hooks/useUserLocation";
 import { calculateDistance } from "../../utils/calculateDistance";
 import { HiArrowSmRight } from "react-icons/hi";
-import { FaSpinner } from "react-icons/fa";
+import Spinner from "../Spinner";
 
 
 
@@ -98,7 +98,7 @@ function TerraceSlider({ orderBy = 'default', list }: TerraceSliderProps) {
                     <ScrollSnap>
                         {isLoading && sortedTerraces.length === 0 ? (
                             <div className="flex justify-center items-center text-center p-4">
-                                <FaSpinner className="animate-spin text-center text-siya-principal text-4xl mx-auto" />
+                                <Spinner />
                             </div>
                         ) : Array.isArray(sortedTerraces) && sortedTerraces.length > 0 ? (
                             sortedTerraces.map((terrace: CustomTerraceType) => (
