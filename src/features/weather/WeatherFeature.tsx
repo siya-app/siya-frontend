@@ -69,7 +69,7 @@ const WeatherFeature = () => {
   return (
 
     <div className="
-      bg-gradient-to-br from-white/50 to-neutral-300/30
+      bg-gradient-to-br from-siya-terciario/50 to-neutral-300/30
       backdrop-blur-xs
       border border-white/30
       flex flex-col items-center
@@ -84,7 +84,7 @@ const WeatherFeature = () => {
       <span className="text-sm text-gray-800 font-medium">
         {/* {description} */}
       </span>
-      <p className="text-sm font-semibold text-gray-900">
+      <p className="text-sm font-semibold text-siya-dark-green">
         {temperature}°C
       </p>
     </div>

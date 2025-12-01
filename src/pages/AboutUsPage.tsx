@@ -1,4 +1,5 @@
 import tapas from '../assets/tapas.jpg'
+import handTapa from '../assets/hand-tapa.jpg';
 import siyaTitle from '../assets/bg-transparent-title.svg'
 import Button from '../components/Button';
 import { Link, useNavigate } from 'react-router-dom';
@@ -53,7 +54,7 @@ function AboutUs() {
     return (
         <div
             className='w-full flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat py-10 shadow-inner min-h-screen'
-            style={{ backgroundImage: `url(${tapas})` }} // Dynamic background
+            style={{ backgroundImage: `url(${handTapa})` }} // Dynamic background
         >
             <div className='flex flex-col justify-center items-center mx-auto w-full'>
                 <div className='rounded-full bg-siya-secundario/90 flex justify-center items-center mx-auto '>

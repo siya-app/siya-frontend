@@ -7,8 +7,11 @@ import WeatherFeature from "../features/weather/WeatherFeature";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ClusteredMap from "../features/map/ClusteredMap";
-import { CheckIcon } from "lucide-react";
 import InfoDivBullets from "../components/InfoDivBullets";
+import handTapa from '../assets/hand-tapa.jpg';
+import tapas from '../assets/tapas.jpg';
+
+
 
 const Home = () => {
   const { terraceList } = useTerraceList();
@@ -43,25 +46,35 @@ const Home = () => {
 
   const { hash } = useLocation();
 
-    useEffect(() => {
-        if (hash) {
-            setTimeout(() => {
-                const element = document.getElementById(hash.replace('#', ''));
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }, 100);
+  useEffect(() => {
+    if (hash) {
+      setTimeout(() => {
+        const element = document.getElementById(hash.replace('#', ''));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-    }, [hash]);
+      }, 100);
+    }
+  }, [hash]);
 
   return (
-    <div className="mb-10">
-      <div className="flex flex-col justify-center items-center">
+    <div className="mb-10 overflow-hidden relative w-full">
+      <div
+        className="absolute inset-0 -z-10 w-full h-full bg-cover bg-center scale-160 top-40 rotate-10"
+        style={{ backgroundImage: `url(${tapas})` }}
+      >
+        {/* 2. The Gradient Overlay (White Fade) 
+                        'from-white/0' is transparent
+                        'to-white' matches the page background to hide the cut
+                    */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/100 to-white"></div>
+      </div>
+      <div className="relative overflow-hidden flex flex-col justify-center items-center">
         <Hero />
         <div className="flex flex-col justify-center items-center
       lg:w-2/3 lg:mx-auto
       ">
-        {/* <div className="">
+          {/* <div className="">
           <h3 className="text-3xl m-2 mb-5 font-bold text-left">Siya eleva el teu terraceo ;)</h3>
           <ul className="flex flex-col w-full text-left text-balance">
             {siyaDescription.map((p: string, index) => (
@@ -73,11 +86,13 @@ const Home = () => {
           </ul>
 
         </div> */}
-        <InfoDivBullets
-        list={siyaDescription}
-        title={"Perquè buscar terrassa no hauria de ser un drama..."}
-        />
-      </div>
+        { isLoggedIn ? "" :
+          <InfoDivBullets
+            list={siyaDescription}
+            title={"Perquè buscar terrassa no hauria de ser un drama..."}
+            customClass="bg-white/80"
+          />}
+        </div>
         <div id="clusteredMap-homePage" className="m-8 relative map-container w-3/4 lg:w-1/2">
           <ClusteredMap />
           <div className="absolute -top-7 -right-7 z-1">
@@ -85,7 +100,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-          <div id="nearbyTerraces-homePage"></div>
+      <div id="nearbyTerraces-homePage"></div>
       <TerraceSlider
         orderBy="nearby"
         list={terraceList}

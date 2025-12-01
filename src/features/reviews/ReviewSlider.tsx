@@ -47,6 +47,7 @@ export function ReviewSlider({ terraceId, userId, refresh }: Props) {
             rating={review.rating}
             comment={review.comment}
             userName={review.userName || "Anònim"} // Si Supabase retorna join
+            terraceId={review.terraceId}
           />
         </div>
       ))}

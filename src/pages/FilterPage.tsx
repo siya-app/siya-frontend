@@ -9,6 +9,7 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { BLOB_TRANSLATIONS } from "../services/blobList.service";
 import SliderButton from "../components/slider/SliderButton";
 import { useFilterContext } from "../context/FilterContext";
+import bar from '../assets/bar.jpg'
 
 //restaurants with inserted tags:
 // china garden - url: 0032e31f-f65f-459d-bfad-ab5b38fd3164/tags
@@ -19,6 +20,7 @@ import { useFilterContext } from "../context/FilterContext";
 // xix kebab - url: 8f87f1e9-85fc-4b85-b408-25dbbe92aac2/tags
 // la terraza miro - url: a93749f0-7efe-4266-ab43-9e80234cb701/tags
 // nori sushi&cocktails - url: abc19588-83cd-4053-8d13-5f75de5e54f3/tags
+
 
 const FilterPage = () => {
 
@@ -52,17 +54,37 @@ const FilterPage = () => {
 
   return (
     <div className="mb-20">
-      <h2 className="siyaRed-text
-      system-condensed
-      text-4xl
-      mt-5
-      font-extrabold text-center">
-        Ganes de terraceo? ;)</h2>
-      <SearchBar
-        query={searchQuery}
-        onQueryChange={setSearchQuery}
+      
+      {/* 2. BACKGROUND WRAPPER START (Title + SearchBar) */}
+      <div className="relative w-full overflow-hidden pb-8">
+        
+        {/* The Image (Rotated & Scaled) */}
+        <div
+          className="absolute inset-0 -z-10 w-full h-full bg-cover bg-center scale-100 origin-center"
+          style={{ backgroundImage: `url(${bar})` }}
+        ></div>
+        
+        {/* The Gradient Fade */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white/30 via-white/90 to-white"></div>
 
-      />
+        {/* The Content sitting on top */}
+        <div className="relative z-10">
+            <h2 className="siyaRed-text
+            system-condensed
+            text-4xl
+            mt-5
+            font-extrabold text-center">
+              Ganes de terraceo? ;)
+            </h2>
+            <SearchBar
+              query={searchQuery}
+              onQueryChange={setSearchQuery}
+            />
+        </div>
+      </div>
+      {/* BACKGROUND WRAPPER END */}
+
+
       <div className="lg:flex lg:flex-row lg:items-start lg:gap-6 lg:px-10 lg:mt-8">
         <div className="w-full lg:w-2/4">
           {(['food', 'emotional', 'placement', 'cover', 'dietary'] as const).map((type: keyof typeof BLOB_TRANSLATIONS.categories) => (

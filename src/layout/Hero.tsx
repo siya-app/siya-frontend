@@ -36,7 +36,7 @@ const Hero = () => {
                 <img src={siyaTitle} className="w-full mx-auto" alt="Siya Terraceo"/>
                 <div className="flex justify-center">
                     <p className="ms-4 text-3xl text-siya-principal
-                    montserrat-siya text-left inline-block">
+                    montserrat-siya text-left inline-block bg-white/80 p-5 rounded-xl">
                         {user
                             ? `Hola, ${user.name}!` 
                             : <>La teva nova app de <i>terraceo</i>.</>

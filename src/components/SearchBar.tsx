@@ -20,14 +20,16 @@ export default function SearchBar({ query, onQueryChange }: SearchBarProps) {
                     md:w-full
                     p-1 ps-2 pr-4
                     rounded-lg border
-                    border-gray-300
+                    border-siya-dark-green
+                    text-siya-dark-green
+                    bg-white
                     focus:outline-none
                     focus:ring-2
                     focus:ring-offset-gray-800"
                 />
                 <button
                     type="submit"
-                    className="text-gray-500 justify-center ms-3 rounded-full bg-gray-100 p-3"
+                    className="text-white justify-center ms-3 rounded-full bg-siya-dark-green p-3"
                     onClick={() => console.log(`🔍 clicked`)}
                 > <FiSearch/>
                 </button>
