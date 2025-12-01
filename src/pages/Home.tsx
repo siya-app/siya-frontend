@@ -46,7 +46,7 @@ const Home = () => {
         <Hero />
         <div className="m-8 relative map-container w-3/4">  {/* Added relative positioning */}
           <ClusteredMap />
-          <div className="absolute top-1 right-1 z-1">  {/* Weather floating position */}
+          <div className="absolute -top-7 -right-7 z-1">  {/* Weather floating position */}
             <WeatherFeature />
           </div>
         </div>

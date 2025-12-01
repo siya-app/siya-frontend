@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchWeather } from "../../services/fetchWeather";
 import { Cloud, Sun, CloudSun } from "lucide-react";
 import { useUserLocation } from "../../hooks/useUserLocation";
+import Spinner from "../../components/Spinner";
 
 type WeatherData = {
   current: { cloud_cover: number };
@@ -44,7 +45,7 @@ const WeatherFeature = () => {
     getWeather();
   }, [location]);
 
-  if (locationLoading || loading) return <p>Carregant el temps...</p>;
+  if (locationLoading || loading) return <p><Spinner /></p>;
   if (locationError || error) return <p>{locationError || error}</p>;
   if (!weather) return null;
     // Buscar l’hora més propera a l’actual
