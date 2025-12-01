@@ -41,6 +41,19 @@ const Home = () => {
     }
   }, [location, terraceList]);
 
+  const { hash } = useLocation();
+
+    useEffect(() => {
+        if (hash) {
+            setTimeout(() => {
+                const element = document.getElementById(hash.replace('#', ''));
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
+    }, [hash]);
+
   return (
     <div className="mb-10">
       <div className="flex flex-col justify-center items-center">
@@ -65,14 +78,14 @@ const Home = () => {
         title={"Perquè buscar terrassa no hauria de ser un drama..."}
         />
       </div>
-        <div className="m-8 relative map-container w-3/4 lg:w-1/2">
+        <div id="clusteredMap-homePage" className="m-8 relative map-container w-3/4 lg:w-1/2">
           <ClusteredMap />
           <div className="absolute -top-7 -right-7 z-1">
             <WeatherFeature />
           </div>
         </div>
       </div>
-
+          <div id="nearbyTerraces-homePage"></div>
       <TerraceSlider
         orderBy="nearby"
         list={terraceList}

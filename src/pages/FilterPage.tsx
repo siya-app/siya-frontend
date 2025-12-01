@@ -133,7 +133,7 @@ const FilterPage = () => {
           customClass="ps-4 pe-4 border-2"
         />
       </div>
-      <div className="m-8 md:w-2/3 flex flex-col justify-center items-center mx-auto md:min-h-96 lg:hidden">
+      <div id="mapfilterPage" className="m-8 md:w-2/3 flex flex-col justify-center items-center mx-auto md:min-h-96 lg:hidden">
         <Map
           terraces={filteredTerraces}
         />

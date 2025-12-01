@@ -23,10 +23,10 @@ function AboutUs() {
             {' '}per tipus de menjar, ambient, ubicació... amb filtres potents que cap altra app ofereix
         </span>,
         <span>
-            <Link to='/buscar-terrassa#mapFilterPage' className="text-siya-principal font-bold underline hover:text-siya-dark-green transition-colors">
+            <Link to='/#nearbyTerraces-homePage' className="text-siya-principal font-bold underline hover:text-siya-dark-green transition-colors">
                 Localitza
             </Link>
-            {' '}terraces al mapa i consulta'n els detalls ràpidament.
+            {' '}terraces a prop teu i consulta'n els detalls ràpidament.
         </span>,
         <span>
             No fa bo? Cap problema, {' '}
