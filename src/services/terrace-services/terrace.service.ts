@@ -1,7 +1,7 @@
 import { axiosRequest } from "../../config/api-connection-service";
 import { createApiInstance } from "../../config/api-connection-config";
 
-const url = 'http://localhost:8080/terraces';
+const url = import.meta.env.VITE_API_ALL_TERRACES;
 
 export const customTerraceApi = createApiInstance(url)
 

@@ -14,7 +14,6 @@ interface UpdateTerraceProps {
 function UpdateTerrace({
   isOpen,
   onClose,
-  onSubmit,
   terrace,
 }: UpdateTerraceProps) {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -49,15 +48,72 @@ function UpdateTerrace({
   const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
-  if (!isOpen) {
-    setCurrentPassword("");
-    setPassError("");
-    setSuccessMessage("");
-  }
-}, [isOpen]);
+    if (!isOpen) {
+      setCurrentPassword("");
+      setPassError("");
+      setSuccessMessage("");
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setPassError("");
+  //   setIsVerifying(true);
+
+  //   if (!currentPassword) {
+  //     setPassError("Has d'introduir la contrasenya actual.");
+  //     setIsVerifying(false);
+  //     return;
+  //   }
+  //   const updatedData: TerraceUpdatePayload = {
+  //     average_price: averagePrice,
+  //     has_wifi: hasWifi,
+  //     pet_friendly: petFriendly,
+  //     can_smoke: canSmoke,
+  //     has_disabled_access: hasDisabledAccess,
+  //     reservation_fee: reservationFee,
+  //     tables: tables,
+  //     seats: seats,
+  //     phone_num: phoneNum,
+  //     instagram_account: instagramAccount,
+  //     website,
+  //     profile_pic: profilePic,
+  //   };
+
+  //   try {
+  //     const token = localStorage.getItem("token");
+  //     const verifyURL = import.meta.env.VITE_VERIFY_PASSWORD_URL;
+
+  //     const res = await fetch(verifyURL, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       body: JSON.stringify({ password: currentPassword }),
+  //     });
+
+  //     const data = await res.json();
+
+  //     if (res.ok && data.success) {
+  //       onSubmit(updatedData);
+  //       setSuccessMessage("✅ Canvis desats correctament!");
+
+  //       setTimeout(() => {
+  //         setSuccessMessage("");
+  //         onClose();
+  //       }, 2000);
+  //     } else {
+  //       setPassError(data.error || "Error de verificació.");
+  //     }
+  //   } catch (error) {
+  //     setPassError(`Error del servidor al verificar la contrasenya: ${error}`);
+  //   } finally {
+  //     setIsVerifying(false);
+  //   }
+  // };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,49 +125,52 @@ function UpdateTerrace({
       setIsVerifying(false);
       return;
     }
-    const updatedData: TerraceUpdatePayload = {
-      average_price: averagePrice,
-      has_wifi: hasWifi,
-      pet_friendly: petFriendly,
-      can_smoke: canSmoke,
-      has_disabled_access: hasDisabledAccess,
-      reservation_fee: reservationFee,
-      tables: tables,
-      seats: seats,
-      phone_num: phoneNum,
-      instagram_account: instagramAccount,
-      website,
-      profile_pic: profilePic,
-    };
 
+    const payload = {
+      password: currentPassword, // ahora se envía junto
+      updateData: {
+        average_price: averagePrice,
+        has_wifi: hasWifi,
+        pet_friendly: petFriendly,
+        can_smoke: canSmoke,
+        has_disabled_access: hasDisabledAccess,
+        reservation_fee: reservationFee,
+        tables,
+        seats,
+        phone_num: phoneNum,
+        instagram_account: instagramAccount,
+        website,
+        profile_pic: profilePic,
+      },
+    };
+console.log(payload.updateData)
     try {
       const token = localStorage.getItem("token");
-      const verifyURL = import.meta.env.VITE_VERIFY_PASSWORD_URL;
-
-      const res = await fetch(verifyURL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ password: currentPassword }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_ALL_TERRACES}/${terrace.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
       const data = await res.json();
 
-      if (res.ok && data.success) {
-        onSubmit(updatedData);
+      if (res.ok) {
         setSuccessMessage("✅ Canvis desats correctament!");
-
         setTimeout(() => {
           setSuccessMessage("");
           onClose();
         }, 2000);
       } else {
-        setPassError(data.error || "Error de verificació.");
+        setPassError(data.error || "Error al desar els canvis.");
       }
     } catch (error) {
-      setPassError(`Error del servidor al verificar la contrasenya: ${error}`);
+      setPassError(`Error del servidor: ${error}`);
     } finally {
       setIsVerifying(false);
     }
@@ -154,8 +213,6 @@ function UpdateTerrace({
 
         {/* Formulario */}
         <form onSubmit={handleSubmit} className="space-y-4 py-4">
-          {/* Aquí irán más campos del formulario luego */}
-
           {/* 🟡 Campo: Nom del local */}
           <div>
             <label className="block mb-1 text-sm font-medium">

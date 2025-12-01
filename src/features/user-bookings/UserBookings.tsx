@@ -8,12 +8,16 @@ interface Booking {
   booking_date: string;
   booking_time: string;
   Terrace: {
-    name: string;
+    business_name: string;
     address: string;
   };
 }
 
-const MyBookings: React.FC = () => {
+interface MyBookingsProps {
+  userId: number;
+}
+
+const MyBookings: React.FC<MyBookingsProps> = ({ userId }) => {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,7 +25,17 @@ const MyBookings: React.FC = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get(import.meta.env.VITE_API_USER_BOOKINGS);
+        const token = localStorage.getItem("token");
+
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_USER_BOOKINGS}/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
         setBookings(response.data);
       } catch (err) {
         // setError("Error carregant les reserves");

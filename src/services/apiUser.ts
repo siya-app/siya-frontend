@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const API = axios.create({
-  baseURL: 'http://localhost:8080', 
+  baseURL: import.meta.env.VITE_API_URL, 
   // headers: {
   //   'Content-Type': 'application/json',
   // },
@@ -32,17 +32,17 @@ API.interceptors.response.use(
   (response) => response,
   (error) => {
     // Si recibimos un 401 (No autorizado) y hay un token, podría significar que el token es inválido/expirado
-    if (error.response && error.response.status === 401) {
-      console.log('Token expirat o invàlid. Redirigint al login...');
-      localStorage.removeItem('token'); // Limpia el token
-      // Aquí podrías redirigir al usuario a la página de login
-      // window.location.href = '/login'; // O usar history.push si usas React Router
+    const { response, config } = error;
+    if (response && response.status === 401) {
+      if (!config?.url?.includes("/users/")) {
+        console.log('Token expirat o invàlid. Redirigint al login...');
+        localStorage.removeItem('token');
+        localStorage.removeItem("user");
+      }
     }
     return Promise.reject(error);
   }
 );
-
-
 
 
 

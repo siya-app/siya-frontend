@@ -7,9 +7,14 @@ import AuthContext from "../../context/AuthContext";
 interface UpdateAccountProps {
   isOpen: boolean;
   onClose: () => void;
+  onUserUpdate: (user: any) => void;
 }
 
-export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
+export default function UpdateAccount({
+  isOpen,
+  onClose,
+  onUserUpdate,
+}: UpdateAccountProps) {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
 
@@ -69,11 +74,15 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
       const { id, name: updatedName, email } = res.data.user;
       const newUser = { id, name: updatedName, email };
 
-
       localStorage.setItem("user", JSON.stringify(newUser));
       setUser(newUser);
+      onUserUpdate(newUser);
 
       setSuccess("Perfil actualitzat correctament.");
+      setName("");
+      setNewPassword("");
+      setCurrentPassword("");
+      setError("");
       setTimeout(() => {
         setSuccess("");
         onClose();
@@ -83,10 +92,21 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
     }
   };
 
+  const handleClose = () => {
+    setName("");
+    setNewPassword("");
+    setCurrentPassword("");
+    setError("");
+    setSuccess("");
+    setShowPassword(false);
+    setShowCurrentPassword(false);
+    onClose();
+  };
+
   return (
     <div
       className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50"
-      onClick={onClose}
+      onClick={handleClose}
     >
       <div
         className="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md relative"
@@ -94,7 +114,7 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
       >
         <button
           className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-          onClick={onClose}
+          onClick={handleClose}
         >
           ✕
         </button>
@@ -113,7 +133,9 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
           </div>
 
           <div>
-            <label className="block mb-1">Canvia la contrasenya (opcional):</label>
+            <label className="block mb-1">
+              Canvia la contrasenya (opcional):
+            </label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -127,7 +149,9 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-600"
                 aria-label={
-                  showPassword ? "Amaga la contrasenya" : "Mostra la contrasenya"
+                  showPassword
+                    ? "Amaga la contrasenya"
+                    : "Mostra la contrasenya"
                 }
               >
                 {showPassword ? <FiEyeOff /> : <FiEye />}
@@ -136,7 +160,9 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
           </div>
 
           <div>
-            <label className="block mb-1">Contrasenya actual (obligatòria):</label>
+            <label className="block mb-1">
+              Contrasenya actual (obligatòria):
+            </label>
             <div className="relative">
               <input
                 type={showCurrentPassword ? "text" : "password"}
@@ -151,7 +177,9 @@ export default function UpdateAccount({ isOpen, onClose }: UpdateAccountProps) {
                 onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-600"
                 aria-label={
-                  showCurrentPassword ? "Amaga la contrasenya" : "Mostra la contrasenya"
+                  showCurrentPassword
+                    ? "Amaga la contrasenya"
+                    : "Mostra la contrasenya"
                 }
               >
                 {showCurrentPassword ? <FiEyeOff /> : <FiEye />}

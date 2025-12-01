@@ -69,15 +69,19 @@ export default function Profile() {
         <h2 className="text-3xl font-bold text-center siyaRed-text">
           Hola, {user.name}!
         </h2>
-        {/* <div className="space-y-3 text-gray-700">
+        <div className="space-y-3 text-gray-700">
           <p className="text-lg">
             <span className="font-semibold siyaDark-text">Email:</span> {user.email}
           </p>
-        </div> */}
+        </div>
       </div>
-      <div>
-        <UserBookings />
-      </div>
+      <h2 className="montserrat-siya text-xl m-2 mt-8 ms-3 siyaDark-text">
+          Les meves reserves
+            <span className="inline-icon">
+              <HiArrowSmRight />{" "}
+            </span>
+          </h2>
+      <UserBookings userId={user.id}/>
       <Button
         onClick={() => navigate("/buscar-terrassa")}
         className="text-primary-content px-4 py-2 mt-8 m-4 bg-siya-principal text-white rounded-full
@@ -118,6 +122,7 @@ export default function Profile() {
       <UpdateAccount
         isOpen={showEditModal}
         onClose={() => setShowEditModal(false)}
+        onUserUpdate={(updatedUser) => setUser(updatedUser)}
       />
       <DeleteAccount isOpen={showModal} onClose={() => setShowModal(false)} />
 

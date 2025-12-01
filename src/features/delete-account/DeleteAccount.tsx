@@ -39,33 +39,50 @@ export default function DeleteAccount({ isOpen, onClose }: DeleteAccountProps) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
 
-      setSuccess("El teu compte s'ha eliminat correctament. Esperem tornar-te a veure aviat!");
+      setSuccess(
+        "El teu compte s'ha eliminat correctament. Esperem tornar-te a veure aviat!"
+      );
       setTimeout(() => navigate("/"), 2000);
     } catch (err) {
-      setError((err as any).response?.data?.error || "Error a l'eliminar compte");
+      setError(
+        (err as any).response?.data?.error || "Error a l'eliminar compte"
+      );
     }
   };
-
+  const handleClose = () => {
+    setPassword("");
+    setError("");
+    setSuccess("");
+    setShowPassword(false);
+    onClose();
+  };
   return (
     <div
       className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50"
-      onClick={onClose} 
+      onClick={handleClose}
     >
       <div
         className="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md relative"
-        onClick={(e) => e.stopPropagation()} 
+        onClick={(e) => e.stopPropagation()}
       >
         <button
           className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-          onClick={onClose}
+          onClick={handleClose}
         >
           ✕
         </button>
-        <h3 className="text-xl font-bold mb-4">Segur que vols eliminar el teu compte?</h3>
-        <h4 className="text-center font-bold mb-4">S'esborraran totes les teves dades, com ara favorits i reserves, i no es podran recuperar.</h4>
+        <h3 className="text-xl font-bold mb-4">
+          Segur que vols eliminar el teu compte?
+        </h3>
+        <h4 className="text-center font-bold mb-4">
+          S'esborraran totes les teves dades, com ara favorits i reserves, i no
+          es podran recuperar.
+        </h4>
         <form onSubmit={handleDelete} className="flex flex-col gap-4">
           <div>
-            <label className="block mb-1">Introdueix la teva contrasenya:</label>
+            <label className="block mb-1">
+              Introdueix la teva contrasenya:
+            </label>
 
             <div className="relative">
               <input
@@ -80,8 +97,10 @@ export default function DeleteAccount({ isOpen, onClose }: DeleteAccountProps) {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-600"
                 aria-label={
-              showPassword ? "Amaga la contrasenya" : "Mostra la contrasenya"
-            }
+                  showPassword
+                    ? "Amaga la contrasenya"
+                    : "Mostra la contrasenya"
+                }
               >
                 {showPassword ? <FiEyeOff /> : <FiEye />}
               </button>
@@ -102,4 +121,3 @@ export default function DeleteAccount({ isOpen, onClose }: DeleteAccountProps) {
     </div>
   );
 }
-
