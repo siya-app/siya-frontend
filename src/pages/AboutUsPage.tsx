@@ -23,7 +23,7 @@ function AboutUs() {
             {' '}per tipus de menjar, ambient, ubicació... amb filtres potents que cap altra app ofereix
         </span>,
         <span>
-            <Link to='/#nearbyTerraces-homePage' className="text-siya-principal font-bold underline hover:text-siya-dark-green transition-colors">
+            <Link to='/' className="text-siya-principal font-bold underline hover:text-siya-dark-green transition-colors">
                 Localitza
             </Link>
             {' '}terraces a prop teu i consulta'n els detalls ràpidament.
@@ -73,7 +73,7 @@ function AboutUs() {
                             title={"Sí, som la app que et troba la terrassa perfecta:"}
                             customClass='bg-white/90'
                         />
-                    </div>🔎
+                    </div>
                     {/* <div className='p-5 rounded-full bg-white'>
                         <img className='w-full h-full rounded-full' src={tapas} />
                     </div> */}

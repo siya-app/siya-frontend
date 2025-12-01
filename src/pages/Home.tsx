@@ -59,7 +59,7 @@ const Home = () => {
   return (
     <div className="mb-10 overflow-hidden relative w-full">
       <div
-        className="absolute inset-0 -z-10 w-full h-full bg-cover bg-center scale-160 top-40 rotate-10"
+        className="absolute inset-0 -z-10 w-full h-full bg-cover bg-center scale-170 top-40 rotate-10"
         style={{ backgroundImage: `url(${tapas})` }}
       >
         {/* 2. The Gradient Overlay (White Fade) 
