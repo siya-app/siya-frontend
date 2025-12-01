@@ -51,10 +51,10 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center">
-        <span className="m-10 text-xl text-siya-principal
-        montserrat-siya text-pretty inline-block border-2 rounded-full p-10 px-20">
-          <h3 className="text-3xl mb-3 text-center">Siya eleva el teu terraceo ;)</h3>
+      {/* <div className="flex flex-col justify-center text-center">
+        <span className="m-10 text-lg text-siya-principal
+        montserrat-siya text-pretty inline-block border-2 rounded-full py-10 px-5">
+          <h3 className="text-3xl m-2 text-center">Siya eleva el teu terraceo ;)</h3>
           {siyaDescription.map((p: string, index) => (
             <li key={index} className="list-none flex items-start gap-3 mb-2">
               <CheckIcon className="w-6 h-6 flex-shrink-0 mt-1" />
@@ -62,6 +62,24 @@ const Home = () => {
             </li>
           ))}
         </span>
+      </div> */}
+      <div className="flex flex-col justify-center items-center
+      m-10 text-lg text-siya-principal montserrat-siya border-2 rounded-xl p-5
+      border-l- border-r-10 border-t- border-b-10 border-siya-dark-green shadow-lg hover:shadow-none
+      ">
+        <div className="">
+
+          <h3 className="text-3xl m-2 mb-5 font-bold text-left">Siya eleva el teu terraceo ;)</h3>
+          <ul className="flex flex-col w-full text-left text-balance">
+            {siyaDescription.map((p: string, index) => (
+              <li key={index} className="list-none flex items-start gap-3 mb-2">
+                <CheckIcon className="w-6 h-6 flex-shrink-0 mt-1" />
+                <span className="leading-snug mb-2">{p}</span>
+              </li>
+            ))}
+          </ul>
+
+        </div>
       </div>
       <TerraceSlider
         orderBy="nearby"
