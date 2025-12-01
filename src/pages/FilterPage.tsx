@@ -51,7 +51,7 @@ const FilterPage = () => {
 
 
   return (
-    <div>
+    <div className="mb-20">
       <h2 className="siyaRed-text
       system-condensed
       text-4xl

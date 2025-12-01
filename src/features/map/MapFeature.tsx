@@ -13,6 +13,7 @@ interface MapProps {
 const Map = ({ terraces }: MapProps) => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const markersRef = useRef<mapboxgl.Marker[]>([]);
   const { location, loading, error } = useUserLocation();
 
   useEffect(() => {
@@ -52,7 +53,7 @@ const Map = ({ terraces }: MapProps) => {
     const map = mapRef.current;
     if (!map) return;
 
-    const previousMarkers = document.querySelectorAll('.terrace-marker');
+    const previousMarkers = mapContainerRef.current?.querySelectorAll('.terrace-marker') || [];
     previousMarkers.forEach((el) => el.remove());
 
     terraces.forEach((terrace) => {
