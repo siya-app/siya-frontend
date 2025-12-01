@@ -6,7 +6,7 @@ import { FaChair } from "react-icons/fa";
 
 export default function Footer() {
     return (
-        <footer className="siya2-bg text-siya-principal p-3 fixed bottom-0 left-0 w-full border-t border-white/20 z-[9999]">
+        <footer className="bg-siya-secundario text-siya-principal p-3 fixed bottom-0 left-0 w-full border-t border-white/20 z-[9999]">
             <nav className="flex justify-around items-center">
                 <Link
                     to="/"

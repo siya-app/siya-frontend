@@ -2,17 +2,18 @@ import { CheckIcon } from "lucide-react";
 
 interface InfoDivBulletsProps {
     list: string[] | React.ReactNode[],
-    title: string
+    title: string,
+    customClass?: string,
 }
 
-function InfoDivBullets({ list, title }: InfoDivBulletsProps) {
+function InfoDivBullets({ list, title, customClass }: InfoDivBulletsProps) {
 
     return (
-        <div className="flex flex-col justify-center items-center
+        <div className={`flex flex-col justify-center items-center
         m-10 text-lg text-siya-principal montserrat-siya border-2 rounded-xl p-5
         border-l- border-r-10 border-t- border-b-10 border-siya-dark-green shadow-lg hover:shadow-none
-        lg:w-2/3 lg:mx-auto
-        ">
+        lg:w-2/3 lg:mx-auto ${customClass}
+        `}>
             <h3 className="text-3xl m-2 mb-5 font-bold text-left">{title}</h3>
             <ul className="flex flex-col w-full text-left text-balance">
                 {Array.isArray(list) && list.map((l, index) => (

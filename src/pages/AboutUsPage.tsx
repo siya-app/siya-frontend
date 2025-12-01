@@ -1,11 +1,11 @@
 import tapas from '../assets/tapas.jpg'
 import siyaTitle from '../assets/bg-transparent-title.svg'
 import Button from '../components/Button';
-import { Link} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import InfoDivBullets from '../components/InfoDivBullets';
 
 function AboutUs() {
-
+    const navigate = useNavigate();
     const isLoggedIn = !!localStorage.getItem('token');
 
     // const descriptionList = [
@@ -51,27 +51,34 @@ function AboutUs() {
     ];
 
     return (
-        <div className='flex flex-col justify-center items-center mx-auto'>
-            <img src={siyaTitle} className='w-1/3 h-1/3 mb-5'></img>
-            {/* <h2 className="siyaRed-text
+        <div
+            className='w-full flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat py-10 shadow-inner min-h-screen'
+            style={{ backgroundImage: `url(${tapas})` }} // Dynamic background
+        >
+            <div className='flex flex-col justify-center items-center mx-auto w-full'>
+                <div className='rounded-full bg-siya-secundario/90 flex justify-center items-center mx-auto '>
+                    <img src={siyaTitle} className='w-1/3 h-1/3'></img>
+                </div>
+                {/* <h2 className="siyaRed-text
                 system-condensed
                 text-3xl
                 mb-5
                 mt-5
                 font-extrabold text-center">
                 Siya, la teva nova app de terraceo</h2> */}
-            <div className='flex flex-col justify-center'>
-                <div className='w-full'>
-                    <InfoDivBullets
-                        list={descriptionList}
-                        title={"Perquè buscar terrassa no hauria de ser un drama..."}
-                    />
+                <div className='flex flex-col justify-center'>
+                    <div className='w-full'>
+                        <InfoDivBullets
+                            list={descriptionList}
+                            title={"Sí, som la app que et troba la terrassa perfecta:"}
+                            customClass='bg-white/90'
+                        />
+                    </div>🔎
+                    {/* <div className='p-5 rounded-full bg-white'>
+                        <img className='w-full h-full rounded-full' src={tapas} />
+                    </div> */}
                 </div>
-                <div className='p-5 rounded-full bg-white'>
-                    <img className='w-full h-full rounded-full' src={tapas} />
-                </div>
-            </div>
-            {/* <p className='siyaRed-text
+                {/* <p className='siyaRed-text
                 system-condensed
                 mt-5
                 m-6
@@ -84,20 +91,21 @@ function AboutUs() {
                 text-4xl
                 ms-4 me-4 mb-10
                 font-extrabold text-center'>Vosaltres decidiu, nosaltres la busquem.</h3> */}
-            <Button
-                onClick={() => navigate("/buscar-terrassa")}
-                className={`text-primary-content px-4 py-2 mt-3
-                        m-3 mb-7 bg-gr bg-siya-principal
-                        text-white rounded-full
+                <Button
+                    onClick={() => navigate("/buscar-terrassa")}
+                    className={`text-primary-content text-siya-dark-green px-4 py-2 mt-3
+                        m-3 mb-7 bg-gr bg-siya-secundario
+                        hover:bg-siya-dark-green hover:text-siya-secundario
+                        rounded-full
                         flex justify-between items-center
                         toggle-height
-                        animate-pulse
                         mx-auto`}>
-                Reservar taula
-            </Button>
+                    Reservar taula
+                </Button>
 
 
 
+            </div>
         </div>
     )
 }
