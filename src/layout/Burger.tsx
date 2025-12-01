@@ -30,7 +30,7 @@ const BurgerMenu = () => {
                 setIsOpen(false);
             }
         };
-    
+
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
@@ -53,40 +53,42 @@ const BurgerMenu = () => {
         { name: 'Contacte', path: '/contacte' },
         { name: 'Reservar', path: '/buscar-terrassa' },
         { name: 'Perfil', path: '/perfil' },
-        {name: 'Fes-te partner!', path: '/partners'}
+        { name: 'Fes-te partner!', path: '/partners' }
     ];
 
     return (
         <nav ref={menuRef} className="bg-transparent p-3 montserrat-siya">
             {/* Desktop */}
-            <ul className="hidden md:flex space-x-6">
+            <ul className="hidden md:flex space-x-6 items-center">
                 {links.map(link => (
                     <li className='w-fit' key={link.name}>
                         <Link
                             to={link.path}
-                            className="hover:text-white p-1 hover:bg-red-500 rounded-md"
+                            className="hover:text-white border-2 border-transparent hover:bg-red-500 hover:border-siya-principal py-1 px-3 rounded-md"
                             onClick={() => setIsOpen(false)}
                         >
                             {link.name}
                         </Link>
                     </li>
                 ))}
-                {isLoggedIn ? (
-            <button
-                onClick={handleLogout}
-                className="hover:text-white w-fit hover:bg-red-500 rounded-md"
-            >
-                Log Out
-            </button>
-        ) : (
-            <Link
-                to="/login"
-                className="hover:text-white w-fit  hover:bg-red-500 rounded-md"
-                onClick={() => setIsOpen(false)}
-            >
-                Log In
-            </Link>
-        )}
+                <li className='w-fit'>
+                    {isLoggedIn ? (
+                        <button
+                            onClick={handleLogout}
+                            className="hover:text-white border-2 border-transparent hover:bg-red-500 hover:border-siya-principal py-1 px-3 rounded-md"
+                        >
+                            Log Out
+                        </button>
+                    ) : (
+                        <Link
+                            to="/login"
+                            className="hover:text-white border-2 border-transparent hover:bg-red-500 hover:border-siya-principal py-1 px-3 rounded-md"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            Log In
+                        </Link>
+                    )}
+                </li>
             </ul>
 
             {/* Mobile button */}
@@ -120,23 +122,23 @@ const BurgerMenu = () => {
                     </li>
                 ))}
                 <li>
-        {isLoggedIn ? (
-            <button
-                onClick={handleLogout}
-                className="block py-2 text-white hover:border-2 hover:border-white hover:rounded-full px-2 transition-colors duration-200 mb-3"
-            >
-                Log Out
-            </button>
-        ) : (
-            <Link
-                to="/#loginForm"
-                className="block py-2 text-white hover:border-2 hover:border-white hover:rounded-full px-2 transition-colors duration-200 mb-3"
-                onClick={() => setIsOpen(false)}
-            >
-                Log In
-            </Link>
-        )}
-    </li>
+                    {isLoggedIn ? (
+                        <button
+                            onClick={handleLogout}
+                            className="block py-2 text-white hover:border-2 hover:border-white hover:rounded-full px-2 transition-colors duration-200 mb-3"
+                        >
+                            Log Out
+                        </button>
+                    ) : (
+                        <Link
+                            to="/#loginForm"
+                            className="block py-2 text-white hover:border-2 hover:border-white hover:rounded-full px-2 transition-colors duration-200 mb-3"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            Log In
+                        </Link>
+                    )}
+                </li>
             </ul>
         </nav>
     );
