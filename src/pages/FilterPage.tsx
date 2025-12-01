@@ -73,6 +73,7 @@ const FilterPage = () => {
             system-condensed
             text-4xl
             mt-5
+            montserrat-siya
             font-extrabold text-center">
               Ganes de terraceo? ;)
             </h2>
