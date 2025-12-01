@@ -8,7 +8,6 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ClusteredMap from "../features/map/ClusteredMap";
 import InfoDivBullets from "../components/InfoDivBullets";
-import handTapa from '../assets/hand-tapa.jpg';
 import tapas from '../assets/tapas.jpg';
 
 

@@ -13,7 +13,7 @@ interface MapProps {
 const Map = ({ terraces }: MapProps) => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
-  const markersRef = useRef<mapboxgl.Marker[]>([]);
+  // const markersRef = useRef<mapboxgl.Marker[]>([]);
   const { location, loading, error } = useUserLocation();
 
   useEffect(() => {

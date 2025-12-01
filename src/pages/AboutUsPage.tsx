@@ -1,4 +1,3 @@
-import tapas from '../assets/tapas.jpg'
 import handTapa from '../assets/hand-tapa.jpg';
 import siyaTitle from '../assets/bg-transparent-title.svg'
 import Button from '../components/Button';

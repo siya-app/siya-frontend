@@ -1,11 +1,10 @@
 import type { ReviewCardProps } from "../../types/types";
 import RatingStars from "../../components/RatingStars";
-import { fetchReviewsByField } from "./fetchReviewsByField";
 import { useTerraceList } from "../../hooks/useTerraceList";
 import type { CustomTerraceType } from "../../types/zod/customTerrace-schema";
 import { Link } from "react-router-dom";
 
-export default function ReviewCard({ rating, comment, userName, terraceId, userId }: ReviewCardProps) {
+export default function ReviewCard({ rating, comment, userName, terraceId }: ReviewCardProps) {
 
   // const terrace = terraceId
   //   ? fetchReviewsByField("terraceId", terraceId)

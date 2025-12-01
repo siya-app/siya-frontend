@@ -54,7 +54,6 @@ export type ReviewCardProps = {
     comment: string;
     userName: string; // suposem que ve de Supabase amb join o inclòs al JSON
     terraceId?: string;
-    userId?: string;
 };
 
 export type Favorite = {
