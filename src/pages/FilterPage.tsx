@@ -83,15 +83,13 @@ const FilterPage = () => {
         </div>
       </div>
       {/* BACKGROUND WRAPPER END */}
-
-
-      <div className="lg:flex lg:flex-row lg:items-start lg:gap-6 lg:px-10 lg:mt-8">
+      <div className="lg:flex lg:flex-row lg:items-start lg:gap-6 lg:px-10 lg:mt-8 mt-0 pt-0">
         <div className="w-full lg:w-2/4">
           {(['food', 'emotional', 'placement', 'cover', 'dietary'] as const).map((type: keyof typeof BLOB_TRANSLATIONS.categories) => (
             <div key={type}
               className="shadow-md mx-auto
           border-l- border-r-4 border-t- border-b-4 border-siya-dark-green
-          siyaDark-text m-2 mt-3 bg-gray-50
+          siyaDark-text mt-2 md:mt-0 bg-gray-50
           shadow-neutral-300 my-2 rounded-2xl overflow-hidden
           md:w-2/3
           ">
@@ -121,7 +119,7 @@ const FilterPage = () => {
             </div>
           ))}
         </div>
-        <div id="mapFilterPage" className="hidden lg:block lg:w-2/4 lg:h-[600px] lg:sticky lg:top-4 rounded-xl overflow-hidden">
+        <div id="mapFilterPage" className="hidden lg:block lg:w-2/4 lg:h-[400px] lg:sticky lg:top-4 rounded-xl overflow-hidden">
           <Map terraces={filteredTerraces} />
         </div>
       </div>
@@ -131,7 +129,6 @@ const FilterPage = () => {
             <TerraceSlider
               list={filteredTerraces}
             />
-
             <TerraceSlider
               orderBy="nearby"
               list={filteredTerraces}
