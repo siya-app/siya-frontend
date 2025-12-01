@@ -50,7 +50,6 @@ const Home = () => {
       lg:w-2/3 lg:mx-auto
       ">
         <div className="">
-
           <h3 className="text-3xl m-2 mb-5 font-bold text-left">Siya eleva el teu terraceo ;)</h3>
           <ul className="flex flex-col w-full text-left text-balance">
             {siyaDescription.map((p: string, index) => (

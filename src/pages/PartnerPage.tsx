@@ -36,7 +36,7 @@ function PartnerPage() {
             rounded-xl
             border-siya-principal
             border-r-4 border-b-4">
-                <div className='bg-gray-300/60 p-4 rounded-xl'>
+                <div className='bg-gray-300/60 p-4 rounded-xl w-full'>
                     <p className='font-bold text-balance pl-6'>
                         Registra't i reclama el teu establiment. Si no apareix, pots crear-lo de zero! Podràs:</p>
                     <ul className='pl-6 mt-2 space-y-2 list-none'>
