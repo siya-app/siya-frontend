@@ -10,7 +10,7 @@ export default function Footer() {
             <nav className="flex justify-around items-center">
                 <Link
                     to="/"
-                    className="flex flex-col items-center text-xs hover:text-gray-200 transition-colors"
+                    className="flex flex-col items-center text-xs hover:text-siya-dark-green transition-colors"
                 >
                     <HiHome className="text-lg mb-1" />
                     <span>Inici</span>
@@ -18,7 +18,7 @@ export default function Footer() {
 
                 <Link
                     to="/buscar-terrassa"
-                    className="flex flex-col items-center text-xs hover:text-gray-200 transition-colors"
+                    className="flex flex-col items-center text-xs hover:text-siya-dark-green transition-colors"
                 >
                     <FaChair className="text-lg mb-1" />
                     <span>Terrasses</span>
@@ -26,7 +26,7 @@ export default function Footer() {
 
                 <Link
                     to="/perfil"
-                    className="flex flex-col items-center text-xs hover:text-gray-200 transition-colors"
+                    className="flex flex-col items-center text-xs hover:text-siya-dark-green transition-colors"
                 >
                     <FaUser className="text-lg mb-1" />
                     <span>Perfil</span>

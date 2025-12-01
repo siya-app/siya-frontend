@@ -59,7 +59,7 @@ const BurgerMenu = () => {
     return (
         <nav ref={menuRef} className="bg-transparent p-3 montserrat-siya">
             {/* Desktop */}
-            <ul className="hidden md:flex space-x-6 items-center">
+            <ul className="hidden md:flex space-x-6 items-center whitespace-nowrap">
                 {links.map(link => (
                     <li className='w-fit' key={link.name}>
                         <Link
