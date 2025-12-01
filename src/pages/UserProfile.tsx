@@ -63,7 +63,7 @@ export default function Profile() {
   if (!user) return <p>Carregant dades de l'usuari...</p>;
 
   return (
-    <>
+    <div className="">
       <div className="w-fit items-center mx-auto p-6 bg-white shadow-lg
       rounded-full mt-5 text-center mb-10">
         <h2 className="text-3xl font-bold text-center siyaRed-text">
@@ -142,6 +142,6 @@ export default function Profile() {
           Eliminar compte
         </Button>
       </div>
-    </>
+    </div>
   );
 }
