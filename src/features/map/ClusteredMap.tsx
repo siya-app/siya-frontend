@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -16,6 +17,7 @@ const ClusteredMap = () => {
   const [bounds, setBounds] = useState<mapboxgl.LngLatBoundsLike | null>(null);
   const [zoom, setZoom] = useState(16);
   const { isFavorite } = useFavorites();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchTerraces().then(setTerraces);
@@ -103,6 +105,7 @@ const ClusteredMap = () => {
             terrace,
             map,
             isFavorite: terrace.id ? isFavorite(terrace.id) : false,
+            navigate
           });
         }
       }
@@ -111,7 +114,7 @@ const ClusteredMap = () => {
     return () => {
       markerEls.forEach((marker) => marker.remove());
     };
-  }, [clusters, terraces, isFavorite, zoom]);
+  }, [clusters, terraces, isFavorite, zoom, navigate]);
 
   if (loading) return <p>Carregant mapa…</p>;
   if (error) return <p>Error: {error}</p>;

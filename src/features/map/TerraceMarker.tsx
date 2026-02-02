@@ -8,9 +8,10 @@ type Props = {
   terrace: CustomTerraceType;
   map: mapboxgl.Map;
   isFavorite?: boolean;
+  navigate: (path: string) => void;
 };
 
-const TerraceMarker = ({ terrace, map, isFavorite }: Props) => {
+const TerraceMarker = ({ terrace, map, isFavorite, navigate }: Props) => {
   // Crea el contenidor del marcador
   const el = document.createElement("div");
   el.className = "terrace-marker";
@@ -50,7 +51,7 @@ const TerraceMarker = ({ terrace, map, isFavorite }: Props) => {
     const button = document.getElementById(`view-${terrace.id}`);
     if (button) {
       button.addEventListener("click", () => {
-        window.location.href = `/terrassa/${terrace.id}`;
+        navigate(`/terrassa/${terrace.id}`);
       });
     }
   });
