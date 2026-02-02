@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import { useUserLocation } from "../../hooks/useUserLocation";
@@ -15,6 +16,7 @@ const Map = ({ terraces }: MapProps) => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   // const markersRef = useRef<mapboxgl.Marker[]>([]);
   const { location, loading, error } = useUserLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!mapContainerRef.current || loading || !location) return;
@@ -40,14 +42,14 @@ const Map = ({ terraces }: MapProps) => {
     const loadedTerraces: CustomTerraceType[] = terraces;
     loadedTerraces.forEach((terrace) => {
       if (terrace.latitude && terrace.longitude) {
-        TerraceMarker({ terrace, map });
+        TerraceMarker({ terrace, map, navigate });
       }
     });
 
     return () => {
       map?.remove();
     };
-  }, [location, loading, terraces]);
+  }, [location, loading, terraces, navigate]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -58,10 +60,10 @@ const Map = ({ terraces }: MapProps) => {
 
     terraces.forEach((terrace) => {
       if (terrace.latitude && terrace.longitude) {
-        TerraceMarker({ terrace, map });
+        TerraceMarker({ terrace, map, navigate });
       }
     });
-  }, [terraces]);
+  }, [terraces, navigate]);
 
   if (loading) return <p><Spinner /></p>;
   if (error) return <p>Error: {error}</p>;
